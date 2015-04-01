@@ -13,6 +13,13 @@
 /*--------------------------------------------------------------------------------------------*/
 /*Main styles*/
 
+body {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
 .clear {
     clear: both;
 }
@@ -23,11 +30,13 @@
 
 .main-container h3{
     margin-left: 10px;
+    color: ghostwhite;
 }
 
 .dashboard-title {
     font-size: 1.8em;
     margin-bottom: 10px;
+    color: white;
 }
 
 
@@ -59,22 +68,35 @@
 
 
 .chart-container {
-    border: 5px solid gray;
+    border: 5px solid #ACB2B1;
     border-radius: 40px;
     overflow: hidden;
-    background-color: white;
+    box-sizing: border-box;
     position: relative;
+}
+
+.chart-container:hover img {
+    -webkit-filter: invert(0.1);
+}
+
+.chart-container:hover .delete-button{
+    display: block;
+}
+
+.chart-container:hover .settings-button{
+    display: block;
 }
 
 .delete-button {  
     position: absolute;
     top: 0;
     right: 0;
-    margin-right: 10px;
-    margin-top: 5px;
-    height: 50px;
-    width: 50px;
+    margin-right: 15px;
+    margin-top: 10px;
+    height: 60px;
+    width: 60px;
     background-image: url('../images/icons/trash-icon.png');
+    transition: all 1s ease;
     display: none;
 }
 
@@ -86,17 +108,24 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    height: 50px;
-    width: 50px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    height: 60px;
+    width: 60px;
     background-image: url('../images/icons/settings-icon.png');
+    transition: all 1s ease;
     display: none;
 }
 
 .settings-button:hover {
     background-image: url('../images/icons/settings-icon-hover.png'); 
 }
+
+.img-responsive {
+    width: 100%;
+}
+
+
 
 
 
