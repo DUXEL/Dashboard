@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Filters</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <!-- Filter styles -->
+    <link rel="stylesheet" href="../css/filters.css">
+    
+    </head>
+    <body>
+       
+        <button type="button" class="btn" data-toggle="modal" data-target=".bs-example-modal-lg">Filtros</button>
+        
+         <div class="modal fade bs-example-modal-lg modal-fmodal-filtersilters" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Configuracion de filtros</h4>
+                                  </div>
+                                    <div>
+                                        <div class="container">
+                                              <div class="row">
+                                                <div class="col-md-6"><!-- Here was an h3 tag -->
+                                                  <!-- tabs left -->
+                                                  <div class="tabbable tabs-left">
+                                                    <ul class="nav nav-tabs">
+                                                      <li class="active"><a href="#region" data-toggle="tab"><img class="filter-image" src="../images/icons/region.png" alt="region"><label class="filter-label">Region</label></a></li>
+                                                      <li><a href="#time" data-toggle="tab"><img class="filter-image" src="../images/icons/time.png" alt="tiempo"><label class="filter-label">Tiempo</label></a></li>
+                                                      <li><a href="#languaje" data-toggle="tab"><img class="filter-image" src="../images/icons/idiomas.png" alt="tiempo"><label class="filter-label">Lenguaje</label></a></li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                     <div class="tab-pane active" id="region">Javascript con el mapa</div>
+                                                     <div class="tab-pane" id="time">
+                                                         <h2>Rango de tiempo</h2>
+                                                         <hr>
+                                                         <div class="hero-unit">
+                                                            <input  type="text" placeholder="click to show datepicker"  id="example1">
+                                                        </div>
+                                                    </div>
+                                                     <div class="tab-pane" id="language"> </div>
+                                                    </div>
+                                                  </div>
+                                                  <!-- /tabs -->
+                                                </div>
+                                              </div><!-- /row -->
+                                            </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+    </body>
+
+</html>
