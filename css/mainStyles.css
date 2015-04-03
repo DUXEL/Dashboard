@@ -25,17 +25,16 @@ body {
 }
 
 .main-container {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
 }
 
 .main-container h3{
     margin-left: 10px;
-    color: ghostwhite;
+    color: darkslategrey;
 }
 
 .dashboard-title {
-    font-size: 1.8em;
-    margin-bottom: 10px;
+    font-size: 1em;
     color: white;
 }
 
@@ -43,7 +42,7 @@ body {
 /*--------------------------------------------------------------------------------------------*/
 /*Styles for the top and bottom bars.*/
 .top-bar {
-    height: 100px;
+    height: 60px;
     background-color: #2D3030;
 }
 
@@ -63,7 +62,8 @@ body {
 /*--------------------------------------------------------------------------------------------*/
 /* Styles for each chart box*/
 .box-container {
-    margin-bottom: 30px;
+    margin: 0 auto;
+    margin-bottom: 15px;
 }
 
 
@@ -87,14 +87,18 @@ body {
     display: block;
 }
 
+.chart-container:hover .fullscreen-button{
+    display: block;
+}
+
 .delete-button {  
     position: absolute;
-    top: 0;
-    right: 0;
+    bottom: 0;
+    right: 0px;
     margin-right: 15px;
-    margin-top: 10px;
-    height: 60px;
-    width: 60px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 30px;
     background-image: url('../images/icons/trash-icon.png');
     transition: all 1s ease;
     display: none;
@@ -107,11 +111,10 @@ body {
 .settings-button {  
     position: absolute;
     bottom: 0;
-    right: 0;
-    margin-right: 15px;
+    right: 50px;
     margin-bottom: 10px;
-    height: 60px;
-    width: 60px;
+    height: 30px;
+    width: 30px;
     background-image: url('../images/icons/settings-icon.png');
     transition: all 1s ease;
     display: none;
@@ -121,13 +124,56 @@ body {
     background-image: url('../images/icons/settings-icon-hover.png'); 
 }
 
+.fullscreen-button {  
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 15px;
+    margin-top: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/fullscreen-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.fullscreen-button:hover {  
+    background-image: url('../images/icons/fullscreen-icon-hover.png');
+}
+
+
 .img-responsive {
     width: 100%;
 }
 
+.tab-img {
+    height: 60px;
+    width: 60px;
+}
+
+.inline {
+    display: inline-block;
+}
 
 
+/*Bubble chart styles*/
+
+.bubbleChart {
+  min-width: 100px;
+  width: 100%;
+  height: 500px;
+}
+
+.bubbleChart svg{
+  background: #ffffff;
+}
 
 
+/*Network chart styles*/
+
+svg {
+    display: block;
+    margin: 0 auto;
+}
 
 
