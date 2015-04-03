@@ -8,24 +8,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>2 Col Portfolio - Start Bootstrap Template</title>
-    
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/2-col-portfolio.css" rel="stylesheet">
-    
-    <link href="main.css" rel="stylesheet">
-
     <title>Social Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
     
+    <!-- Custom CSS -->
+    
     <link href="css/mainStyles.css" rel="stylesheet">
     
     <link href="css/tabs.css" rel="stylesheet">
+    
+    <link href="css/sidebarStyles.css" rel="stylesheet">
 
 
     
@@ -54,7 +48,27 @@
         <!-- /.container -->
     </nav>   
     
-    <!-- Page Content -->
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Menu -->
+        <ul>
+            <li><a href="#">Terminos populares</a></li>
+            <li><a href="#">Tendencias</a></li>
+            <li><a href="#">Red</a></li>
+            <li><a href="#">Centralidad</a></li>
+            <li><a href="#">Densidad</a></li>
+            <li><a href="#">Distancia</a></li>
+        </ul>
+    </div>
+		
+    <div class="container">
+        <div class="open-sidebar" title="Agregar grafico">
+            &#9666;
+        </div>
+    </div>
+    <!--Sidebar END-->
+    
+    <!-- Charts section -->
     <div class="container main-container">
 
         <!-- Projects Row -->
@@ -134,7 +148,7 @@
         <!-- /.row -->
 
     </div>
-    <!-- /.container -->
+    <!-- Charts Section END -->
     
     <div class="navbar navbar-inverse navbar-bottom footerNav">
         <div class="container">
@@ -234,6 +248,9 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
+    <!-- Sidebar JavaScript -->
+    <script src="js/sidebar.js"></script>
     
     
     <!--Bubble chart references-->

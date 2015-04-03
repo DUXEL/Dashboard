@@ -28,7 +28,6 @@ body {
 /* Basic styling */
 
 .container {
-  background: #333;
   height: 100%;
 }
 
@@ -81,14 +80,11 @@ body {
 	padding: 10px;
 	text-decoration: none;
 	text-transform: uppercase;
-  
     text-align:center;
     font-size:1.5em;
-    
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);      
-	
 	-moz-box-shadow: 0 0 5px #444;
 	-webkit-box-shadow: 0 0 5px #444;
 	box-shadow: 0 0 5px #444;  	
