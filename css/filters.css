@@ -52,3 +52,30 @@
   border-color: #ddd transparent #ddd #ddd;
   *border-right-color: #ffffff;
 }
+
+
+
+
+
+/* ================== Styles for resume div =============================*/
+
+.filter-time-resume-container{
+    width: 100%;
+    display: inline-block;
+    
+}
+.filter-date-summary-box{
+    display: inline-block;
+    text-align: center;
+    margin-right: 40px;
+}
+.filter-date-summary-box > h4{
+    display: inline-block;
+    padding-right: 20px;
+    padding-left: 10px;
+    
+}
+
+.filter-date-summary-box > span{
+    
+}

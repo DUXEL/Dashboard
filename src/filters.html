@@ -12,11 +12,14 @@
     <title>Filters</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
 
     
     <!-- Filter styles -->
     <link rel="stylesheet" href="../css/filters.css">
+    
+     <!-- Filter styles -->
+    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
     
     </head>
     <body>
@@ -31,9 +34,9 @@
                                     <h4 class="modal-title">Configuracion de filtros</h4>
                                   </div>
                                     <div>
-                                        <div class="container">
+                                        <div class="container-fluid">
                                               <div class="row">
-                                                <div class="col-md-6"><!-- Here was an h3 tag -->
+                                                <div class="col-md-12"><!-- Here was an h3 tag -->
                                                   <!-- tabs left -->
                                                   <div class="tabbable tabs-left">
                                                     <ul class="nav nav-tabs">
@@ -46,9 +49,61 @@
                                                      <div class="tab-pane" id="time">
                                                          <h2>Rango de tiempo</h2>
                                                          <hr>
-                                                         <div class="hero-unit">
-                                                            <input  type="text" placeholder="click to show datepicker"  id="example1">
+                                                         <!-- <div class="container-fluid">
+                                                            <div class="row"> -->
+                                                         <div class="filter-datepicker-containers">
+                                                                <div class="col-sm-5">
+                                                                    <h4>Inicio</h4>
+                                                                    <div class="form-group ">
+                                                                            <div class='input-group date' id='start-timepicker1'>
+                                                                                <input type='text' class="form-control" id='start-timepicker2'/>
+                                                                                <span class="input-group-addon">
+                                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <div class="col-sm-5">
+                                                                    <h4>Final</h4>
+                                                                    <div class="form-group">
+                                                                            <div class='input-group date' id='finish-timepicker1'>
+                                                                                <input type='text' class="form-control" id='finish-timepicker2'/>
+                                                                                <span class="input-group-addon">
+                                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                         </div>
+                                                         <div class="filter-time-resume col-sm-10">
+                                                             <h4>Resumen de rango seleccionado</h4>
+                                                             <hr>
+                                                             <div class="filter-time-resume-container">
+                                                                 <div class="filter-date-summary-box">
+                                                                    <h4>Años</h4>
+                                                                     <div id='filter-resume-year'>
+                                                                        <!-- here goes the number corresponding to the year difference -->
+                                                                         <span>0</span>
+                                                                     </div>
+                                                                 </div>
+                                                                 <div class="filter-date-summary-box">
+                                                                    <h4>Meses</h4>
+                                                                     <div id='filter-resume-month'>
+                                                                        <!-- here goes the number corresponding to the year difference -->
+                                                                         <span>0</span>
+                                                                     </div>
+                                                                 </div>
+                                                                 <div class="filter-date-summary-box">
+                                                                    <h4>Días</h4>
+                                                                     <div id='filter-resume-day'>
+                                                                        <!-- here goes the number corresponding to the days difference -->
+                                                                         <span>0</span>
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
                                                         </div>
+                                                                <!-- </div>
+                                                            </div> -->
                                                     </div>
                                                      <div class="tab-pane" id="language"> </div>
                                                     </div>
@@ -58,14 +113,29 @@
                                               </div><!-- /row -->
                                             </div>
                                     </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn">Aplicar</button>
+                                    </div>
                                 </div>
+                                  
                               </div>
+                                
                             </div>
+
+                           
+    
+    <script src="../js/moment.js"></script>
                 <!-- jQuery -->
     <script src="../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
+        
+    <script src="../js/bootstrap-datetimepicker.min.js"></script>
+        
+    <script src="../js/filters.js"></script>
+
+
     </body>
 
 </html>
