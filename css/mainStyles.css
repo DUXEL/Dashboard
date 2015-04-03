@@ -1,0 +1,179 @@
+/* 
+    Dashboard Project - Software Design.
+    ITCR - Alajuela - 2015
+    Developers:
+            - Diego Ugalde Avila
+            - Daniel Gerardo Solis Mendez
+            - Melvin Alonso Elizondo Perez
+            - Luis Eduardo Ugalde Barrantes
+
+    Org: duXel
+*/
+
+/*--------------------------------------------------------------------------------------------*/
+/*Main styles*/
+
+body {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.clear {
+    clear: both;
+}
+
+.main-container {
+    margin-bottom: 60px;
+}
+
+.main-container h3{
+    margin-left: 10px;
+    color: darkslategrey;
+}
+
+.dashboard-title {
+    font-size: 1em;
+    color: white;
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+/*Styles for the top and bottom bars.*/
+.top-bar {
+    height: 60px;
+    background-color: #2D3030;
+}
+
+.footerNav {
+    bottom: 0;
+    color: white;
+    font-size: 150%;
+    margin:0;
+    border: none;
+}
+
+#sign {
+    margin-top: 10px;
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+/* Styles for each chart box*/
+.box-container {
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+
+.chart-container {
+    border: 5px solid #ACB2B1;
+    border-radius: 40px;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.chart-container:hover img {
+    -webkit-filter: invert(0.1);
+}
+
+.chart-container:hover .delete-button{
+    display: block;
+}
+
+.chart-container:hover .settings-button{
+    display: block;
+}
+
+.chart-container:hover .fullscreen-button{
+    display: block;
+}
+
+.delete-button {  
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/trash-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.delete-button:hover {  
+    background-image: url('../images/icons/trash-icon-hover.png');
+}
+
+.settings-button {  
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/settings-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.settings-button:hover {
+    background-image: url('../images/icons/settings-icon-hover.png'); 
+}
+
+.fullscreen-button {  
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 15px;
+    margin-top: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/fullscreen-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.fullscreen-button:hover {  
+    background-image: url('../images/icons/fullscreen-icon-hover.png');
+}
+
+
+.img-responsive {
+    width: 100%;
+}
+
+.tab-img {
+    height: 60px;
+    width: 60px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+
+/*Bubble chart styles*/
+
+.bubbleChart {
+  min-width: 100px;
+  width: 100%;
+  height: 500px;
+}
+
+.bubbleChart svg{
+  background: #ffffff;
+}
+
+
+/*Network chart styles*/
+
+svg {
+    display: block;
+    margin: 0 auto;
+}
+
+
