@@ -1,25 +1,17 @@
 /* 
-    Dashboard Project - Software Design.
-    ITCR - Alajuela - 2015
-    Developers:
-            - Diego Ugalde Avila
-            - Daniel Gerardo Solis Mendez
-            - Melvin Alonso Elizondo Perez
-            - Luis Eduardo Ugalde Barrantes
+Dashboard Project - Software Design.
+ITCR - Alajuela - 2015
+Developers:
+- Diego Ugalde Avila
+- Daniel Gerardo Solis Mendez
+- Melvin Alonso Elizondo Perez
+- Luis Eduardo Ugalde Barrantes
 
-    Org: duXel
+Org: duXel
 */
 
 /*--------------------------------------------------------------------------------------------*/
 /*Main styles*/
-
-body {
-    background-image: url('../images/background.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-}
 
 .clear {
     clear: both;
@@ -48,6 +40,7 @@ body {
 }
 
 .footerNav {
+    position: fixed;
     bottom: 0;
     color: white;
     font-size: 150%;
@@ -160,13 +153,13 @@ body {
 /*Bubble chart styles*/
 
 .bubbleChart {
-  min-width: 100px;
-  width: 100%;
-  height: 500px;
+    min-width: 100px;
+    width: 100%;
+    height: 500px;
 }
 
 .bubbleChart svg{
-  background: #ffffff;
+    background: #ffffff;
 }
 
 
