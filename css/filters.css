@@ -1,0 +1,81 @@
+   .filter-label{
+       width: 100%;
+       text-align: center;
+       margin:auto;
+      display: block;
+   }
+    .filter-image{
+        height: 75px;
+        width: 75px;
+    }
+        
+     ul{margin: auto;}   
+        /* custom inclusion of right, left and below tabs */
+
+.tabs-left > .nav-tabs {
+  border-bottom: 0;
+}
+
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+  float: none;
+}
+
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+
+.tabs-left > .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #ddd;
+}
+
+.tabs-left > .nav-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+     -moz-border-radius: 4px 0 0 4px;
+          border-radius: 4px 0 0 4px;
+}
+
+.tabs-left > .nav-tabs > li > a:hover,
+.tabs-left > .nav-tabs > li > a:focus {
+  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+  *border-right-color: #ffffff;
+}
+
+
+
+
+
+/* ================== Styles for resume div =============================*/
+
+.filter-time-resume-container{
+    width: 100%;
+    display: inline-block;
+    
+}
+.filter-date-summary-box{
+    display: inline-block;
+    text-align: center;
+    margin-right: 40px;
+}
+.filter-date-summary-box > h4{
+    display: inline-block;
+    padding-right: 20px;
+    padding-left: 10px;
+    
+}
+
+.filter-date-summary-box > span{
+    
+}
