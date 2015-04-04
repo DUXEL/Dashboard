@@ -151,7 +151,7 @@
 
 
         <!--Slider modalr-->
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal fade bs-example-modal-lg" id="fullscreen-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -165,6 +165,7 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="popular-terms-tab">
+                                            <div id="vis"></div>
                                         </div>
                                         <div class="tab-pane" id="tendency-tab">
                                             <div class="bubbleChart"></div>
@@ -246,23 +247,20 @@
         <!-- Index js import -->
         <script src="js/index.js"></script>
 
+        <!-- D3 Javascript -->
+        <script src="js/d3/d3.min.js"></script>
 
         <!--Bubble chart references-->
-        <script src="http://phuonghuynh.github.io/js/bower_components/d3/d3.min.js"></script>
-        <script src="http://phuonghuynh.github.io/js/bower_components/d3-transform/src/d3-transform.js"></script>
-        <script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/extarray.js"></script>
-        <script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/misc.js"></script>
-        <script src="http://phuonghuynh.github.io/js/bower_components/cafej/src/micro-observer.js"></script>
-        <script src="http://phuonghuynh.github.io/js/bower_components/microplugin/src/microplugin.js"></script>
-        <script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/bubble-chart.js"></script>
-        <script src="http://phuonghuynh.github.io/js/bower_components/bubble-chart/src/plugins/lines/lines.js"></script>
+        <script src="js/d3/d3-transform.js"></script>
         <script src="js/charts/bubbleChart/bubbleChart.js"></script>
         <!--Bubble chart references END-->
 
 
         <!--PopularTerms chart references-->
         <script src="js/charts/popularTermsChart/d3.layout.cloud.js"></script>
-        <script src="js/charts/popularTermsChart/popularTermsChart.js"></script>
+        <script type="text/javascript" src="js/charts/popularTermsChart/tags.js"></script>
+        <script type="text/javascript" src="js/charts/popularTermsChart/word-cloud.js"></script>
+        <!--<script src="js/charts/popularTermsChart/popularTermsChart.js"></script>-->
         <!--PopularTerms chart references END-->
 
     </body>
