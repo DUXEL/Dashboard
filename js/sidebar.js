@@ -1,9 +1,9 @@
 $(document).ready(function(){
 	
-	$('.sidebar').hide();
+	$('.sidebar-content').hide();
 
-	$('.open-sidebar').click(function() {
-		var $sidebar = $('.sidebar');
+	$('.sidebar-button').click(function() {
+		var $sidebar = $('.sidebar-content');
 		
 		if ($sidebar.is(':visible')) {
 			$(this).html("&#9666;");
