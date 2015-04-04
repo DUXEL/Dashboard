@@ -6,7 +6,7 @@ body {
     position: relative;
 }
 
-/* Initial menu */
+/* Sidebar styling */
 .sidebar {
     background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
     right: -250px;  /* start off behind the scenes */
@@ -22,16 +22,26 @@ body {
     -webkit-box-shadow: 0 0 5px #444;
     box-shadow: 0 0 5px #444;  
 
-
+    position:fixed;
+    right: 0;
+    cursor: pointer;
 }
 
-/* Basic styling */
 
 .container {
     height: 100%;
 }
 
 .sidebar ul {
+
+.sidebar-content {
+    background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
+    width: 250px;
+    position: relative;
+    right: -250px;    
+}
+
+.sidebar-content ul {
     border-top: 1px solid #636366;
     list-style: none;
     margin: 0;
@@ -60,6 +70,21 @@ body {
     padding-left:20px;
     width:100%;
     height:100%;	
+}
+
+.sidebar-content li {
+    border-bottom: 1px solid #636366;
+    line-height: 45px;
+}
+
+.sidebar-content li:hover a{
+    background-color:rgba(255,255,255,0.1);
+}
+
+.sidebar-content a {
+    display:block;
+    padding-left:20px;
+    width:100%;
     color: #fff;
     font-size: 15px;
     text-decoration: none;
@@ -88,4 +113,26 @@ body {
     -moz-box-shadow: 0 0 5px #444;
     -webkit-box-shadow: 0 0 5px #444;
     box-shadow: 0 0 5px #444;  	
+.sidebar-button {
+    cursor:  pointer;
+    position: fixed;
+    right: 0;
+    background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
+    width: 35px;
+    padding: 10px;
+    color: #fff;
+    font-size:1.6em;
+}
+
+.shadowed{
+    -moz-box-shadow: 0 0 5px #333;
+    -webkit-box-shadow: 0 0 5px #333;
+    box-shadow: 0 0 5px #333;   
+}
+
+.vcentered{
+    /* Center vertically */
+    top:50%;
+    transform: translateY(-50%);
+    z-index: 100;
 }

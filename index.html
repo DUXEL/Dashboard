@@ -49,6 +49,7 @@
         </nav>   
 
         <!-- Sidebar -->
+
         <div class="sidebar">
             <!-- Menu -->
             <ul>
@@ -64,7 +65,25 @@
         <div class="container">
             <div class="open-sidebar" title="Agregar grafico">
                 &#9666;
+
+        <div class="sidebar-button shadowed vcentered" title="Agregar grafico">
+            &#9666;
+        </div>             
+    
+        <div class="sidebar vcentered">       
+            
+            <div class="sidebar-content shadowed ">                
+                <!-- Menu -->
+                <ul>
+                    <li><a href="#">Terminos populares</a></li>
+                    <li><a href="#">Tendencias</a></li>
+                    <li><a href="#">Red</a></li>
+                    <li><a href="#">Centralidad</a></li>
+                    <li><a href="#">Densidad</a></li>
+                    <li><a href="#">Distancia</a></li>
+                </ul>
             </div>
+
         </div>
         <!--Sidebar END-->
 
@@ -101,7 +120,11 @@
                         <section class="chart-container" id="net-section">
                             <img class="img-responsive popular-terms-img" src="images/charts/network.png" alt="">
                             <a href="#" class="delete-button" id="delete-popular-terms"></a>
+
                             <a href="#" class="settings-button" id="configure-popular-terms" data-toggle="modal" data-target="#modal-data-analysis"></a>
+
+                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
+
                             <a href="#" class="fullscreen-button" id="fullscreen-network" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
                         </section>
                     </a>
@@ -284,8 +307,47 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">Aplicar</button>
+            </div>
+            <!-- /.row -->
+
+            <!-- Projects Row -->
+            <div class="row">
+                <div class="col-md-4 box-container">
+                    <h4>Centralidad</h4>
+                    <a>
+                        <section class="chart-container" id="centrality-section">
+                            <img class="img-responsive popular-terms-img" src="images/charts/centrality.png" alt="">
+                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
+                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
+                            <a href="#" class="fullscreen-button" id="fullscreen-centrality" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
+                        </section>
+                    </a>
+                </div>
+                <div class="col-md-4 box-container">
+                    <h4>Densidad</h4>
+                    <a>
+                        <section class="chart-container" id="density-section">
+                            <img class="img-responsive popular-terms-img" src="images/charts/density.png" alt="">
+                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
+                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
+                            <a href="#" class="fullscreen-button" id="fullscreen-density" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
+                        </section>
+                    </a>
+                </div>
+                <div class="col-md-4 box-container">
+                    <h4>Distancia</h4>
+                    <a>
+                        <section class="chart-container" id="distance-section">
+                            <img class="img-responsive popular-terms-img" src="images/charts/distance.jpg" alt="">
+                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
+                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
+                            <a href="#" class="fullscreen-button" id="fullscreen-distance" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
+                        </section>
+                    </a>
                 </div>
             </div>
+            <!-- /.row -->
+
         </div>
         </div>
     <!--Modal for distance END-->
@@ -311,6 +373,94 @@
                                         <input type="radio" id="q157" name="quality[25]" value="2" />MicroBlog
                                     </label>
                                 </div>
+        <!-- Charts Section END -->
+
+        <div class="navbar navbar-inverse navbar-bottom footerNav">
+            <div class="container">
+                <p id="sign" class="muted pull-right"> Creado por duXel <span class="glyphicon glyphicon-copyright-mark"></span></p>
+            </div> <!-- container-->
+        </div> <!-- navbar navbar-default navbar-fixed-bottom" --> 
+
+
+
+
+        <!--Slider modalr-->
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">Vista de Graficos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="popular-terms-tab">
+                                        </div>
+                                        <div class="tab-pane" id="tendency-tab">
+                                            <div class="bubbleChart"></div>
+                                        </div>
+                                        <div class="tab-pane" id="network-tab">
+                                            <div id="graph-container"></div>
+                                        </div>
+                                        <div class="tab-pane" id="centrality-tab">
+
+                                        </div>
+                                        <div class="tab-pane" id="density-tab">
+
+                                        </div>
+                                        <div class="tab-pane" id="distance-tab">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3"> <!-- required for floating -->
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs tabs-right">
+                                        <li class="active">
+                                            <a href="#popular-terms-tab" data-toggle="tab">
+                                                <img class="img-responsive tab-img inline" src="images/charts/cloud-chart-tabs.png" alt="Terminos populares">
+                                                <h6 class="inline">Terminos populares</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tendency-tab" data-toggle="tab">
+                                                <img class="img-responsive tab-img inline" src="images/charts/bubble-chart-tabs.png" alt="Terminos populares">
+                                                <h6 class="inline">Tendencias</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#network-tab" data-toggle="tab">
+                                                <img class="img-responsive tab-img inline" src="images/charts/network-tabs.png" alt="Terminos populares">
+                                                <h6 class="inline">Red</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#centrality-tab" data-toggle="tab">
+                                                <img class="img-responsive tab-img inline" src="images/charts/centrality-tabs.png" alt="Terminos populares">
+                                                <h6 class="inline">Centralidad</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#density-tab" data-toggle="tab">
+                                                <img class="img-responsive tab-img inline" src="images/charts/density-tabs.png" alt="Terminos populares">
+                                                <h6 class="inline">Densidad</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#distance-tab" data-toggle="tab">
+                                                <img class="img-responsive tab-img inline" src="images/charts/distance-tabs.jpg" alt="Terminos populares">
+                                                <h6 class="inline">Distancia</h6>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
                     </form>
