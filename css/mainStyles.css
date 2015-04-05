@@ -161,11 +161,90 @@ Org: duXel
     background: #ffffff;
 }
 
+
+#popular-terms-tab {
+    width: 100%;
+}
+
+#vis {
+    width:100%;
+}
+
 /*Network chart styles*/
 
-svg {
+#popular-terms-tab svg {
     display: block;
     margin: 0 auto;
 }
+
+#tendency-tab svg {
+    display: block;
+    margin: 0 auto;
+}
+
+
+/*Network chart styles*/
+
+#network-tab {
+    height: 400px;
+    position: relative;
+}
+
+#network-graph-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+
+/*Centrality chart styles*/
+
+#centrality-tab {
+    height: 400px;
+    position: relative;
+}
+
+#centrality-graph-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+.sigma-edge {
+  stroke: #14191C;
+}
+.sigma-node {
+  fill: green;
+  stroke: #14191C;
+  stroke-width: 2px;
+}
+.sigma-node:hover {
+  fill: blue;
+}
+.muted {
+  fill-opacity: 0.1;
+  stroke-opacity: 0.1;
+}
+
+/*Density chart styles*/
+#density-tab {
+    height: 400px;
+    position: relative;
+}
+
+#density-graph-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+
+/*Styles for sigma graphs*/
 
 

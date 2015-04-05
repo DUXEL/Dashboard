@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var fill = d3.scale.category20b();
-
+    
     var w = window.innerWidth - 600,
         h = window.innerHeight - 200;
     var max,
@@ -31,7 +31,7 @@ $(document).ready(function() {
 
     function draw(data, bounds) {
         var w = window.innerWidth - 600,
-            h = window.innerHeight - 200;
+            h = window.innerHeight - 100;
 
         svg.attr("width", w).attr("height", h);
 

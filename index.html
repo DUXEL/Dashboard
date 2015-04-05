@@ -171,13 +171,13 @@
                                             <div class="bubbleChart"></div>
                                         </div>
                                         <div class="tab-pane" id="network-tab">
-                                            <div id="graph-container"></div>
+                                            <div id="network-graph-container"></div>
                                         </div>
                                         <div class="tab-pane" id="centrality-tab">
-
+                                            <div id="centrality-graph-container"></div>
                                         </div>
                                         <div class="tab-pane" id="density-tab">
-
+                                            <div id="density-graph-container"></div>    
                                         </div>
                                         <div class="tab-pane" id="distance-tab">
 
@@ -240,15 +240,18 @@
 
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js"></script>
-
-        <!-- Sidebar JavaScript -->
-        <script src="js/sidebar.js"></script>
         
         <!-- Index js import -->
         <script src="js/index.js"></script>
 
+        <!-- Sidebar JavaScript -->
+        <script src="js/sidebar.js"></script>
+
         <!-- D3 Javascript -->
         <script src="js/d3/d3.min.js"></script>
+        
+        <!-- Sigma Javascript -->
+        <script src="js/sigma/sigma.min.js"></script>
 
         <!--Bubble chart references-->
         <script src="js/d3/d3-transform.js"></script>
@@ -260,9 +263,19 @@
         <script src="js/charts/popularTermsChart/d3.layout.cloud.js"></script>
         <script type="text/javascript" src="js/charts/popularTermsChart/tags.js"></script>
         <script type="text/javascript" src="js/charts/popularTermsChart/word-cloud.js"></script>
-        <!--<script src="js/charts/popularTermsChart/popularTermsChart.js"></script>-->
         <!--PopularTerms chart references END-->
-
+        
+        <!-- Network chart reference-->
+        <script type="text/javascript" src="js/charts/network/network.js"></script>
+        <!-- Network chart reference END-->
+        
+        <!-- Centrality chart reference-->
+        <script type="text/javascript" src="js/charts/centrality/centrality.js"></script>
+        <!-- Centrality chart reference END-->
+        
+        <!-- Density chart reference-->
+        <script type="text/javascript" src="js/charts/density/density.js"></script>
+        <!-- Density chart reference END-->
     </body>
 
 </html>
