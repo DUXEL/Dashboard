@@ -1,141 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>Filters</title>
+        <title>Filters</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="../css/bootstrap.css" rel="stylesheet">
 
-    
-    <!-- Filter styles -->
-    <link rel="stylesheet" href="../css/filters.css">
-    
-     <!-- Filter styles -->
-    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
-    
+        <!-- Filter styles -->
+        <link rel="stylesheet" href="../css/filters.css">
+
+        <!-- Filter styles -->
+        <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+
+        <link href="../css/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
+
     </head>
     <body>
-       
+
         <button type="button" class="btn" data-toggle="modal" data-target=".bs-example-modal-lg">Filtros</button>
-        
-         <div class="modal fade bs-example-modal-lg modal-fmodal-filtersilters" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Configuracion de filtros</h4>
-                                  </div>
-                                    <div>
-                                        <div class="container-fluid">
-                                              <div class="row">
-                                                <div class="col-md-12"><!-- Here was an h3 tag -->
-                                                  <!-- tabs left -->
-                                                  <div class="tabbable tabs-left">
-                                                    <ul class="nav nav-tabs">
-                                                      <li class="active"><a href="#region" data-toggle="tab"><img class="filter-image" src="../images/icons/region.png" alt="region"><label class="filter-label">Region</label></a></li>
-                                                      <li><a href="#time" data-toggle="tab"><img class="filter-image" src="../images/icons/time.png" alt="tiempo"><label class="filter-label">Tiempo</label></a></li>
-                                                      <li><a href="#languaje" data-toggle="tab"><img class="filter-image" src="../images/icons/idiomas.png" alt="tiempo"><label class="filter-label">Lenguaje</label></a></li>
-                                                    </ul>
-                                                    <div class="tab-content">
-                                                     <div class="tab-pane active" id="region">Javascript con el mapa</div>
-                                                     <div class="tab-pane" id="time">
-                                                         <h2>Rango de tiempo</h2>
-                                                         <hr>
-                                                         <!-- <div class="container-fluid">
-                                                            <div class="row"> -->
-                                                         <div class="filter-datepicker-containers">
-                                                                <div class="col-sm-5">
-                                                                    <h4>Inicio</h4>
-                                                                    <div class="form-group ">
-                                                                            <div class='input-group date' id='start-timepicker1'>
-                                                                                <input type='text' class="form-control" id='start-timepicker2'/>
-                                                                                <span class="input-group-addon">
-                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                <div class="col-sm-5">
-                                                                    <h4>Final</h4>
-                                                                    <div class="form-group">
-                                                                            <div class='input-group date' id='finish-timepicker1'>
-                                                                                <input type='text' class="form-control" id='finish-timepicker2'/>
-                                                                                <span class="input-group-addon">
-                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                         </div>
-                                                         <div class="filter-time-resume col-sm-10">
-                                                             <h4>Resumen de rango seleccionado</h4>
-                                                             <hr>
-                                                             <div class="filter-time-resume-container">
-                                                                 <div class="filter-date-summary-box">
-                                                                    <h4>Años</h4>
-                                                                     <div id='filter-resume-year'>
-                                                                        <!-- here goes the number corresponding to the year difference -->
-                                                                         <span>0</span>
-                                                                     </div>
-                                                                 </div>
-                                                                 <div class="filter-date-summary-box">
-                                                                    <h4>Meses</h4>
-                                                                     <div id='filter-resume-month'>
-                                                                        <!-- here goes the number corresponding to the year difference -->
-                                                                         <span>0</span>
-                                                                     </div>
-                                                                 </div>
-                                                                 <div class="filter-date-summary-box">
-                                                                    <h4>Días</h4>
-                                                                     <div id='filter-resume-day'>
-                                                                        <!-- here goes the number corresponding to the days difference -->
-                                                                         <span>0</span>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
+
+        <div class="modal fade bs-example-modal-lg modal-fmodal-filtersilters" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Configuracion de filtros</h4>
+                    </div>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12"><!-- Here was an h3 tag -->
+                                    <!-- tabs left -->
+                                    <div class="tabbable tabs-left">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#region" data-toggle="tab"><img class="filter-image" src="../images/icons/region.png" alt="region"><label class="filter-label">Region</label></a></li>
+                                            <li><a href="#time" data-toggle="tab"><img class="filter-image" src="../images/icons/time.png" alt="tiempo"><label class="filter-label">Tiempo</label></a></li>
+                                            <li><a href="#language" data-toggle="tab"><img class="filter-image" src="../images/icons/idiomas.png" alt="tiempo"><label class="filter-label">Lenguaje</label></a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active region" id="region">
+                                                <div class="region-container">
+                                                    <h2>Seleccion de regiones</h2>
+                                                    <hr>
+                                                    <div class="region-select">
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-default dropdown-toggle drop-down-toggle-region" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                                                Seleccione una region
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-regions" role="menu" aria-labelledby="dropdownMenu1">
+                                                                <li class="region-options" role="presentation" value="worldRegions"><a role="menuitem" tabindex="-1">Mundo</a></li>
+                                                                <li class="region-options" role="presentation" value="latamRegion"><a role="menuitem" tabindex="-1">Latinoamerica</a></li>
+                                                                <li class="region-options" role="presentation" value="americaRegion"><a role="menuitem" tabindex="-1">America</a></li>
+                                                                <li class="region-options" role="presentation" value="europeRegion"><a role="menuitem" tabindex="-1">Europa</a></li>
+                                                            </ul>
                                                         </div>
-                                                                <!-- </div>
-                                                            </div> -->
                                                     </div>
-                                                     <div class="tab-pane" id="language"> </div>
+                                                    <div class="region-map-container">
+                                                        <div id="vmap"> </div>
                                                     </div>
-                                                  </div>
-                                                  <!-- /tabs -->
                                                 </div>
-                                              </div><!-- /row -->
+
                                             </div>
+                                            <div class="tab-pane time" id="time">
+                                                <h2>Rango de tiempo</h2>
+                                                <hr>
+                                                <!-- <div class="container-fluid">
+<div class="row"> -->
+                                                <div class="filter-datepicker-containers">
+                                                    <div class="col-sm-5">
+                                                        <h4>Inicio</h4>
+                                                        <div class="form-group ">
+                                                            <div class='input-group date' id='start-timepicker1'>
+                                                                <input type='text' class="form-control" id='start-timepicker2'/>
+                                                                <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <h4>Final</h4>
+                                                        <div class="form-group">
+                                                            <div class='input-group date' id='finish-timepicker1'>
+                                                                <input type='text' class="form-control" id='finish-timepicker2'/>
+                                                                <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="filter-time-resume col-sm-10">
+                                                    <h4>Resumen de rango seleccionado</h4>
+                                                    <hr>
+                                                    <div class="filter-time-resume-container">
+                                                        <div class="filter-date-summary-box">
+                                                            <h4>Años</h4>
+                                                            <div id='filter-resume-year'>
+                                                                <!-- here goes the number corresponding to the year difference -->
+                                                                <span>0</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="filter-date-summary-box">
+                                                            <h4>Meses</h4>
+                                                            <div id='filter-resume-month'>
+                                                                <!-- here goes the number corresponding to the year difference -->
+                                                                <span>0</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="filter-date-summary-box">
+                                                            <h4>Días</h4>
+                                                            <div id='filter-resume-day'>
+                                                                <!-- here goes the number corresponding to the days difference -->
+                                                                <span>0</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- </div>
+</div> -->
+                                            </div>
+                                            <div class="tab-pane language" id="language">
+                                                <div class="language-info-container">
+                                                    <div class="col-sm-8">
+                                                        <h2>Seleccion de idiomas</h2>
+                                                        <hr>
+                                                        <h4>Ingrese el lenguaje</h4>
+                                                        <div id="language-header">
+                                                            <!-- <input id="language-textbox" placeholder="Language"> -->
+                                                            <input id="language-textbox" type="text" data-provide="typeahead" placeholder="Language">
+                                                        </div>
+                                                        <div class="list-container">
+                                                            <h4>Idiomas seleccionados</h4>
+                                                            <ul id="languages-list">  </ul>  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn">Aplicar</button>
-                                    </div>
+                                    <!-- /tabs -->
                                 </div>
-                                  
-                              </div>
-                                
-                            </div>
+                            </div><!-- /row -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn">Aplicar</button>
+                    </div>
+                </div>
 
-                           
-    
-    <script src="../js/moment.js"></script>
-                <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+            </div>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
-        
-    <script src="../js/bootstrap-datetimepicker.min.js"></script>
-        
-    <script src="../js/filters.js"></script>
+        </div>
 
+        <script src="../js/moment.js"></script>
+        <!-- jQuery -->
+        <script src="../js/jquery.js"></script> 
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../js/bootstrap.min.js"></script>
+
+        <!-- Autocomplete complement Core JavaScript -->
+        <script src="../js/typeahead.js"></script>
+
+        <!-- Bootstrap datepicker JavaScript -->
+        <script src="../js/bootstrap-datetimepicker.min.js"></script>
+
+        <!-- Filter necesary JavaScript -->
+        <script src="../js/filters.js"></script>
+
+        <script src="../js/jquery.vmap.js" type="text/javascript"></script>
+
+        <script src="../js/jquery.vmap.world.js" type="text/javascript"></script>
 
     </body>
 
-</html>
+</html>   
