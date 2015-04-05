@@ -52,10 +52,11 @@ body {
     position: fixed;
     right: 0;
     background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
-    width: 35px;
+    width: 38px;
     padding: 10px;
     color: #fff;
     font-size:1.6em;
+    border-radius: 15px 0 0 15px;
 }
 
 .shadowed{
