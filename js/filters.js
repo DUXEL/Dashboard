@@ -37,7 +37,7 @@ $(function () {
         myFunc();
     });
 
-    $("#finish-timepicker1").on("dp.change", function (e) {
+    $("#finish-timepicker2").on("dp.change", function (e) {
         $('#start-timepicker2').data("DateTimePicker").maxDate(e.date);
         myFunc();
     });

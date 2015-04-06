@@ -14,7 +14,7 @@ body {
 
 
 .sidebar-content {
-    background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
+    background: #202024 url('../images/backgrounds/black-thread.png') repeat left top;
     width: 250px;
     position: relative;
     right: -250px;    
@@ -51,7 +51,7 @@ body {
     cursor:  pointer;
     position: fixed;
     right: 0;
-    background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
+    background: #202024 url('../images/backgrounds/black-thread.png') repeat left top;
     width: 38px;
     padding: 10px;
     color: #fff;

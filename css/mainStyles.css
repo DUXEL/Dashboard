@@ -244,7 +244,82 @@ Org: duXel
     position: absolute;
 }
 
+/*Distance chart styles*/
 
-/*Styles for sigma graphs*/
+#distance-graph-container{
+    z-index: 1100;
+}
 
+
+/*Styles for responsive elements inside the modals*/
+
+@media (min-width:1000px){
+    #vmap{
+        width: 780px;
+        height: 520px;
+    }
+    
+    #popular-terms-tab  {
+        width: 780px;
+        height: 520px;
+    }
+    #network-graph-container {
+        width: 780px;
+        height: 520px;
+    }
+    
+    #distance-graph-container  {
+        width: 780px;
+        height: 520px;
+    }
+}
+
+@media (min-width: 801px) {
+    #distance-graph-container  {
+        width: 580px;
+        height: 420px;
+    }
+}
+
+
+@media (max-width:800px){
+    #vmap{
+        width: 380px;
+        height: 220px;
+    }
+    
+    #popular-terms-tab {
+        width: 380px;
+        height: 220px;
+    }
+    #network-graph-container {
+        width: 380px;
+        height: 280px;
+    }
+    
+    #distance-graph-container  {
+        width: 380px;
+        height: 220px;
+    }
+}
+
+@media (max-width:450px){
+    #vmap{
+        width: 180px;
+        height: 100px;
+    }
+    #popular-terms-tab {
+         width: 280px;
+        height: 150px;
+    }
+    #network-graph-container {
+        width: 280px;
+        height: 220px;
+    }
+    
+    #distance-graph-container {
+        width: 280px;
+        height: 150px;
+    }
+}
 

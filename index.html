@@ -20,6 +20,8 @@
         <link href="css/tabs.css" rel="stylesheet">
 
         <link href="css/sidebarStyles.css" rel="stylesheet">
+        
+        <link href="css/vis.css" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -171,7 +173,9 @@
                                             <div class="bubbleChart"></div>
                                         </div>
                                         <div class="tab-pane" id="network-tab">
-                                            <div id="network-graph-container"></div>
+                                            <div id="network-graph-container">
+                                                <div class="network-graph"></div>
+                                            </div>
                                         </div>
                                         <div class="tab-pane" id="centrality-tab">
                                             <div id="centrality-graph-container"></div>
@@ -180,7 +184,10 @@
                                             <div id="density-graph-container"></div>    
                                         </div>
                                         <div class="tab-pane" id="distance-tab">
-
+                                            <div id="#separation-degrees-container">
+                                                <h4 class="media-heading">Grados de separacion: 4</h4>
+                                            </div>
+                                            <div id="distance-graph-container"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -252,6 +259,9 @@
         
         <!-- Sigma Javascript -->
         <script src="js/sigma/sigma.min.js"></script>
+        
+        <!-- Vis Javascript -->
+        <script src="js/vis/vis.min.js"></script>
 
         <!--Bubble chart references-->
         <script src="js/d3/d3-transform.js"></script>
@@ -264,15 +274,6 @@
         <script type="text/javascript" src="js/charts/popularTermsChart/tags.js"></script>
         <script type="text/javascript" src="js/charts/popularTermsChart/word-cloud.js"></script>
         <!--PopularTerms chart references END-->
-		<script>
-            $(".box-container").click(function() {
-                $(this).hide("slow");
-            })
-        </script> 
-        
-        <!-- Network chart reference-->
-        <script type="text/javascript" src="js/charts/network/network.js"></script>
-        <!-- Network chart reference END-->
         
         <!-- Centrality chart reference-->
         <script type="text/javascript" src="js/charts/centrality/centrality.js"></script>
@@ -281,6 +282,14 @@
         <!-- Density chart reference-->
         <script type="text/javascript" src="js/charts/density/density.js"></script>
         <!-- Density chart reference END-->
+        
+        <!-- Network chart reference-->
+        <script type="text/javascript" src="js/charts/network/network.js"></script>
+        <!-- Network chart reference END-->
+    
+        <!-- Distance chart reference-->
+        <script type="text/javascript" src="js/charts/distance/distance.js"></script>
+        <!-- Distance chart reference END-->
     </body>
 
 </html>
