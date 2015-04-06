@@ -272,10 +272,20 @@ Org: duXel
         width: 780px;
         height: 520px;
     }
+    
+    #density-graph-container  {
+        width: 780px;
+        height: 520px;
+    }
 }
 
 @media (min-width: 801px) {
     #distance-graph-container  {
+        width: 580px;
+        height: 420px;
+    }
+
+    #density-graph-container  {
         width: 580px;
         height: 420px;
     }
@@ -301,6 +311,11 @@ Org: duXel
         width: 380px;
         height: 220px;
     }
+    
+    #density-graph-container  {
+        width: 380px;
+        height: 220px;
+    }
 }
 
 @media (max-width:450px){
@@ -318,6 +333,11 @@ Org: duXel
     }
     
     #distance-graph-container {
+        width: 280px;
+        height: 150px;
+    }
+    
+    #density-graph-container  {
         width: 280px;
         height: 150px;
     }
