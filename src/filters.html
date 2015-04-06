@@ -41,9 +41,27 @@
                                     <!-- tabs left -->
                                     <div class="tabbable tabs-left">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#region" data-toggle="tab"><img class="filter-image" src="../images/icons/region.png" alt="region"><label class="filter-label">Region</label></a></li>
-                                            <li><a href="#time" data-toggle="tab"><img class="filter-image" src="../images/icons/time.png" alt="tiempo"><label class="filter-label">Tiempo</label></a></li>
-                                            <li><a href="#language" data-toggle="tab"><img class="filter-image" src="../images/icons/idiomas.png" alt="tiempo"><label class="filter-label">Lenguaje</label></a></li>
+                                            <li class="active" id='li-region'>
+                                                <a href="#region" data-toggle="tab" id="region-link">
+                                                    <img class="filter-image" src="../images/icons/region.png" alt="region">
+                                                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" id="region-check"></span>
+                                                    <label class="filter-label">Region</label>
+                                                </a>
+                                            </li>
+                                            <li id="li-time">
+                                                <a href="#time" data-toggle="tab" id='time-link'>
+                                                    <img class="filter-image" src="../images/icons/time.png" alt="tiempo">
+                                                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" id="time-check"></span>
+                                                    <label class="filter-label">Tiempo</label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#language" data-toggle="tab">
+                                                    <img class="filter-image" src="../images/icons/idiomas.png" alt="tiempo">
+                                                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" id="language-check"></span>
+                                                    <label class="filter-label">Lenguaje</label>
+                                                </a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane active region" id="region">
@@ -67,6 +85,9 @@
                                                     <div class="region-map-container">
                                                         <div id="vmap"> </div>
                                                     </div>
+                                                    <div class="tab-footer">
+                                                        <button type="button" class="btn btn-sm pull-right" id="region-btn-clear">Limpiar filtro</button>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -80,8 +101,8 @@
                                                         <h4>Inicio</h4>
                                                         <div class="form-group ">
                                                             <div class='input-group date' id='start-timepicker1'>
-                                                                <input type='text' class="form-control" id='start-timepicker2'/>
-                                                                <span class="input-group-addon">
+                                                                <input type='text' class="form-control time-input-picker" id='start-timepicker2'/>
+                                                                <span class="input-group-addon" id='start-timepicker3'>
                                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                                 </span>
                                                             </div>
@@ -91,13 +112,14 @@
                                                         <h4>Final</h4>
                                                         <div class="form-group">
                                                             <div class='input-group date' id='finish-timepicker1'>
-                                                                <input type='text' class="form-control" id='finish-timepicker2'/>
-                                                                <span class="input-group-addon">
+                                                                <input type='text' class="form-control time-input-picker" id='finish-timepicker2'/>
+                                                                <span class="input-group-addon" id='finish-timepicker3'>
                                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                                 <div class="filter-time-resume col-sm-10">
                                                     <h4>Resumen de rango seleccionado</h4>
@@ -126,6 +148,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="tab-footer">
+                                                    <button type="button" class="btn btn-sm pull-right pull-bottom" id="time-btn-clear">Limpiar filtro</button>
+                                                </div>
                                                 <!-- </div>
 </div> -->
                                             </div>
@@ -144,7 +169,11 @@
                                                             <ul id="languages-list">  </ul>  
                                                         </div>
                                                     </div>
+                                                    <div class="tab-footer">
+                                                        <button type="button" class="btn btn-sm pull-right pull-bottom" id="language-btn-clear">Limpiar filtro</button>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +183,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn">Aplicar</button>
+                        <button type="button" class="btn " id="filters-btn-clear">Limpiar filtros</button>
+                        <button type="button" class="btn btn-primary">Aplicar</button>
                     </div>
                 </div>
 
@@ -184,4 +214,4 @@
 
     </body>
 
-</html>   
+</html>
