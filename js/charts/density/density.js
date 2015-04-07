@@ -1,361 +1,353 @@
-/**
- * This plugin provides a method to drag & drop nodes. Check the
- * sigma.plugins.dragNodes function doc or the examples/basic.html &
- * examples/api-candy.html code samples to know more.
- */
-(function() {
-  'use strict';
+$(document).ready(function() {
+  function draw() {
+    // create some nodes
+    var nodes = [
+                {id:0,"labelHidden":"Myriel","group":2},
+                {id:1,"labelHidden":"Napoleon","group":2},
+                {id:2,"labelHidden":"Mlle.Baptistine","group":2},
+                {id:3,"labelHidden":"Mme.Magloire","group":2},
+                {id:4,"labelHidden":"CountessdeLo","group":2},
+                {id:5,"labelHidden":"Geborand","group":2},
+                {id:6,"labelHidden":"Champtercier","group":2},
+                {id:7,"labelHidden":"Cravatte","group":2},
+                {id:8,"labelHidden":"Count","group":2},
+                {id:9,"labelHidden":"OldMan","group":2},
+                {id:10,"labelHidden":"Labarre","group":2},
+                {id:11,"labelHidden":"Valjean","group":2},
+                {id:12,"labelHidden":"Marguerite","group":2},
+                {id:13,"labelHidden":"Mme.deR","group":2},
+                {id:14,"labelHidden":"Isabeau","group":2},
+                {id:15,"labelHidden":"Gervais","group":2},
+                {id:16,"labelHidden":"Tholomyes","group":2},
+                {id:17,"labelHidden":"Listolier","group":2},
+                {id:18,"labelHidden":"Fameuil","group":2},
+                {id:19,"labelHidden":"Blacheville","group":2},
+                {id:20,"labelHidden":"Favourite","group":2},
+                {id:21,"labelHidden":"Dahlia","group":2},
+                {id:22,"labelHidden":"Zephine","group":2},
+                {id:23,"labelHidden":"Fantine","group":2},
+                {id:24,"label":"Tuquini","group":3},
+                {id:25,"labelHidden":"Thenardier","group":1},
+                {id:26,"labelHidden":"Cosette","group":1},
+                {id:27,"labelHidden":"Javert","group":1},
+                {id:28,"labelHidden":"Fauchelevent","group":2},
+                {id:29,"labelHidden":"Bamatabois","group":2},
+                {id:30,"labelHidden":"Perpetue","group":2},
+                {id:31,"labelHidden":"Simplice","group":2},
+                {id:32,"labelHidden":"Scaufflaire","group":2},
+                {id:33,"labelHidden":"Woman1","group":2},
+                {id:34,"labelHidden":"Judge","group":2},
+                {id:35,"labelHidden":"Champmathieu","group":2},
+                {id:36,"labelHidden":"Brevet","group":2},
+                {id:37,"labelHidden":"Chenildieu","group":2},
+                {id:38,"labelHidden":"Cochepaille","group":2},
+                {id:39,"labelHidden":"Pontmercy","group":2},
+                {id:40,"labelHidden":"Boulatruelle","group":2},
+                {id:41,"labelHidden":"Eponine","group":1},
+                {id:42,"labelHidden":"Anzelma","group":1},
+                {id:43,"labelHidden":"Woman2","group":2},
+                {id:44,"labelHidden":"MotherInnocent","group":2},
+                {id:45,"labelHidden":"Gribier","group":2},
+                {id:46,"labelHidden":"Jondrette","group":2},
+                {id:47,"labelHidden":"Mme.Burgon","group":2},
+                {id:48,"labelHidden":"Gavroche","group":2},
+                {id:49,"labelHidden":"Gillenormand","group":2},
+                {id:50,"labelHidden":"Magnon","group":1},
+                {id:51,"labelHidden":"Mlle.Gillenormand","group":2},
+                {id:52,"labelHidden":"Mme.Pontmercy","group":2},
+                {id:53,"labelHidden":"Mlle.Vaubois","group":2},
+                {id:54,"labelHidden":"Lt.Gillenormand","group":2},
+                {id:55,"labelHidden":"Marius","group":2},
+                {id:56,"labelHidden":"BaronessT","group":2},
+                {id:57,"labelHidden":"Mabeuf","group":2},
+                {id:58,"labelHidden":"Enjolras","group":2},
+                {id:59,"labelHidden":"Combeferre","group":2},
+                {id:60,"labelHidden":"Prouvaire","group":2},
+                {id:61,"labelHidden":"Feuilly","group":2},
+                {id:62,"labelHidden":"Courfeyrac","group":2},
+                {id:63,"labelHidden":"Bahorel","group":2},
+                {id:64,"labelHidden":"Bossuet","group":2},
+                {id:65,"labelHidden":"Joly","group":2},
+                {id:66,"labelHidden":"Grantaire","group":2},
+                {id:67,"labelHidden":"MotherPlutarch","group":2},
+                {id:68,"labelHidden":"Gueulemer","group":1},
+                {id:69,"labelHidden":"Babet","group":1},
+                {id:70,"labelHidden":"Claquesous","group":1},
+                {id:71,"labelHidden":"Montparnasse","group":2},
+                {id:72,"labelHidden":"Toussaint","group":2},
+                {id:73,"labelHidden":"Child1","group":2},
+                {id:74,"labelHidden":"Child2","group":2},
+                {id:75,"labelHidden":"Brujon","group":2},
+                {id:76,"labelHidden":"Mme.Hucheloup","group":2}
+            ];
 
-  if (typeof sigma === 'undefined')
-    throw 'sigma is not declared';
+    // create some edges
+    var edges = [
+        {"from":1,"to":0},
+        {"from":2,"to":0},
+        {"from":3,"to":0},
+        {"from":3,"to":2},
+        {"from":4,"to":0},
+        {"from":5,"to":0},
+        {"from":6,"to":0},
+        {"from":7,"to":0},
+        {"from":8,"to":0},
+        {"from":9,"to":0},
+        {"from":11,"to":10},
+        {"from":11,"to":3},
+        {"from":11,"to":2},
+        {"from":11,"to":0},
+        {"from":12,"to":11},
+        {"from":13,"to":11},
+        {"from":14,"to":11},
+        {"from":15,"to":11},
+        {"from":17,"to":16},
+        {"from":18,"to":16},
+        {"from":18,"to":17},
+        {"from":19,"to":16},
+        {"from":19,"to":17},
+        {"from":19,"to":18},
+        {"from":20,"to":16},
+        {"from":20,"to":17},
+        {"from":20,"to":18},
+        {"from":20,"to":19},
+        {"from":21,"to":16},
+        {"from":21,"to":17},
+        {"from":21,"to":18},
+        {"from":21,"to":19},
+        {"from":21,"to":20},
+        {"from":22,"to":16},
+        {"from":22,"to":17},
+        {"from":22,"to":18},
+        {"from":22,"to":19},
+        {"from":22,"to":20},
+        {"from":22,"to":21},
+        {"from":23,"to":16},
+        {"from":23,"to":17},
+        {"from":23,"to":18},
+        {"from":23,"to":19},
+        {"from":23,"to":20},
+        {"from":23,"to":21},
+        {"from":23,"to":22},
+        {"from":23,"to":12},
+        {"from":23,"to":11},
+        {"from":24,"to":23},
+        {"from":24,"to":11},
+        {"from":25,"to":24},
+        {"from":25,"to":23},
+        {"from":25,"to":11},
+        {"from":26,"to":24},
+        {"from":26,"to":11},
+        {"from":26,"to":16},
+        {"from":26,"to":25},
+        {"from":27,"to":11},
+        {"from":27,"to":23},
+        {"from":27,"to":25},
+        {"from":27,"to":24},
+        {"from":27,"to":26},
+        {"from":28,"to":11},
+        {"from":28,"to":27},
+        {"from":29,"to":23},
+        {"from":29,"to":27},
+        {"from":29,"to":11},
+        {"from":30,"to":23},
+        {"from":31,"to":30},
+        {"from":31,"to":11},
+        {"from":31,"to":23},
+        {"from":31,"to":27},
+        {"from":32,"to":11},
+        {"from":33,"to":11},
+        {"from":33,"to":27},
+        {"from":34,"to":11},
+        {"from":34,"to":29},
+        {"from":35,"to":11},
+        {"from":35,"to":34},
+        {"from":35,"to":29},
+        {"from":36,"to":34},
+        {"from":36,"to":35},
+        {"from":36,"to":11},
+        {"from":36,"to":29},
+        {"from":37,"to":34},
+        {"from":37,"to":35},
+        {"from":37,"to":36},
+        {"from":37,"to":11},
+        {"from":37,"to":29},
+        {"from":38,"to":34},
+        {"from":38,"to":35},
+        {"from":38,"to":36},
+        {"from":38,"to":37},
+        {"from":38,"to":11},
+        {"from":38,"to":29},
+        {"from":39,"to":25},
+        {"from":40,"to":25},
+        {"from":41,"to":24},
+        {"from":41,"to":25},
+        {"from":42,"to":41},
+        {"from":42,"to":25},
+        {"from":42,"to":24},
+        {"from":43,"to":11},
+        {"from":43,"to":26},
+        {"from":43,"to":27},
+        {"from":44,"to":28},
+        {"from":44,"to":11},
+        {"from":45,"to":28},
+        {"from":47,"to":46},
+        {"from":48,"to":47},
+        {"from":48,"to":25},
+        {"from":48,"to":27},
+        {"from":48,"to":11},
+        {"from":49,"to":26},
+        {"from":49,"to":11},
+        {"from":50,"to":49},
+        {"from":50,"to":24},
+        {"from":51,"to":49},
+        {"from":51,"to":26},
+        {"from":51,"to":11},
+        {"from":52,"to":51},
+        {"from":52,"to":39},
+        {"from":53,"to":51},
+        {"from":54,"to":51},
+        {"from":54,"to":49},
+        {"from":54,"to":26},
+        {"from":55,"to":51},
+        {"from":55,"to":49},
+        {"from":55,"to":39},
+        {"from":55,"to":54},
+        {"from":55,"to":26},
+        {"from":55,"to":11},
+        {"from":55,"to":16},
+        {"from":55,"to":25},
+        {"from":55,"to":41},
+        {"from":55,"to":48},
+        {"from":56,"to":49},
+        {"from":56,"to":55},
+        {"from":57,"to":55},
+        {"from":57,"to":41},
+        {"from":57,"to":48},
+        {"from":58,"to":55},
+        {"from":58,"to":48},
+        {"from":58,"to":27},
+        {"from":58,"to":57},
+        {"from":58,"to":11},
+        {"from":59,"to":58},
+        {"from":59,"to":55},
+        {"from":59,"to":48},
+        {"from":59,"to":57},
+        {"from":60,"to":48},
+        {"from":60,"to":58},
+        {"from":60,"to":59},
+        {"from":61,"to":48},
+        {"from":61,"to":58},
+        {"from":61,"to":60},
+        {"from":61,"to":59},
+        {"from":61,"to":57},
+        {"from":61,"to":55},
+        {"from":62,"to":55},
+        {"from":62,"to":58},
+        {"from":62,"to":59},
+        {"from":62,"to":48},
+        {"from":62,"to":57},
+        {"from":62,"to":41},
+        {"from":62,"to":61},
+        {"from":62,"to":60},
+        {"from":63,"to":59},
+        {"from":63,"to":48},
+        {"from":63,"to":62},
+        {"from":63,"to":57},
+        {"from":63,"to":58},
+        {"from":63,"to":61},
+        {"from":63,"to":60},
+        {"from":63,"to":55},
+        {"from":64,"to":55},
+        {"from":64,"to":62},
+        {"from":64,"to":48},
+        {"from":64,"to":63},
+        {"from":64,"to":58},
+        {"from":64,"to":61},
+        {"from":64,"to":60},
+        {"from":64,"to":59},
+        {"from":64,"to":57},
+        {"from":64,"to":11},
+        {"from":65,"to":63},
+        {"from":65,"to":64},
+        {"from":65,"to":48},
+        {"from":65,"to":62},
+        {"from":65,"to":58},
+        {"from":65,"to":61},
+        {"from":65,"to":60},
+        {"from":65,"to":59},
+        {"from":65,"to":57},
+        {"from":65,"to":55},
+        {"from":66,"to":64},
+        {"from":66,"to":58},
+        {"from":66,"to":59},
+        {"from":66,"to":62},
+        {"from":66,"to":65},
+        {"from":66,"to":48},
+        {"from":66,"to":63},
+        {"from":66,"to":61},
+        {"from":66,"to":60},
+        {"from":67,"to":57},
+        {"from":68,"to":25},
+        {"from":68,"to":11},
+        {"from":68,"to":24},
+        {"from":68,"to":27},
+        {"from":68,"to":48},
+        {"from":68,"to":41},
+        {"from":69,"to":25},
+        {"from":69,"to":68},
+        {"from":69,"to":11},
+        {"from":69,"to":24},
+        {"from":69,"to":27},
+        {"from":69,"to":48},
+        {"from":69,"to":41},
+        {"from":70,"to":25},
+        {"from":70,"to":69},
+        {"from":70,"to":68},
+        {"from":70,"to":11},
+        {"from":70,"to":24},
+        {"from":70,"to":27},
+        {"from":70,"to":41},
+        {"from":70,"to":58},
+        {"from":71,"to":27},
+        {"from":71,"to":69},
+        {"from":71,"to":68},
+        {"from":71,"to":70},
+        {"from":71,"to":11},
+        {"from":71,"to":48},
+        {"from":71,"to":41},
+        {"from":71,"to":25},
+        {"from":72,"to":26},
+        {"from":72,"to":27},
+        {"from":72,"to":11},
+        {"from":73,"to":48},
+        {"from":74,"to":48},
+        {"from":74,"to":73},
+        {"from":75,"to":69},
+        {"from":75,"to":68},
+        {"from":75,"to":25},
+        {"from":75,"to":48},
+        {"from":75,"to":41},
+        {"from":75,"to":70},
+        {"from":75,"to":71},
+        {"from":76,"to":64},
+        {"from":76,"to":65},
+        {"from":76,"to":66},
+        {"from":76,"to":63},
+        {"from":76,"to":62},
+        {"from":76,"to":48},
+        {"from":76,"to":58}
+    ];
 
-  sigma.utils.pkg('sigma.plugins');
-
-
-  /**
-   * This function will add `mousedown`, `mouseup` & `mousemove` events to the
-   * nodes in the `overNode`event to perform drag & drop operations. It uses
-   * `linear interpolation` [http://en.wikipedia.org/wiki/Linear_interpolation]
-   * and `rotation matrix` [http://en.wikipedia.org/wiki/Rotation_matrix] to
-   * calculate the X and Y coordinates from the `cam` or `renderer` node
-   * attributes. These attributes represent the coordinates of the nodes in
-   * the real container, not in canvas.
-   *
-   * Fired events:
-   * *************
-   * startdrag  Fired at the beginning of the drag.
-   * drag       Fired while the node is dragged.
-   * drop       Fired at the end of the drag if the node has been dragged.
-   * dragend    Fired at the end of the drag.
-   *
-   * Recognized parameters:
-   * **********************
-   * @param  {sigma}    s        The related sigma instance.
-   * @param  {renderer} renderer The related renderer instance.
-   */
-  function DragNodes(s, renderer) {
-    sigma.classes.dispatcher.extend(this);
-
-    // A quick hardcoded rule to prevent people from using this plugin with the
-    // WebGL renderer (which is impossible at the moment):
-    if (
-      sigma.renderers.webgl &&
-      renderer instanceof sigma.renderers.webgl
-    )
-      throw new Error(
-        'The sigma.plugins.dragNodes is not compatible with the WebGL renderer'
-      );
-
-    // Init variables:
-    var _self = this,
-      _s = s,
-      _body = document.body,
-      _renderer = renderer,
-      _mouse = renderer.container.lastChild,
-      _camera = renderer.camera,
-      _node = null,
-      _prefix = '',
-      _hoverStack = [],
-      _hoverIndex = {},
-      _isMouseDown = false,
-      _isMouseOverCanvas = false,
-      _drag = false;
-    
-    if (renderer instanceof sigma.renderers.svg) {
-        _mouse = renderer.container.firstChild;
-    }
-
-    // It removes the initial substring ('read_') if it's a WegGL renderer.
-    if (renderer instanceof sigma.renderers.webgl) {
-      _prefix = renderer.options.prefix.substr(5);
-    } else {
-      _prefix = renderer.options.prefix;
-    }
-
-    renderer.bind('overNode', nodeMouseOver);
-    renderer.bind('outNode', treatOutNode);
-    renderer.bind('click', click);
-
-    _s.bind('kill', function() {
-      _self.unbindAll();
-    });
-
-    /**
-     * Unbind all event listeners.
-     */
-    this.unbindAll = function() {
-      _mouse.removeEventListener('mousedown', nodeMouseDown);
-      _body.removeEventListener('mousemove', nodeMouseMove);
-      _body.removeEventListener('mouseup', nodeMouseUp);
-      _renderer.unbind('overNode', nodeMouseOver);
-      _renderer.unbind('outNode', treatOutNode);
-    }
-
-    // Calculates the global offset of the given element more accurately than
-    // element.offsetTop and element.offsetLeft.
-    function calculateOffset(element) {
-      var style = window.getComputedStyle(element);
-      var getCssProperty = function(prop) {
-        return parseInt(style.getPropertyValue(prop).replace('px', '')) || 0;
-      };
-      return {
-        left: element.getBoundingClientRect().left + getCssProperty('padding-left'),
-        top: element.getBoundingClientRect().top + getCssProperty('padding-top')
-      };
+    // create a network
+    var container = document.getElementById('density-graph-container');
+    var data = {
+        nodes: nodes,
+        edges: edges
     };
-
-    function click(event) {
-      // event triggered at the end of the click
-      _isMouseDown = false;
-      _body.removeEventListener('mousemove', nodeMouseMove);
-      _body.removeEventListener('mouseup', nodeMouseUp);
-
-      if (!_hoverStack.length) {
-        _node = null;
-      }
-    };
-
-    function nodeMouseOver(event) {
-      // Don't treat the node if it is already registered
-      if (_hoverIndex[event.data.node.id]) {
-        return;
-      }
-
-      // Add node to array of current nodes over
-      _hoverStack.push(event.data.node);
-      _hoverIndex[event.data.node.id] = true;
-
-      if(_hoverStack.length && ! _isMouseDown) {
-        // Set the current node to be the last one in the array
-        _node = _hoverStack[_hoverStack.length - 1];
-        _mouse.addEventListener('mousedown', nodeMouseDown);
-      }
-    };
-
-    function treatOutNode(event) {
-      // Remove the node from the array
-      var indexCheck = _hoverStack.map(function(e) { return e; }).indexOf(event.data.node);
-      _hoverStack.splice(indexCheck, 1);
-      delete _hoverIndex[event.data.node.id];
-
-      if(_hoverStack.length && ! _isMouseDown) {
-        // On out, set the current node to be the next stated in array
-        _node = _hoverStack[_hoverStack.length - 1];
-      } else {
-        _mouse.removeEventListener('mousedown', nodeMouseDown);
-      }
-    };
-
-    function nodeMouseDown(event) {
-      _isMouseDown = true;
-      var size = _s.graph.nodes().length;
-
-      // when there is only node in the graph, the plugin cannot apply
-      // linear interpolation. So treat it as if a user is dragging
-      // the graph
-      if (_node && size > 1) {
-        _mouse.removeEventListener('mousedown', nodeMouseDown);
-        _body.addEventListener('mousemove', nodeMouseMove);
-        _body.addEventListener('mouseup', nodeMouseUp);
-
-        // Do not refresh edgequadtree during drag:
-        var k,
-            c;
-        for (k in _s.cameras) {
-          c = _s.cameras[k];
-          if (c.edgequadtree !== undefined) {
-            c.edgequadtree._enabled = false;
-          }
-        }
-
-        // Deactivate drag graph.
-        _renderer.settings({mouseEnabled: false, enableHovering: false});
-        _s.refresh();
-
-        _self.dispatchEvent('startdrag', {
-          node: _node,
-          captor: event,
-          renderer: _renderer
-        });
-      }
-    };
-
-    function nodeMouseUp(event) {
-      _isMouseDown = false;
-      _mouse.addEventListener('mousedown', nodeMouseDown);
-      _body.removeEventListener('mousemove', nodeMouseMove);
-      _body.removeEventListener('mouseup', nodeMouseUp);
-
-      // Allow to refresh edgequadtree:
-      var k,
-          c;
-      for (k in _s.cameras) {
-        c = _s.cameras[k];
-        if (c.edgequadtree !== undefined) {
-          c.edgequadtree._enabled = true;
-        }
-      }
-
-      // Activate drag graph.
-      _renderer.settings({mouseEnabled: true, enableHovering: true});
-      _s.refresh();
-
-      if (_drag) {
-        _self.dispatchEvent('drop', {
-          node: _node,
-          captor: event,
-          renderer: _renderer
-        });
-      }
-      _self.dispatchEvent('dragend', {
-        node: _node,
-        captor: event,
-        renderer: _renderer
-      });
-      
-      _drag = false;
-      _node = null;
-    };
-
-    function nodeMouseMove(event) {
-      if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-        clearTimeout(timeOut);
-        var timeOut = setTimeout(executeNodeMouseMove, 0);
-      } else {
-        executeNodeMouseMove();
-      }
-
-      function executeNodeMouseMove() {
-        var offset = calculateOffset(_renderer.container),
-            x = event.clientX - offset.left,
-            y = event.clientY - offset.top,
-            cos = Math.cos(_camera.angle),
-            sin = Math.sin(_camera.angle),
-            nodes = _s.graph.nodes(),
-            ref = [];
-
-        // Getting and derotating the reference coordinates.
-        for (var i = 0; i < 2; i++) {
-          var n = nodes[i];
-          var aux = {
-            x: n.x * cos + n.y * sin,
-            y: n.y * cos - n.x * sin,
-            renX: n[_prefix + 'x'],
-            renY: n[_prefix + 'y'],
-          };
-          ref.push(aux);
-        }
-
-        // Applying linear interpolation.
-        x = ((x - ref[0].renX) / (ref[1].renX - ref[0].renX)) *
-          (ref[1].x - ref[0].x) + ref[0].x;
-        y = ((y - ref[0].renY) / (ref[1].renY - ref[0].renY)) *
-          (ref[1].y - ref[0].y) + ref[0].y;
-
-        // Rotating the coordinates.
-        _node.x = x * cos - y * sin;
-        _node.y = y * cos + x * sin;
-
-        _s.refresh();
-
-        _drag = true;
-        _self.dispatchEvent('drag', {
-          node: _node,
-          captor: event,
-          renderer: _renderer
-        });
-      }
-    };
-  };
-
-  /**
-   * Interface
-   * ------------------
-   *
-   * > var dragNodesListener = sigma.plugins.dragNodes(s, s.renderers[0]);
-   */
-  var _instance = {};
-
-  /**
-   * @param  {sigma} s The related sigma instance.
-   * @param  {renderer} renderer The related renderer instance.
-   */
-  sigma.plugins.dragNodes = function(s, renderer) {
-    // Create object if undefined
-    if (!_instance[s.id]) {
-      _instance[s.id] = new DragNodes(s, renderer);
-    }
-
-    s.bind('kill', function() {
-      sigma.plugins.killDragNodes(s);
-    });
-
-    return _instance[s.id];
-  };
-
-  /**
-   * This method removes the event listeners and kills the dragNodes instance.
-   *
-   * @param  {sigma} s The related sigma instance.
-   */
-  sigma.plugins.killDragNodes = function(s) {
-    if (_instance[s.id] instanceof DragNodes) {
-      _instance[s.id].unbindAll();
-      delete _instance[s.id];
-    }
-  };
-
-}).call(window);
-
-// DragoNodes.js end
-
-var i,
-    s,
-    N = 100,
-    E = 500,
-    g = {
-      nodes: [],
-      edges: []
-    };
-
-// Generate a random graph:
-for (i = 0; i < N; i++)
-  g.nodes.push({
-    id: 'n' + i,
-    label: 'Node ' + i,
-    x: Math.random(),
-    y: Math.random(),
-    size: Math.random(),
-    color: '#666'
-  });
-
-for (i = 0; i < E; i++)
-  g.edges.push({
-    id: 'e' + i,
-    source: 'n' + (Math.random() * N | 0),
-    target: 'n' + (Math.random() * N | 0),
-    size: Math.random(),
-    color: '#ccc'
-  });
-sigma.renderers.def = sigma.renderers.canvas
-// Instantiate sigma:
-s = new sigma({
-  graph: g,
-  container: 'density-graph-container'
+    var options = {nodes: {shape:'circle'},stabilize: false};
+    var network = new vis.Network(container, data, options);
+  }
+    draw();
 });
-
-// Initialize the dragNodes plugin:
-var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
-
-dragListener.bind('startdrag', function(event) {
-  console.log(event);
-});
-dragListener.bind('drag', function(event) {
-  console.log(event);
-});
-dragListener.bind('drop', function(event) {
-  console.log(event);
-});
-dragListener.bind('dragend', function(event) {
-  console.log(event);
-});
+  

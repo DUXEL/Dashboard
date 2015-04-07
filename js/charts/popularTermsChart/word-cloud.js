@@ -1,8 +1,8 @@
 $(document).ready(function() {
     var fill = d3.scale.category20b();
     
-    var w = window.innerWidth - 600,
-        h = window.innerHeight - 200;
+    var h = $("#popular-terms-tab").height(),
+        w = $("#popular-terms-tab").width();
     var max,
             fontSize;
 
@@ -30,8 +30,8 @@ $(document).ready(function() {
     });
 
     function draw(data, bounds) {
-        var w = window.innerWidth - 600,
-            h = window.innerHeight - 100;
+        var h = $("#popular-terms-tab").height(),
+            w = $("#popular-terms-tab").width();  
 
         svg.attr("width", w).attr("height", h);
 

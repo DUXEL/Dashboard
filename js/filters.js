@@ -40,6 +40,7 @@ $(function () {
         }
     });
 
+
     /* Simulate clicking the addon-icon */
     $("#finish-timepicker2").click(function(){
         $("#finish-timepicker3").click();
