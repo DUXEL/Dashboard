@@ -218,6 +218,7 @@ $.extend(Array.prototype, {
       return observers[name] || self.create(name);
     }
   }
+  
 })();
 
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,123 +34,84 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
             </div>
             <!-- /.container -->
-        </nav>   
+        </nav>
 
         <!-- Sidebar -->
+
+        <!-- Sidebar Button-->
         <div class="sidebar-button shadowed vcentered" title="Agregar grafico">
-            &#9666;
-        </div>             
-    
+            <div id="arrow-container">
+                <p id="arrow-char">&#9666;</p>
+            </div>
+        </div>
+
+        <!-- Sidebar Options -->
         <div class="sidebar vcentered">       
-            
+
             <div class="sidebar-content shadowed ">                
                 <!-- Menu -->
                 <ul>
-                    <li><a href="#">Terminos populares</a></li>
-                    <li><a href="#">Tendencias</a></li>
-                    <li><a href="#">Red</a></li>
-                    <li><a href="#">Centralidad</a></li>
-                    <li><a href="#">Densidad</a></li>
-                    <li><a href="#">Distancia</a></li>
+                    <li class="graph-type" value="popularTerms">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Terminos populares
+                        </a>
+                    </li>
+                    <li class="graph-type" value="trends">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Tendencias
+                        </a>
+                    </li>
+                    <li class="graph-type" value="network">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Red
+                        </a>
+                    </li>
+                    <li class="graph-type" value="centrality">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Centralidad
+                        </a>
+                    </li>
+                    <li class="graph-type" value="density">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Densidad
+                        </a>
+                    </li>
+                    <li class="graph-type" value="distance">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Distancia
+                        </a>
+                    </li>
                 </ul>
             </div>
 
         </div>
         <!--Sidebar END-->
 
+
         <!-- Charts section -->
         <div class="container main-container">
-
-            <!-- Projects Row -->
-            <div class="row">
-                <div class="col-md-4 box-container">
-                    <h4>Terminos populares</h4>
-                    <a>
-                        <section class="chart-container" id="popular-terms-section">
-                            <img class="img-responsive popular-terms-img" src="images/charts/popular-terms.png" alt="">
-                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
-                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
-                            <a href="#" class="fullscreen-button" id="fullscreen-popular-terms" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
-                        </section>
-                    </a>
-                </div>
-                <div class="col-md-4 box-container">
-                    <h4>Tendencias</h4>
-                    <a>
-                        <section class="chart-container" id="trending-topics-section">
-                            <img class="img-responsive trending-topics-img" src="images/charts/trending-topics.png" alt="">
-                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
-                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
-                            <a href="#" class="fullscreen-button" id="fullscreen-tendencies" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
-                        </section>
-                    </a>
-                </div>
-                <div class="col-md-4 box-container">
-                    <h4>Red</h4>
-                    <a>
-                        <section class="chart-container" id="net-section">
-                            <img class="img-responsive popular-terms-img" src="images/charts/network.png" alt="">
-                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
-                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
-                            <a href="#" class="fullscreen-button" id="fullscreen-network" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
-                        </section>
-                    </a>
-                </div>
-            </div>
-            <!-- /.row -->
-
-            <!-- Projects Row -->
-            <div class="row">
-                <div class="col-md-4 box-container">
-                    <h4>Centralidad</h4>
-                    <a>
-                        <section class="chart-container" id="centrality-section">
-                            <img class="img-responsive popular-terms-img" src="images/charts/centrality.png" alt="">
-                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
-                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
-                            <a href="#" class="fullscreen-button" id="fullscreen-centrality" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
-                        </section>
-                    </a>
-                </div>
-                <div class="col-md-4 box-container">
-                    <h4>Densidad</h4>
-                    <a>
-                        <section class="chart-container" id="density-section">
-                            <img class="img-responsive popular-terms-img" src="images/charts/density.png" alt="">
-                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
-                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
-                            <a href="#" class="fullscreen-button" id="fullscreen-density" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
-                        </section>
-                    </a>
-                </div>
-                <div class="col-md-4 box-container">
-                    <h4>Distancia</h4>
-                    <a>
-                        <section class="chart-container" id="distance-section">
-                            <img class="img-responsive popular-terms-img" src="images/charts/distance.jpg" alt="">
-                            <a href="#" class="delete-button" id="delete-popular-terms"></a>
-                            <a href="#" class="settings-button" id="configure-popular-terms"></a>
-                            <a href="#" class="fullscreen-button" id="fullscreen-distance" data-toggle="modal" data-target=".bs-example-modal-lg"></a>
-                        </section>
-                    </a>
-                </div>
-            </div>
-            <!-- /.row -->
-
+            <!-- Generate dinamically -->
         </div>
         <!-- Charts Section END -->
 
+        <!-- Footer -->
         <div class="navbar navbar-inverse navbar-bottom footerNav">
             <div class="container">
                 <p id="sign" class="muted pull-right"> Creado por duXel <span class="glyphicon glyphicon-copyright-mark"></span></p>
             </div> <!-- container-->
-        </div> <!-- navbar navbar-default navbar-fixed-bottom" --> 
+        </div> 
+        <!-- Footer END -->
 
-
-
-
-        <!--Slider modalr-->
+        <!-- Slider modal (for fullscreen)-->
         <div class="modal fade bs-example-modal-lg" id="fullscreen-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+            <!--Slider modal-->
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -162,7 +122,7 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-xs-9">
-                                    <!-- Tab panes -->
+                                    <!-- To display current graph -->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="popular-terms-tab">
                                             <div id="vis"></div>
@@ -187,60 +147,115 @@
 
                                 <div class="col-xs-3"> <!-- required for floating -->
                                     <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs tabs-right">
-                                        <li class="active">
-                                            <a href="#popular-terms-tab" data-toggle="tab">
-                                                <img class="img-responsive tab-img inline" src="images/charts/cloud-chart-tabs.png" alt="Terminos populares">
-                                                <h6 class="inline">Terminos populares</h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#tendency-tab" data-toggle="tab">
-                                                <img class="img-responsive tab-img inline" src="images/charts/bubble-chart-tabs.png" alt="Terminos populares">
-                                                <h6 class="inline">Tendencias</h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#network-tab" data-toggle="tab">
-                                                <img class="img-responsive tab-img inline" src="images/charts/network-tabs.png" alt="Terminos populares">
-                                                <h6 class="inline">Red</h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#centrality-tab" data-toggle="tab">
-                                                <img class="img-responsive tab-img inline" src="images/charts/centrality-tabs.png" alt="Terminos populares">
-                                                <h6 class="inline">Centralidad</h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#density-tab" data-toggle="tab">
-                                                <img class="img-responsive tab-img inline" src="images/charts/density-tabs.png" alt="Terminos populares">
-                                                <h6 class="inline">Densidad</h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#distance-tab" data-toggle="tab">
-                                                <img class="img-responsive tab-img inline" src="images/charts/distance-tabs.jpg" alt="Terminos populares">
-                                                <h6 class="inline">Distancia</h6>
-                                            </a>
-                                        </li>
-
+                                    <ul class="nav nav-tabs tabs-right" id="tabs-for-graphs-modal">                                 
+                                        <!-- Content load dinamically -->
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div> <!--End of slider modal-->
+            </div><!-- /.modal-dialog -->        
+        </div> 
+        <!-- Slider modal (for fullscreen) END-->
+
+
+        <!-- Filter for distance modal -->
+        <div class="modal fade" id="distance-filter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Filtro</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Red Social:</h4>
+                        <form >
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default">
+                                            <input type="radio" id="q156" name="quality[25]" value="1" />Twitter
+                                        </label> 
+                                        <label class="btn btn-default">
+                                            <input type="radio" id="q157" name="quality[25]" value="2" />MicroBlog
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br></br>
+                        <form>
+                            <div class="form-group">
+                                <label for="inputUser1">Usuario #1</label>
+                                <input class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputUser1">Usuario #2</label>
+                                <input class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Filter for distance modal END-->
+
+        <!-- Filter for data analysis modal -->
+        <div class="modal fade" id="data-analysis-filter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Filtro</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Red Social:</h4>
+                        <form >
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default">
+                                            <input type="radio" id="q156" name="quality[25]" value="1" />Twitter
+                                        </label> 
+                                        <label class="btn btn-default">
+                                            <input type="radio" id="q157" name="quality[25]" value="2" />MicroBlog
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br></br>
+                        <form>
+                            <div class="form-group">
+                                <label for="inputUser1">Usuario</label>
+                                <input class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <!-- Filter for data analysis modal END -->                     
+
+
+        <!----------------------
+        INCLUDE OF SCRIPTS
+        ----------------------->
 
         <!-- jQuery -->
         <script src="js/jquery.js"></script>
-        <script src="js/jquery.sidr.min.js"></script>
+        <script src="js/jquery.sidr.min.js"></script>      
 
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js"></script>
-        
+
         <!-- Index js import -->
         <script src="js/index.js"></script>
 
@@ -249,13 +264,13 @@
 
         <!-- D3 Javascript -->
         <script src="js/d3/d3.min.js"></script>
-        
+
         <!-- Sigma Javascript -->
         <script src="js/sigma/sigma.min.js"></script>
 
         <!--Bubble chart references-->
         <script src="js/d3/d3-transform.js"></script>
-        <script src="js/charts/bubbleChart/bubbleChart.js"></script>
+        <script src="js/charts/bubbleChart/bubbleChart.js"> </script>
         <!--Bubble chart references END-->
 
 
@@ -263,24 +278,23 @@
         <script src="js/charts/popularTermsChart/d3.layout.cloud.js"></script>
         <script type="text/javascript" src="js/charts/popularTermsChart/tags.js"></script>
         <script type="text/javascript" src="js/charts/popularTermsChart/word-cloud.js"></script>
-        <!--PopularTerms chart references END-->
-		<script>
-            $(".box-container").click(function() {
-                $(this).hide("slow");
-            })
-        </script> 
-        
-        <!-- Network chart reference-->
+        <!--PopularTerms chart references END
+
+        <!-- Network chart reference
         <script type="text/javascript" src="js/charts/network/network.js"></script>
+        -->
         <!-- Network chart reference END-->
-        
+
         <!-- Centrality chart reference-->
         <script type="text/javascript" src="js/charts/centrality/centrality.js"></script>
         <!-- Centrality chart reference END-->
-        
+
         <!-- Density chart reference-->
         <script type="text/javascript" src="js/charts/density/density.js"></script>
         <!-- Density chart reference END-->
+
     </body>
 
 </html>
+
+
