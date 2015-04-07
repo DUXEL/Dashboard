@@ -231,115 +231,92 @@ Org: duXel
 }
 
 /*Density chart styles*/
-#density-tab {
-    height: 400px;
-    position: relative;
-}
-
 #density-graph-container {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
+    margin: 0 auto;
 }
 
-/*Distance chart styles*/
+/*Centrality chart styles*/
 
-#distance-graph-container{
-    z-index: 1100;
+.tab-content {
+    margin: 0 auto;
 }
 
+text.id {
+  text-anchor: middle;
+  font-weight: bold;
+}
 
 /*Styles for responsive elements inside the modals*/
 
-@media (min-width:1000px){
-    #vmap{
-        width: 780px;
-        height: 520px;
-    }
+@media (min-width:1000px){  
     
-    #popular-terms-tab  {
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #centrality-graph-container,
+    #centrality-graph-container:first-child,
+    #vmap {
         width: 780px;
         height: 520px;
     }
-    #network-graph-container {
-        width: 780px;
-        height: 520px;
-    }
-    
-    #distance-graph-container  {
-        width: 780px;
-        height: 520px;
-    }
-    
-    #density-graph-container  {
-        width: 780px;
-        height: 520px;
-    }
+
 }
 
 @media (min-width: 801px) {
-    #distance-graph-container  {
+
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #centrality-graph-container,
+    #vmap {
         width: 580px;
         height: 420px;
     }
 
-    #density-graph-container  {
-        width: 580px;
+    #density-graph-container,
+    #centrality-graph-container:first-child{
+        width: 480px;
         height: 420px;
     }
 }
 
 
 @media (max-width:800px){
-    #vmap{
+
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #vmap {
         width: 380px;
         height: 220px;
     }
     
-    #popular-terms-tab {
+    #centrality-graph-container,
+    #centrality-graph-container:first-child {
         width: 380px;
-        height: 220px;
-    }
-    #network-graph-container {
-        width: 380px;
-        height: 280px;
-    }
-    
-    #distance-graph-container  {
-        width: 380px;
-        height: 220px;
-    }
-    
-    #density-graph-container  {
-        width: 380px;
-        height: 220px;
+        height: 350px;
     }
 }
 
 @media (max-width:450px){
-    #vmap{
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #vmap {
+        width: 280px;
+        height: 150px;
+    }
+    
+    #centrality-graph-container,
+    #centrality-graph-container:first-child {
         width: 180px;
-        height: 100px;
-    }
-    #popular-terms-tab {
-         width: 280px;
-        height: 150px;
-    }
-    #network-graph-container {
-        width: 280px;
-        height: 220px;
+        height: 250px;
     }
     
-    #distance-graph-container {
-        width: 280px;
-        height: 150px;
-    }
     
-    #density-graph-container  {
-        width: 280px;
-        height: 150px;
-    }
 }
+
 

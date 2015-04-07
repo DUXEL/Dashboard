@@ -181,10 +181,14 @@
                                             <div id="centrality-graph-container"></div>
                                         </div>
                                         <div class="tab-pane" id="density-tab">
-                                            <div id="density-graph-container"></div>    
+                                            <div>
+                                                <!--Calculated with (nRelationShips / (Nnodes*Nnodes-1) * 100)-->
+                                                <h4 class="media-heading">Densidad: 18.7%</h4>
+                                            </div>
+                                            <div id="density-graph-container"></div>  
                                         </div>
                                         <div class="tab-pane" id="distance-tab">
-                                            <div id="#separation-degrees-container">
+                                            <div>
                                                 <h4 class="media-heading">Grados de separacion: 4</h4>
                                             </div>
                                             <div id="distance-graph-container"></div>
@@ -243,7 +247,6 @@
 
         <!-- jQuery -->
         <script src="js/jquery.js"></script>
-        <script src="js/jquery.sidr.min.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js"></script>
@@ -256,9 +259,6 @@
 
         <!-- D3 Javascript -->
         <script src="js/d3/d3.min.js"></script>
-        
-        <!-- Sigma Javascript -->
-        <script src="js/sigma/sigma.min.js"></script>
         
         <!-- Vis Javascript -->
         <script src="js/vis/vis.min.js"></script>
