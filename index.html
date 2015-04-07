@@ -19,6 +19,8 @@
         <link href="css/tabs.css" rel="stylesheet">
 
         <link href="css/sidebarStyles.css" rel="stylesheet">
+        
+        <link href="css/vis.css" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -131,16 +133,25 @@
                                             <div class="bubbleChart"></div>
                                         </div>
                                         <div class="tab-pane" id="network-tab">
-                                            <div id="network-graph-container"></div>
+                                            <div id="network-graph-container">
+                                                <div class="network-graph"></div>
+                                            </div>
                                         </div>
                                         <div class="tab-pane" id="centrality-tab">
                                             <div id="centrality-graph-container"></div>
                                         </div>
                                         <div class="tab-pane" id="density-tab">
-                                            <div id="density-graph-container"></div>    
+                                            <div>
+                                                <!--Calculated with (nRelationShips / (Nnodes*Nnodes-1) * 100)-->
+                                                <h4 class="media-heading">Densidad: 18.7%</h4>
+                                            </div>
+                                            <div id="density-graph-container"></div>  
                                         </div>
                                         <div class="tab-pane" id="distance-tab">
-
+                                            <div>
+                                                <h4 class="media-heading">Grados de separacion: 4</h4>
+                                            </div>
+                                            <div id="distance-graph-container"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -245,13 +256,10 @@
         <!-- Filter for data analysis modal END -->                     
 
 
-        <!----------------------
-        INCLUDE OF SCRIPTS
-        ----------------------->
+        <!--INCLUDE OF SCRIPTS-->
 
         <!-- jQuery -->
-        <script src="js/jquery.js"></script>
-        <script src="js/jquery.sidr.min.js"></script>      
+        <script src="js/jquery.js"></script>   
 
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js"></script>
@@ -264,9 +272,9 @@
 
         <!-- D3 Javascript -->
         <script src="js/d3/d3.min.js"></script>
-
-        <!-- Sigma Javascript -->
-        <script src="js/sigma/sigma.min.js"></script>
+        
+        <!-- Vis Javascript -->
+        <script src="js/vis/vis.min.js"></script>
 
         <!--Bubble chart references-->
         <script src="js/d3/d3-transform.js"></script>
@@ -278,13 +286,9 @@
         <script src="js/charts/popularTermsChart/d3.layout.cloud.js"></script>
         <script type="text/javascript" src="js/charts/popularTermsChart/tags.js"></script>
         <script type="text/javascript" src="js/charts/popularTermsChart/word-cloud.js"></script>
-        <!--PopularTerms chart references END
+        <!--PopularTerms chart references END -->
 
-        <!-- Network chart reference
-        <script type="text/javascript" src="js/charts/network/network.js"></script>
-        -->
-        <!-- Network chart reference END-->
-
+        
         <!-- Centrality chart reference-->
         <script type="text/javascript" src="js/charts/centrality/centrality.js"></script>
         <!-- Centrality chart reference END-->
@@ -292,7 +296,14 @@
         <!-- Density chart reference-->
         <script type="text/javascript" src="js/charts/density/density.js"></script>
         <!-- Density chart reference END-->
-
+        
+        <!-- Network chart reference-->
+        <script type="text/javascript" src="js/charts/network/network.js"></script>
+        <!-- Network chart reference END-->
+    
+        <!-- Distance chart reference-->
+        <script type="text/javascript" src="js/charts/distance/distance.js"></script>
+        <!-- Distance chart reference END-->
     </body>
 
 </html>

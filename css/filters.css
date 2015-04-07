@@ -128,11 +128,21 @@ ul{
         width: 780px;
         height: 520px;
     }
+    
+    #popular-terms-tab {
+         width: 780px;
+        height: 520px;
+    }
 }
 
 @media (max-width:800px){
     #vmap{
         width: 380px;
+        height: 220px;
+    }
+    
+    #popular-terms-tab {
+         width: 380px;
         height: 220px;
     }
 }
@@ -142,7 +152,12 @@ ul{
         width: 180px;
         height: 100px;
     }
+    #popular-terms-tab {
+         width: 180px;
+    }
 }
+
+
 
 /*=============dropdown-menu-regions========*/
 
@@ -154,3 +169,15 @@ ul{
 .drop-down-toggle-region{
     margin-bottom: 10px;
 }
+
+.glyphicon-ok-circle{
+    display: none;
+    float: right;
+    color: green;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+

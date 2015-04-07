@@ -234,20 +234,92 @@ Org: duXel
 }
 
 /*Density chart styles*/
-#density-tab {
-    height: 400px;
-    position: relative;
-}
-
 #density-graph-container {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
+    margin: 0 auto;
+}
+
+/*Centrality chart styles*/
+
+.tab-content {
+    margin: 0 auto;
+}
+
+text.id {
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+/*Styles for responsive elements inside the modals*/
+
+@media (min-width:1000px){  
+    
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #centrality-graph-container,
+    #centrality-graph-container:first-child,
+    #vmap {
+        width: 780px;
+        height: 520px;
+    }
+
+}
+
+@media (min-width: 801px) {
+
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #centrality-graph-container,
+    #vmap {
+        width: 580px;
+        height: 420px;
+    }
+
+    #density-graph-container,
+    #centrality-graph-container:first-child{
+        width: 480px;
+        height: 420px;
+    }
 }
 
 
-/*Styles for sigma graphs*/
+@media (max-width:800px){
+
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #vmap {
+        width: 380px;
+        height: 220px;
+    }
+    
+    #centrality-graph-container,
+    #centrality-graph-container:first-child {
+        width: 380px;
+        height: 350px;
+    }
+}
+
+@media (max-width:450px){
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #vmap {
+        width: 280px;
+        height: 150px;
+    }
+    
+    #centrality-graph-container,
+    #centrality-graph-container:first-child {
+        width: 180px;
+        height: 250px;
+    }
+    
+    
+}
 
 

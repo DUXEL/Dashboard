@@ -1,1704 +1,403 @@
+$(document).ready(function() {
 
-(function() {
-  'use strict';
+  var nodes = [
+      {id: "sd", reflexive: false},
+      {id: "dieg8", reflexive: false },
+      {id: "melcochini", reflexive: false},
+      {id: "tuquex", reflexive: false },
+      {id: "cliff", reflexive: false},
+      {id: "jeff", reflexive: false },
+      {id: "json", reflexive: false},
+      {id: "xml", reflexive: false },
+      {id: "danielosarchi", reflexive: false},
+      {id: "ak7", reflexive: false },
+      {id: "maebusquebrete", reflexive: false},
+      {id: "torete", reflexive: false },
+      {id: "kevomujer", reflexive: false},
+      {id: "kevohombre", reflexive: false },
+      {id: "gorgory", reflexive: false},
+      {id: "johelmujer", reflexive: false },
+      {id: "Tavex", reflexive: false}
+    ],
+    lastNodeId = "Tavex",
+    links = [
+      {source: nodes[0], target: nodes[1], left: false, right: true },
+      {source: nodes[1], target: nodes[0], left: false, right: true },
+      {source: nodes[0], target: nodes[2], left: false, right: true },
+      {source: nodes[2], target: nodes[0], left: false, right: true },
+      {source: nodes[1], target: nodes[6], left: false, right: true },
+      {source: nodes[12], target: nodes[13], left: false, right: true },
+      {source: nodes[0], target: nodes[13], left: false, right: true },
+      {source: nodes[15], target: nodes[3], left: false, right: true },
+      {source: nodes[0], target: nodes[8], left: false, right: true },
+      {source: nodes[12], target: nodes[10], left: false, right: true },
+      {source: nodes[0], target: nodes[11], left: false, right: true },
+      {source: nodes[4], target: nodes[7], left: false, right: true },
+      {source: nodes[0], target: nodes[9], left: false, right: true },
+      {source: nodes[15], target: nodes[16], left: false, right: true },
+      {source: nodes[0], target: nodes[14], left: false, right: true },
+      {source: nodes[6], target: nodes[2], left: false, right: true },
+      {source: nodes[13], target: nodes[1], left: false, right: true },
+      {source: nodes[3], target: nodes[12], left: false, right: true },
+      {source: nodes[0], target: nodes[7], left: false, right: true },
+      {source: nodes[7], target: nodes[0], left: false, right: true },
+      {source: nodes[15], target: nodes[8], left: false, right: true },
+      {source: nodes[8], target: nodes[9], left: false, right: true },
+      {source: nodes[7], target: nodes[16], left: false, right: true },
+      {source: nodes[10], target: nodes[0], left: false, right: true },
+      {source: nodes[13], target: nodes[6], left: false, right: true },
+      {source: nodes[13], target: nodes[6], left: false, right: true },
+      {source: nodes[0], target: nodes[4], left: false, right: true },
+      {source: nodes[0], target: nodes[10], left: false, right: true },
+      {source: nodes[11], target: nodes[1], left: false, right: true },
+      {source: nodes[2], target: nodes[16], left: false, right: true },
+      {source: nodes[0], target: nodes[5], left: false, right: true },
+      {source: nodes[5], target: nodes[0], left: false, right: true }
+    ];
 
-  if (typeof sigma === 'undefined')
-    throw 'sigma is not declared';
+    var rootNode = nodes[0].id;
 
-  sigma.classes.graph.addMethod(
-    'neighborhood',
-    function(centerId) {
-      var k1,
-          k2,
-          k3,
-          node,
-          center,
-          // Those two local indexes are here just to avoid duplicates:
-          localNodesIndex = {},
-          localEdgesIndex = {},
-          // And here is the resulted graph, empty at the moment:
-          graph = {
-            nodes: [],
-            edges: []
-          };
-
-      // Check that the exists:
-      if (!this.nodes(centerId))
-        return graph;
-
-      // Add center. It has to be cloned to add it the "center" attribute
-      // without altering the current graph:
-      node = this.nodes(centerId);
-      center = {};
-      center.center = true;
-      for (k1 in node)
-        center[k1] = node[k1];
-
-      localNodesIndex[centerId] = true;
-      graph.nodes.push(center);
-
-      // Add neighbors and edges between the center and the neighbors:
-      for (k1 in this.allNeighborsIndex[centerId]) {
-        if (!localNodesIndex[k1]) {
-          localNodesIndex[k1] = true;
-          graph.nodes.push(this.nodesIndex[k1]);
-        }
-
-        for (k2 in this.allNeighborsIndex[centerId][k1])
-          if (!localEdgesIndex[k2]) {
-            localEdgesIndex[k2] = true;
-            graph.edges.push(this.edgesIndex[k2]);
-          }
-      }
-
-      // Add edges connecting two neighbors:
-      for (k1 in localNodesIndex)
-        if (k1 !== centerId)
-          for (k2 in localNodesIndex)
-            if (
-              k2 !== centerId &&
-              k1 !== k2 &&
-              this.allNeighborsIndex[k1][k2]
-            )
-              for (k3 in this.allNeighborsIndex[k1][k2])
-                if (!localEdgesIndex[k3]) {
-                  localEdgesIndex[k3] = true;
-                  graph.edges.push(this.edgesIndex[k3]);
-                }
-
-      // Finally, let's return the final graph:
-      return graph;
-    }
-  );
-
-  sigma.utils.pkg('sigma.plugins');
-
-  /**
-   * sigma.plugins.neighborhoods constructor.
-   */
-  sigma.plugins.neighborhoods = function() {
-    var ready = false,
-        readyCallbacks = [],
-        graph = new sigma.classes.graph();
+    var width  = $("#centrality-graph-container").width(),
+        height = $("#centrality-graph-container").height(),
+        colors = d3.scale.category10();
 
 
-    this.neighborhood = function(centerNodeID) {
-      return graph.neighborhood(centerNodeID);
-    };
+    var svg = d3.select('#centrality-graph-container')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
 
 
-    this.load = function(path, callback) {
-      // Quick XHR polyfill:
-      var xhr = (function() {
-        if (window.XMLHttpRequest)
-          return new XMLHttpRequest();
-
-        var names,
-            i;
-
-        if (window.ActiveXObject) {
-          names = [
-            'Msxml2.XMLHTTP.6.0',
-            'Msxml2.XMLHTTP.3.0',
-            'Msxml2.XMLHTTP',
-            'Microsoft.XMLHTTP'
-          ];
-
-          for (i in names)
-            try {
-              return new ActiveXObject(names[i]);
-            } catch (e) {}
-        }
-
-        return null;
-      })();
-
-      if (!xhr)
-        throw 'XMLHttpRequest not supported, cannot load the data.';
-
-      xhr.open('GET', path, true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          graph.clear().read(JSON.parse(xhr.responseText));
-
-          if (callback)
-            callback();
-        }
-      };
-
-      // Start loading the file:
-      xhr.send();
-
-      return this;
-    };
-
-    /**
-     * This method cleans the graph instance "reads" a graph into it.
-     *
-     * @param {object} g The graph object to read.
-     */
-    this.read = function(g) {
-      graph.clear().read(g);
-    };
-  };
-}).call(window);
-
-//Neighborhood js END
 
 
-;(function(undefined) {
-  'use strict';
 
-  if (typeof sigma === 'undefined')
-    throw 'sigma is not declared';
+    // init D3 force layout
+    var force = d3.layout.force()
+        .nodes(nodes)
+        .links(links)
+        .size([width, height])
+        .linkDistance(width/6)
+        .charge(-500)
+        .on('tick', tick)
 
-  /**
-   * Sigma ForceAtlas2.5 Supervisor
-   * ===============================
-   *
-   * Author: Guillaume Plique (Yomguithereal)
-   * Version: 0.1
-   */
-  var _root = this;
+    // define arrow markers for graph links
+    svg.append('svg:defs').append('svg:marker')
+        .attr('id', 'end-arrow')
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 6)
+        .attr('markerWidth', 3)
+        .attr('markerHeight', 3)
+        .attr('orient', 'auto')
+      .append('svg:path')
+        .attr('d', 'M0,-5L10,0L0,5')
+        .attr('fill', 'black')
+        .style('z-index', 1100);
 
-  /**
-   * Feature detection
-   * ------------------
-   */
-  var webWorkers = 'Worker' in _root;
+    svg.append('svg:defs').append('svg:marker')
+        .attr('id', 'start-arrow')
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 4)
+        .attr('markerWidth', 3)
+        .attr('markerHeight', 3)
+        .attr('orient', 'auto')
+      .append('svg:path')
+        .attr('d', 'M10,-5L0,0L10,5')
+        .attr('fill', 'black')
+        .attr('z-index', 1100);
 
-  /**
-   * Supervisor Object
-   * ------------------
-   */
-  function Supervisor(sigInst, options) {
-    var _this = this,
-        workerFn = sigInst.getForceAtlas2Worker &&
-          sigInst.getForceAtlas2Worker();
+    // line displayed when dragging new nodes
+    var drag_line = svg.append('svg:path')
+      .attr('class', 'link dragline hidden')
+      .attr('d', 'M0,0L0,0')
+      .attr('fill', 'red');
 
-    options = options || {};
+    // handles to link and node element groups
+    var path = svg.append('svg:g').selectAll('path'),
+        circle = svg.append('svg:g').selectAll('g');
 
-    // _root URL Polyfill
-    _root.URL = _root.URL || _root.webkitURL;
+    // mouse event vars
+    var selected_node = null,
+        selected_link = null,
+        mousedown_link = null,
+        mousedown_node = null,
+        mouseup_node = null;
 
-    // Properties
-    this.sigInst = sigInst;
-    this.graph = this.sigInst.graph;
-    this.ppn = 10;
-    this.ppe = 3;
-    this.config = {};
-    this.shouldUseWorker =
-      options.worker === false ? false : true && webWorkers;
-    this.workerUrl = options.workerUrl;
+  
 
-    // State
-    this.started = false;
-    this.running = false;
+  function resetMouseVars() {
+    mousedown_node = null;
+    mouseup_node = null;
+    mousedown_link = null;
+  }
 
-    // Web worker or classic DOM events?
-    if (this.shouldUseWorker) {
-      if (!this.workerUrl) {
-        var blob = this.makeBlob(workerFn);
-        this.worker = new Worker(URL.createObjectURL(blob));
-      }
-      else {
-        this.worker = new Worker(this.workerUrl);
-      }
+  // update force layout (called automatically each iteration)
+  function tick() {
+    // draw directed edges with proper padding from node centers
+    path.attr('d', function(d) {
+      var deltaX = d.target.x - d.source.x,
+          deltaY = d.target.y - d.source.y,
+          dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY),
+          normX = deltaX / dist,
+          normY = deltaY / dist,
+          sourcePadding = d.left ? 17 : 12,
+          targetPadding = d.right ? 17 : 12,
+          sourceX = d.source.x + (sourcePadding * normX),
+          sourceY = d.source.y + (sourcePadding * normY),
+          targetX = d.target.x - (targetPadding * normX),
+          targetY = d.target.y - (targetPadding * normY);
+      return 'M' + sourceX + ',' + sourceY + 'L' + targetX + ',' + targetY;
+    });
 
-      // Post Message Polyfill
-      this.worker.postMessage =
-        this.worker.webkitPostMessage || this.worker.postMessage;
-    }
-    else {
-
-      eval(workerFn);
-    }
-
-    // Worker message receiver
-    this.msgName = (this.worker) ? 'message' : 'newCoords';
-    this.listener = function(e) {
-
-      // Retrieving data
-      _this.nodesByteArray = new Float32Array(e.data.nodes);
-
-      // If ForceAtlas2 is running, we act accordingly
-      if (_this.running) {
-
-        // Applying layout
-        _this.applyLayoutChanges();
-
-        // Send data back to worker and loop
-        _this.sendByteArrayToWorker();
-
-        // Rendering graph
-        _this.sigInst.refresh();
-      }
-    };
-
-    (this.worker || document).addEventListener(this.msgName, this.listener);
-
-    // Filling byteArrays
-    this.graphToByteArrays();
-
-    // Binding on kill to properly terminate layout when parent is killed
-    sigInst.bind('kill', function() {
-      sigInst.killForceAtlas2();
+    circle.attr('transform', function(d) {
+      return 'translate(' + d.x + ',' + d.y + ')';
     });
   }
 
-  Supervisor.prototype.makeBlob = function(workerFn) {
-    var blob;
-
-    try {
-      blob = new Blob([workerFn], {type: 'application/javascript'});
-    }
-    catch (e) {
-      _root.BlobBuilder = _root.BlobBuilder ||
-                          _root.WebKitBlobBuilder ||
-                          _root.MozBlobBuilder;
-
-      blob = new BlobBuilder();
-      blob.append(workerFn);
-      blob = blob.getBlob();
-    }
-
-    return blob;
-  };
-
-  Supervisor.prototype.graphToByteArrays = function() {
-    var nodes = this.graph.nodes(),
-        edges = this.graph.edges(),
-        nbytes = nodes.length * this.ppn,
-        ebytes = edges.length * this.ppe,
-        nIndex = {},
-        i,
-        j,
-        l;
-
-    // Allocating Byte arrays with correct nb of bytes
-    this.nodesByteArray = new Float32Array(nbytes);
-    this.edgesByteArray = new Float32Array(ebytes);
-
-    // Iterate through nodes
-    for (i = j = 0, l = nodes.length; i < l; i++) {
-
-      // Populating index
-      nIndex[nodes[i].id] = j;
-
-      // Populating byte array
-      this.nodesByteArray[j] = nodes[i].x;
-      this.nodesByteArray[j + 1] = nodes[i].y;
-      this.nodesByteArray[j + 2] = 0;
-      this.nodesByteArray[j + 3] = 0;
-      this.nodesByteArray[j + 4] = 0;
-      this.nodesByteArray[j + 5] = 0;
-      this.nodesByteArray[j + 6] = 1 + this.graph.degree(nodes[i].id);
-      this.nodesByteArray[j + 7] = 1;
-      this.nodesByteArray[j + 8] = nodes[i].size;
-      this.nodesByteArray[j + 9] = 0;
-      j += this.ppn;
-    }
-
-    // Iterate through edges
-    for (i = j = 0, l = edges.length; i < l; i++) {
-      this.edgesByteArray[j] = nIndex[edges[i].source];
-      this.edgesByteArray[j + 1] = nIndex[edges[i].target];
-      this.edgesByteArray[j + 2] = edges[i].weight || 0;
-      j += this.ppe;
-    }
-  };
-
-  // TODO: make a better send function
-  Supervisor.prototype.applyLayoutChanges = function() {
-    var nodes = this.graph.nodes(),
-        j = 0,
-        realIndex;
-
-    // Moving nodes
-    for (var i = 0, l = this.nodesByteArray.length; i < l; i += this.ppn) {
-      nodes[j].x = this.nodesByteArray[i];
-      nodes[j].y = this.nodesByteArray[i + 1];
-      j++;
-    }
-  };
-
-  Supervisor.prototype.sendByteArrayToWorker = function(action) {
-    var content = {
-      action: action || 'loop',
-      nodes: this.nodesByteArray.buffer
-    };
-
-    var buffers = [this.nodesByteArray.buffer];
-
-    if (action === 'start') {
-      content.config = this.config || {};
-      content.edges = this.edgesByteArray.buffer;
-      buffers.push(this.edgesByteArray.buffer);
-    }
-
-    if (this.shouldUseWorker)
-      this.worker.postMessage(content, buffers);
-    else
-      _root.postMessage(content, '*');
-  };
-
-  Supervisor.prototype.start = function() {
-    if (this.running)
-      return;
-
-    this.running = true;
-
-    // Do not refresh edgequadtree during layout:
-    var k,
-        c;
-    for (k in this.sigInst.cameras) {
-      c = this.sigInst.cameras[k];
-      c.edgequadtree._enabled = false;
-    }
-
-    if (!this.started) {
-
-      // Sending init message to worker
-      this.sendByteArrayToWorker('start');
-      this.started = true;
-    }
-    else {
-      this.sendByteArrayToWorker();
-    }
-  };
-
-  Supervisor.prototype.stop = function() {
-    if (!this.running)
-      return;
-
-    // Allow to refresh edgequadtree:
-    var k,
-        c,
-        bounds;
-    for (k in this.sigInst.cameras) {
-      c = this.sigInst.cameras[k];
-      c.edgequadtree._enabled = true;
-
-      // Find graph boundaries:
-      bounds = sigma.utils.getBoundaries(
-        this.graph,
-        c.readPrefix
-      );
-
-      // Refresh edgequadtree:
-      if (c.settings('drawEdges') && c.settings('enableEdgeHovering'))
-        c.edgequadtree.index(this.sigInst.graph, {
-          prefix: c.readPrefix,
-          bounds: {
-            x: bounds.minX,
-            y: bounds.minY,
-            width: bounds.maxX - bounds.minX,
-            height: bounds.maxY - bounds.minY
-          }
-        });
-    }
-
-    this.running = false;
-  };
-
-  Supervisor.prototype.killWorker = function() {
-    if (this.worker) {
-      this.worker.terminate();
-    }
-    else {
-      _root.postMessage({action: 'kill'}, '*');
-      document.removeEventListener(this.msgName, this.listener);
-    }
-  };
-
-  Supervisor.prototype.configure = function(config) {
-
-    // Setting configuration
-    this.config = config;
-
-    if (!this.started)
-      return;
-
-    var data = {action: 'config', config: this.config};
-
-    if (this.shouldUseWorker)
-      this.worker.postMessage(data);
-    else
-      _root.postMessage(data, '*');
-  };
-
-  /**
-   * Interface
-   * ----------
-   */
-  sigma.prototype.startForceAtlas2 = function(config) {
-
-    // Create supervisor if undefined
-    if (!this.supervisor)
-      this.supervisor = new Supervisor(this, config);
-
-    // Configuration provided?
-    if (config)
-      this.supervisor.configure(config);
-
-    // Start algorithm
-    this.supervisor.start();
-
-    return this;
-  };
-
-  sigma.prototype.stopForceAtlas2 = function() {
-    if (!this.supervisor)
-      return this;
-
-    // Pause algorithm
-    this.supervisor.stop();
-
-    return this;
-  };
-
-  sigma.prototype.killForceAtlas2 = function() {
-    if (!this.supervisor)
-      return this;
-
-    // Stop Algorithm
-    this.supervisor.stop();
-
-    // Kill Worker
-    this.supervisor.killWorker();
-
-    // Kill supervisor
-    this.supervisor = null;
-
-    return this;
-  };
-
-  sigma.prototype.configForceAtlas2 = function(config) {
-    if (!this.supervisor)
-      this.supervisor = new Supervisor(this, config);
-
-    this.supervisor.configure(config);
-
-    return this;
-  };
-
-  sigma.prototype.isForceAtlas2Running = function(config) {
-    return !!this.supervisor && this.supervisor.running;
-  };
-}).call(this);
-
-
-// Supervisor js END
-
-;(function(undefined) {
-  'use strict';
-
-  /**
-   * Sigma ForceAtlas2.5 Webworker
-   * ==============================
-   *
-   * Author: Guillaume Plique (Yomguithereal)
-   * Algorithm author: Mathieu Jacomy @ Sciences Po Medialab & WebAtlas
-   * Version: 1.0.3
-   */
-
-  var _root = this,
-      inWebWorker = !('document' in _root);
-
-  /**
-   * Worker Function Wrapper
-   * ------------------------
-   *
-   * The worker has to be wrapped into a single stringified function
-   * to be passed afterwards as a BLOB object to the supervisor.
-   */
-  var Worker = function(undefined) {
-    'use strict';
-
-    /**
-     * Worker settings and properties
-     */
-    var W = {
-
-      // Properties
-      ppn: 10,
-      ppe: 3,
-      ppr: 9,
-      maxForce: 10,
-      iterations: 0,
-      converged: false,
-
-      // Possible to change through config
-      settings: {
-        linLogMode: false,
-        outboundAttractionDistribution: false,
-        adjustSizes: false,
-        edgeWeightInfluence: 0,
-        scalingRatio: 1,
-        strongGravityMode: false,
-        gravity: 1,
-        slowDown: 1,
-        barnesHutOptimize: false,
-        barnesHutTheta: 0.5,
-        startingIterations: 1,
-        iterationsPerRender: 1
-      }
-    };
-
-    var NodeMatrix,
-        EdgeMatrix,
-        RegionMatrix;
-
-    /**
-     * Helpers
-     */
-    function extend() {
-      var i,
-          k,
-          res = {},
-          l = arguments.length;
-
-      for (i = l - 1; i >= 0; i--)
-        for (k in arguments[i])
-          res[k] = arguments[i][k];
-      return res;
-    }
-
-    function __emptyObject(obj) {
-      var k;
-
-      for (k in obj)
-        if (!('hasOwnProperty' in obj) || obj.hasOwnProperty(k))
-          delete obj[k];
-
-      return obj;
-    }
-
-    /**
-     * Matrices properties accessors
-     */
-    var nodeProperties = {
-      x: 0,
-      y: 1,
-      dx: 2,
-      dy: 3,
-      old_dx: 4,
-      old_dy: 5,
-      mass: 6,
-      convergence: 7,
-      size: 8,
-      fixed: 9
-    };
-
-    var edgeProperties = {
-      source: 0,
-      target: 1,
-      weight: 2
-    };
-
-    var regionProperties = {
-      node: 0,
-      centerX: 1,
-      centerY: 2,
-      size: 3,
-      nextSibling: 4,
-      firstChild: 5,
-      mass: 6,
-      massCenterX: 7,
-      massCenterY: 8
-    };
-
-    function np(i, p) {
-
-      // DEBUG: safeguards
-      if ((i % W.ppn) !== 0)
-        throw 'np: non correct (' + i + ').';
-      if (i !== parseInt(i))
-        throw 'np: non int.';
-
-      if (p in nodeProperties)
-        return i + nodeProperties[p];
-      else
-        throw 'ForceAtlas2.Worker - ' +
-              'Inexistant node property given (' + p + ').';
-    }
-
-    function ep(i, p) {
-
-      // DEBUG: safeguards
-      if ((i % W.ppe) !== 0)
-        throw 'ep: non correct (' + i + ').';
-      if (i !== parseInt(i))
-        throw 'ep: non int.';
-
-      if (p in edgeProperties)
-        return i + edgeProperties[p];
-      else
-        throw 'ForceAtlas2.Worker - ' +
-              'Inexistant edge property given (' + p + ').';
-    }
-
-    function rp(i, p) {
-
-      // DEBUG: safeguards
-      if ((i % W.ppr) !== 0)
-        throw 'rp: non correct (' + i + ').';
-      if (i !== parseInt(i))
-        throw 'rp: non int.';
-
-      if (p in regionProperties)
-        return i + regionProperties[p];
-      else
-        throw 'ForceAtlas2.Worker - ' +
-              'Inexistant region property given (' + p + ').';
-    }
-
-    // DEBUG
-    function nan(v) {
-      if (isNaN(v))
-        throw 'NaN alert!';
-    }
-
-
-    /**
-     * Algorithm initialization
-     */
-
-    function init(nodes, edges, config) {
-      config = config || {};
-      var i, l;
-
-      // Matrices
-      NodeMatrix = nodes;
-      EdgeMatrix = edges;
-
-      // Length
-      W.nodesLength = NodeMatrix.length;
-      W.edgesLength = EdgeMatrix.length;
-
-      // Merging configuration
-      configure(config);
-    }
-
-    function configure(o) {
-      W.settings = extend(o, W.settings);
-    }
-
-    /**
-     * Algorithm pass
-     */
-
-    // MATH: get distances stuff and power 2 issues
-    function pass() {
-      var a, i, j, l, r, n, n1, n2, e, w, g, k, m;
-
-      var outboundAttCompensation,
-          coefficient,
-          xDist,
-          yDist,
-          ewc,
-          mass,
-          distance,
-          size,
-          factor;
-
-      // 1) Initializing layout data
-      //-----------------------------
-
-      // Resetting positions & computing max values
-      for (n = 0; n < W.nodesLength; n += W.ppn) {
-        NodeMatrix[np(n, 'old_dx')] = NodeMatrix[np(n, 'dx')];
-        NodeMatrix[np(n, 'old_dy')] = NodeMatrix[np(n, 'dy')];
-        NodeMatrix[np(n, 'dx')] = 0;
-        NodeMatrix[np(n, 'dy')] = 0;
-      }
-
-      // If outbound attraction distribution, compensate
-      if (W.settings.outboundAttractionDistribution) {
-        outboundAttCompensation = 0;
-        for (n = 0; n < W.nodesLength; n += W.ppn) {
-          outboundAttCompensation += NodeMatrix[np(n, 'mass')];
+  // update graph (called when needed)
+  function restart() {
+    // path (link) group
+    path = path.data(links);
+
+    // update existing links
+    path.classed('selected', function(d) { return d === selected_link; })
+      .style('marker-start', function(d) { return d.left ? 'url(#start-arrow)' : ''; })
+      .style('marker-end', function(d) { return d.right ? 'url(#end-arrow)' : ''; })
+      .style('stroke', function(d) {
+        var edgeColor = 'darkgrey';
+        if(d.target == nodes[0]) edgeColor = '#41AAC4';
+        else if(d.source == nodes[0]) edgeColor = '#BDB69C';
+        return edgeColor;
+      })
+      .style('stroke-width', function(d) {
+        var edgeWidth = 1;
+        if(d.target == nodes[0] || d.source == nodes[0]) edgeWidth = 3;
+        return edgeWidth;
+      });
+    // add new links
+    path.enter().append('svg:path')
+      .attr('class', 'link')
+      .classed('selected', function(d) { return d === selected_link; })
+      .style('marker-start', function(d) { return d.left ? 'url(#start-arrow)' : ''; })
+      .style('marker-end', function(d) { return d.right ? 'url(#end-arrow)' : ''; })
+      .on('mousedown', function(d) {
+        if(d3.event.ctrlKey) return;
+
+        // select link
+        mousedown_link = d;
+        if(mousedown_link === selected_link) selected_link = null;
+        else selected_link = mousedown_link;
+        selected_node = null;
+        restart();
+      });
+
+    // remove old links
+    path.exit().remove();
+
+
+    // circle (node) group
+    // NB: the function arg is crucial here! nodes are known by id, not by index!
+    circle = circle.data(nodes, function(d) { return d.id; });
+
+    // update existing nodes (reflexive & selected visual states)
+    circle.selectAll('circle')
+      .style('fill', function(d) { 
+        var nodeColor = 'darkgrey';
+        if(d.id == rootNode) nodeColor = '#80CEB9';
+        return nodeColor;
+       })
+      .attr('r', function(d) {
+        if(d.id == rootNode) return 16;
+        return 12;
+      })
+      .classed('reflexive', function(d) { return d.reflexive; });
+
+    // add new nodes
+    var g = circle.enter().append('svg:g');
+
+    g.append('svg:circle')
+      .attr('class', 'node')
+      .attr('r', 12)
+      .style('fill', function(d) { return (d === selected_node) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id); })
+      .style('stroke', function(d) { return d3.rgb(colors(d.id)).darker().toString(); })
+      .classed('reflexive', function(d) { return d.reflexive; })
+      .on('mouseover', function(d) {
+        if(!mousedown_node || d === mousedown_node) return;
+        // enlarge target node
+        d3.select(this).attr('transform', 'scale(1.1)');
+      })
+      .on('mouseout', function(d) {
+        if(!mousedown_node || d === mousedown_node) return;
+        // unenlarge target node
+        d3.select(this).attr('transform', '');
+      })
+      .on('mousedown', function(d) {
+        if(d3.event.ctrlKey) return;
+
+        // select node
+        mousedown_node = d;
+        if(mousedown_node === selected_node) selected_node = null;
+        else selected_node = mousedown_node;
+        selected_link = null;
+
+        // reposition drag line
+        drag_line
+          .style('marker-end', 'url(#end-arrow)')
+          .classed('hidden', false)
+          .attr('d', 'M' + mousedown_node.x + ',' + mousedown_node.y + 'L' + mousedown_node.x + ',' + mousedown_node.y);
+
+        restart();
+      })
+      .on('mouseup', function(d) {
+        if(!mousedown_node) return;
+
+        // needed by FF
+        drag_line
+          .classed('hidden', true)
+          .style('marker-end', '');
+
+        // check for drag-to-self
+        mouseup_node = d;
+        if(mouseup_node === mousedown_node) { resetMouseVars(); return; }
+
+        // unenlarge target node
+        d3.select(this).attr('transform', '');
+
+        // add link to graph (update if exists)
+        // NB: links are strictly source < target; arrows separately specified by booleans
+        var source, target, direction;
+        if(mousedown_node.id < mouseup_node.id) {
+          source = mousedown_node;
+          target = mouseup_node;
+          direction = 'right';
+        } else {
+          source = mouseup_node;
+          target = mousedown_node;
+          direction = 'left';
         }
 
-        outboundAttCompensation /= W.nodesLength;
-      }
+        var link;
+        link = links.filter(function(l) {
+          return (l.source === source && l.target === target);
+        })[0];
 
-
-      // 1.bis) Barnes-Hut computation
-      //------------------------------
-
-      if (W.settings.barnesHutOptimize) {
-
-        var minX = Infinity,
-            maxX = -Infinity,
-            minY = Infinity,
-            maxY = -Infinity,
-            q, q0, q1, q2, q3;
-
-        // Setting up
-        // RegionMatrix = new Float32Array(W.nodesLength / W.ppn * 4 * W.ppr);
-        RegionMatrix = [];
-
-        // Computing min and max values
-        for (n = 0; n < W.nodesLength; n += W.ppn) {
-          minX = Math.min(minX, NodeMatrix[np(n, 'x')]);
-          maxX = Math.max(maxX, NodeMatrix[np(n, 'x')]);
-          minY = Math.min(minY, NodeMatrix[np(n, 'y')]);
-          maxY = Math.max(maxY, NodeMatrix[np(n, 'y')]);
+        if(link) {
+          link[direction] = true;
+        } else {
+          link = {source: source, target: target, left: false, right: false};
+          link[direction] = true;
+          links.push(link);
         }
 
-        // Build the Barnes Hut root region
-        RegionMatrix[rp(0, 'node')] = -1;
-        RegionMatrix[rp(0, 'centerX')] = (minX + maxX) / 2;
-        RegionMatrix[rp(0, 'centerY')] = (minY + maxY) / 2;
-        RegionMatrix[rp(0, 'size')] = Math.max(maxX - minX, maxY - minY);
-        RegionMatrix[rp(0, 'nextSibling')] = -1;
-        RegionMatrix[rp(0, 'firstChild')] = -1;
-        RegionMatrix[rp(0, 'mass')] = 0;
-        RegionMatrix[rp(0, 'massCenterX')] = 0;
-        RegionMatrix[rp(0, 'massCenterY')] = 0;
-
-        // Add each node in the tree
-        l = 1;
-        for (n = 0; n < W.nodesLength; n += W.ppn) {
-
-          // Current region, starting with root
-          r = 0;
-
-          while (true) {
-            // Are there sub-regions?
-
-            // We look at first child index
-            if (RegionMatrix[rp(r, 'firstChild')] >= 0) {
-
-              // There are sub-regions
-
-              // We just iterate to find a "leave" of the tree
-              // that is an empty region or a region with a single node
-              // (see next case)
-
-              // Find the quadrant of n
-              if (NodeMatrix[np(n, 'x')] < RegionMatrix[rp(r, 'centerX')]) {
-
-                if (NodeMatrix[np(n, 'y')] < RegionMatrix[rp(r, 'centerY')]) {
-
-                  // Top Left quarter
-                  q = RegionMatrix[rp(r, 'firstChild')];
-                }
-                else {
-
-                  // Bottom Left quarter
-                  q = RegionMatrix[rp(r, 'firstChild')] + W.ppr;
-                }
-              }
-              else {
-                if (NodeMatrix[np(n, 'y')] < RegionMatrix[rp(r, 'centerY')]) {
-
-                  // Top Right quarter
-                  q = RegionMatrix[rp(r, 'firstChild')] + W.ppr * 2;
-                }
-                else {
-
-                  // Bottom Right quarter
-                  q = RegionMatrix[rp(r, 'firstChild')] + W.ppr * 3;
-                }
-              }
-
-              // Update center of mass and mass (we only do it for non-leave regions)
-              RegionMatrix[rp(r, 'massCenterX')] =
-                (RegionMatrix[rp(r, 'massCenterX')] * RegionMatrix[rp(r, 'mass')] +
-                 NodeMatrix[np(n, 'x')] * NodeMatrix[np(n, 'mass')]) /
-                (RegionMatrix[rp(r, 'mass')] + NodeMatrix[np(n, 'mass')]);
-
-              RegionMatrix[rp(r, 'massCenterY')] =
-                (RegionMatrix[rp(r, 'massCenterY')] * RegionMatrix[rp(r, 'mass')] +
-                 NodeMatrix[np(n, 'y')] * NodeMatrix[np(n, 'mass')]) /
-                (RegionMatrix[rp(r, 'mass')] + NodeMatrix[np(n, 'mass')]);
-
-              RegionMatrix[rp(r, 'mass')] += NodeMatrix[np(n, 'mass')];
-
-              // Iterate on the right quadrant
-              r = q;
-              continue;
-            }
-            else {
-
-              // There are no sub-regions: we are in a "leave"
-
-              // Is there a node in this leave?
-              if (RegionMatrix[rp(r, 'node')] < 0) {
-
-                // There is no node in region:
-                // we record node n and go on
-                RegionMatrix[rp(r, 'node')] = n;
-                break;
-              }
-              else {
-
-                // There is a node in this region
-
-                // We will need to create sub-regions, stick the two
-                // nodes (the old one r[0] and the new one n) in two
-                // subregions. If they fall in the same quadrant,
-                // we will iterate.
-
-                // Create sub-regions
-                RegionMatrix[rp(r, 'firstChild')] = l * W.ppr;
-                w = RegionMatrix[rp(r, 'size')] / 2;  // new size (half)
-
-                // NOTE: we use screen coordinates
-                // from Top Left to Bottom Right
-
-                // Top Left sub-region
-                g = RegionMatrix[rp(r, 'firstChild')];
-
-                RegionMatrix[rp(g, 'node')] = -1;
-                RegionMatrix[rp(g, 'centerX')] = RegionMatrix[rp(r, 'centerX')] - w;
-                RegionMatrix[rp(g, 'centerY')] = RegionMatrix[rp(r, 'centerY')] - w;
-                RegionMatrix[rp(g, 'size')] = w;
-                RegionMatrix[rp(g, 'nextSibling')] = g + W.ppr;
-                RegionMatrix[rp(g, 'firstChild')] = -1;
-                RegionMatrix[rp(g, 'mass')] = 0;
-                RegionMatrix[rp(g, 'massCenterX')] = 0;
-                RegionMatrix[rp(g, 'massCenterY')] = 0;
-
-                // Bottom Left sub-region
-                g += W.ppr;
-                RegionMatrix[rp(g, 'node')] = -1;
-                RegionMatrix[rp(g, 'centerX')] = RegionMatrix[rp(r, 'centerX')] - w;
-                RegionMatrix[rp(g, 'centerY')] = RegionMatrix[rp(r, 'centerY')] + w;
-                RegionMatrix[rp(g, 'size')] = w;
-                RegionMatrix[rp(g, 'nextSibling')] = g + W.ppr;
-                RegionMatrix[rp(g, 'firstChild')] = -1;
-                RegionMatrix[rp(g, 'mass')] = 0;
-                RegionMatrix[rp(g, 'massCenterX')] = 0;
-                RegionMatrix[rp(g, 'massCenterY')] = 0;
-
-                // Top Right sub-region
-                g += W.ppr;
-                RegionMatrix[rp(g, 'node')] = -1;
-                RegionMatrix[rp(g, 'centerX')] = RegionMatrix[rp(r, 'centerX')] + w;
-                RegionMatrix[rp(g, 'centerY')] = RegionMatrix[rp(r, 'centerY')] - w;
-                RegionMatrix[rp(g, 'size')] = w;
-                RegionMatrix[rp(g, 'nextSibling')] = g + W.ppr;
-                RegionMatrix[rp(g, 'firstChild')] = -1;
-                RegionMatrix[rp(g, 'mass')] = 0;
-                RegionMatrix[rp(g, 'massCenterX')] = 0;
-                RegionMatrix[rp(g, 'massCenterY')] = 0;
-
-                // Bottom Right sub-region
-                g += W.ppr;
-                RegionMatrix[rp(g, 'node')] = -1;
-                RegionMatrix[rp(g, 'centerX')] = RegionMatrix[rp(r, 'centerX')] + w;
-                RegionMatrix[rp(g, 'centerY')] = RegionMatrix[rp(r, 'centerY')] + w;
-                RegionMatrix[rp(g, 'size')] = w;
-                RegionMatrix[rp(g, 'nextSibling')] = RegionMatrix[rp(r, 'nextSibling')];
-                RegionMatrix[rp(g, 'firstChild')] = -1;
-                RegionMatrix[rp(g, 'mass')] = 0;
-                RegionMatrix[rp(g, 'massCenterX')] = 0;
-                RegionMatrix[rp(g, 'massCenterY')] = 0;
-
-                l += 4;
-
-                // Now the goal is to find two different sub-regions
-                // for the two nodes: the one previously recorded (r[0])
-                // and the one we want to add (n)
-
-                // Find the quadrant of the old node
-                if (NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'x')] < RegionMatrix[rp(r, 'centerX')]) {
-                  if (NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'y')] < RegionMatrix[rp(r, 'centerY')]) {
-
-                    // Top Left quarter
-                    q = RegionMatrix[rp(r, 'firstChild')];
-                  }
-                  else {
-
-                    // Bottom Left quarter
-                    q = RegionMatrix[rp(r, 'firstChild')] + W.ppr;
-                  }
-                }
-                else {
-                  if (NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'y')] < RegionMatrix[rp(r, 'centerY')]) {
-
-                    // Top Right quarter
-                    q = RegionMatrix[rp(r, 'firstChild')] + W.ppr * 2;
-                  }
-                  else {
-
-                    // Bottom Right quarter
-                    q = RegionMatrix[rp(r, 'firstChild')] + W.ppr * 3;
-                  }
-                }
-
-                // We remove r[0] from the region r, add its mass to r and record it in q
-                RegionMatrix[rp(r, 'mass')] = NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'mass')];
-                RegionMatrix[rp(r, 'massCenterX')] = NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'x')];
-                RegionMatrix[rp(r, 'massCenterY')] = NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'y')];
-
-                RegionMatrix[rp(q, 'node')] = RegionMatrix[rp(r, 'node')];
-                RegionMatrix[rp(r, 'node')] = -1;
-
-                // Find the quadrant of n
-                if (NodeMatrix[np(n, 'x')] < RegionMatrix[rp(r, 'centerX')]) {
-                  if (NodeMatrix[np(n, 'y')] < RegionMatrix[rp(r, 'centerY')]) {
-
-                    // Top Left quarter
-                    q2 = RegionMatrix[rp(r, 'firstChild')];
-                  }
-                  else {
-                    // Bottom Left quarter
-                    q2 = RegionMatrix[rp(r, 'firstChild')] + W.ppr;
-                  }
-                }
-                else {
-                  if(NodeMatrix[np(n, 'y')] < RegionMatrix[rp(r, 'centerY')]) {
-
-                    // Top Right quarter
-                    q2 = RegionMatrix[rp(r, 'firstChild')] + W.ppr * 2;
-                  }
-                  else {
-
-                    // Bottom Right quarter
-                    q2 = RegionMatrix[rp(r, 'firstChild')] + W.ppr * 3;
-                  }
-                }
-
-                if (q === q2) {
-
-                  // If both nodes are in the same quadrant,
-                  // we have to try it again on this quadrant
-                  r = q;
-                  continue;
-                }
-
-                // If both quadrants are different, we record n
-                // in its quadrant
-                RegionMatrix[rp(q2, 'node')] = n;
-                break;
-              }
-            }
-          }
-        }
-      }
-
-
-      // 2) Repulsion
-      //--------------
-      // NOTES: adjustSize = antiCollision & scalingRatio = coefficient
-
-      if (W.settings.barnesHutOptimize) {
-        coefficient = W.settings.scalingRatio;
-
-        // Applying repulsion through regions
-        for (n = 0; n < W.nodesLength; n += W.ppn) {
-
-          // Computing leaf quad nodes iteration
-
-          r = 0; // Starting with root region
-          while (true) {
-
-            if (RegionMatrix[rp(r, 'firstChild')] >= 0) {
-
-              // The region has sub-regions
-
-              // We run the Barnes Hut test to see if we are at the right distance
-              distance = Math.sqrt(
-                (Math.pow(NodeMatrix[np(n, 'x')] - RegionMatrix[rp(r, 'massCenterX')], 2)) +
-                (Math.pow(NodeMatrix[np(n, 'y')] - RegionMatrix[rp(r, 'massCenterY')], 2))
-              );
-
-              if (2 * RegionMatrix[rp(r, 'size')] / distance < W.settings.barnesHutTheta) {
-
-                // We treat the region as a single body, and we repulse
-
-                xDist = NodeMatrix[np(n, 'x')] - RegionMatrix[rp(r, 'massCenterX')];
-                yDist = NodeMatrix[np(n, 'y')] - RegionMatrix[rp(r, 'massCenterY')];
-
-                if (W.settings.adjustSize) {
-
-                  //-- Linear Anti-collision Repulsion
-                  if (distance > 0) {
-                    factor = coefficient * NodeMatrix[np(n, 'mass')] *
-                      RegionMatrix[rp(r, 'mass')] / distance / distance;
-
-                    NodeMatrix[np(n, 'dx')] += xDist * factor;
-                    NodeMatrix[np(n, 'dy')] += yDist * factor;
-                  }
-                  else if (distance < 0) {
-                    factor = -coefficient * NodeMatrix[np(n, 'mass')] *
-                      RegionMatrix[rp(r, 'mass')] / distance;
-
-                    NodeMatrix[np(n, 'dx')] += xDist * factor;
-                    NodeMatrix[np(n, 'dy')] += yDist * factor;
-                  }
-                }
-                else {
-
-                  //-- Linear Repulsion
-                  if (distance > 0) {
-                    factor = coefficient * NodeMatrix[np(n, 'mass')] *
-                      RegionMatrix[rp(r, 'mass')] / distance / distance;
-
-                    NodeMatrix[np(n, 'dx')] += xDist * factor;
-                    NodeMatrix[np(n, 'dy')] += yDist * factor;
-                  }
-                }
-
-                // When this is done, we iterate. We have to look at the next sibling.
-                if (RegionMatrix[rp(r, 'nextSibling')] < 0)
-                  break;  // No next sibling: we have finished the tree
-                r = RegionMatrix[rp(r, 'nextSibling')];
-                continue;
-
-              }
-              else {
-
-                // The region is too close and we have to look at sub-regions
-                r = RegionMatrix[rp(r, 'firstChild')];
-                continue;
-              }
-
-            }
-            else {
-
-              // The region has no sub-region
-              // If there is a node r[0] and it is not n, then repulse
-
-              if (RegionMatrix[rp(r, 'node')] >= 0 && RegionMatrix[rp(r, 'node')] !== n) {
-                xDist = NodeMatrix[np(n, 'x')] - NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'x')];
-                yDist = NodeMatrix[np(n, 'y')] - NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'y')];
-
-                distance = Math.sqrt(xDist * xDist + yDist * yDist);
-
-                if (W.settings.adjustSize) {
-
-                  //-- Linear Anti-collision Repulsion
-                  if (distance > 0) {
-                    factor = coefficient * NodeMatrix[np(n, 'mass')] *
-                      NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'mass')] / distance / distance;
-
-                    NodeMatrix[np(n, 'dx')] += xDist * factor;
-                    NodeMatrix[np(n, 'dy')] += yDist * factor;
-                  }
-                  else if (distance < 0) {
-                    factor = -coefficient * NodeMatrix[np(n, 'mass')] *
-                      NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'mass')] / distance;
-
-                    NodeMatrix[np(n, 'dx')] += xDist * factor;
-                    NodeMatrix[np(n, 'dy')] += yDist * factor;
-                  }
-                }
-                else {
-
-                  //-- Linear Repulsion
-                  if (distance > 0) {
-                    factor = coefficient * NodeMatrix[np(n, 'mass')] *
-                      NodeMatrix[np(RegionMatrix[rp(r, 'node')], 'mass')] / distance / distance;
-
-                    NodeMatrix[np(n, 'dx')] += xDist * factor;
-                    NodeMatrix[np(n, 'dy')] += yDist * factor;
-                  }
-                }
-
-              }
-
-              // When this is done, we iterate. We have to look at the next sibling.
-              if (RegionMatrix[rp(r, 'nextSibling')] < 0)
-                break;  // No next sibling: we have finished the tree
-              r = RegionMatrix[rp(r, 'nextSibling')];
-              continue;
-            }
-          }
-        }
-      }
-      else {
-        coefficient = W.settings.scalingRatio;
-
-        // Square iteration
-        for (n1 = 0; n1 < W.nodesLength; n1 += W.ppn) {
-          for (n2 = 0; n2 < n1; n2 += W.ppn) {
-
-            // Common to both methods
-            xDist = NodeMatrix[np(n1, 'x')] - NodeMatrix[np(n2, 'x')];
-            yDist = NodeMatrix[np(n1, 'y')] - NodeMatrix[np(n2, 'y')];
-
-            if (W.settings.adjustSize) {
-
-              //-- Anticollision Linear Repulsion
-              distance = Math.sqrt(xDist * xDist + yDist * yDist) -
-                NodeMatrix[np(n1, 'size')] -
-                NodeMatrix[np(n2, 'size')];
-
-              if (distance > 0) {
-                factor = coefficient *
-                  NodeMatrix[np(n1, 'mass')] *
-                  NodeMatrix[np(n2, 'mass')] /
-                  distance / distance;
-
-                // Updating nodes' dx and dy
-                NodeMatrix[np(n1, 'dx')] += xDist * factor;
-                NodeMatrix[np(n1, 'dy')] += yDist * factor;
-
-                NodeMatrix[np(n2, 'dx')] += xDist * factor;
-                NodeMatrix[np(n2, 'dy')] += yDist * factor;
-              }
-              else if (distance < 0) {
-                factor = 100 * coefficient *
-                  NodeMatrix[np(n1, 'mass')] *
-                  NodeMatrix[np(n2, 'mass')];
-
-                // Updating nodes' dx and dy
-                NodeMatrix[np(n1, 'dx')] += xDist * factor;
-                NodeMatrix[np(n1, 'dy')] += yDist * factor;
-
-                NodeMatrix[np(n2, 'dx')] -= xDist * factor;
-                NodeMatrix[np(n2, 'dy')] -= yDist * factor;
-              }
-            }
-            else {
-
-              //-- Linear Repulsion
-              distance = Math.sqrt(xDist * xDist + yDist * yDist);
-
-              if (distance > 0) {
-                factor = coefficient *
-                  NodeMatrix[np(n1, 'mass')] *
-                  NodeMatrix[np(n2, 'mass')] /
-                  distance / distance;
-
-                // Updating nodes' dx and dy
-                NodeMatrix[np(n1, 'dx')] += xDist * factor;
-                NodeMatrix[np(n1, 'dy')] += yDist * factor;
-
-                NodeMatrix[np(n2, 'dx')] -= xDist * factor;
-                NodeMatrix[np(n2, 'dy')] -= yDist * factor;
-              }
-            }
-          }
-        }
-      }
-
-
-      // 3) Gravity
-      //------------
-      g = W.settings.gravity / W.settings.scalingRatio;
-      coefficient = W.settings.scalingRatio;
-      for (n = 0; n < W.nodesLength; n += W.ppn) {
-        factor = 0;
-
-        // Common to both methods
-        xDist = NodeMatrix[np(n, 'x')];
-        yDist = NodeMatrix[np(n, 'y')];
-        distance = Math.sqrt(
-          Math.pow(xDist, 2) + Math.pow(yDist, 2)
-        );
-
-        if (W.settings.strongGravityMode) {
-
-          //-- Strong gravity
-          if (distance > 0)
-            factor = coefficient * NodeMatrix[np(n, 'mass')] * g;
-        }
-        else {
-
-          //-- Linear Anti-collision Repulsion n
-          if (distance > 0)
-            factor = coefficient * NodeMatrix[np(n, 'mass')] * g / distance;
-        }
-
-        // Updating node's dx and dy
-        NodeMatrix[np(n, 'dx')] -= xDist * factor;
-        NodeMatrix[np(n, 'dy')] -= yDist * factor;
-      }
-
-
-
-      // 4) Attraction
-      //---------------
-      coefficient = 1 *
-        (W.settings.outboundAttractionDistribution ?
-          outboundAttCompensation :
-          1);
-
-      // TODO: simplify distance
-      // TODO: coefficient is always used as -c --> optimize?
-      for (e = 0; e < W.edgesLength; e += W.ppe) {
-        n1 = EdgeMatrix[ep(e, 'source')];
-        n2 = EdgeMatrix[ep(e, 'target')];
-        w = EdgeMatrix[ep(e, 'weight')];
-
-        // Edge weight influence
-        ewc = Math.pow(w, W.settings.edgeWeightInfluence);
-
-        // Common measures
-        xDist = NodeMatrix[np(n1, 'x')] - NodeMatrix[np(n2, 'x')];
-        yDist = NodeMatrix[np(n1, 'y')] - NodeMatrix[np(n2, 'y')];
-
-        // Applying attraction to nodes
-        if (W.settings.adjustSizes) {
-
-          distance = Math.sqrt(
-            (Math.pow(xDist, 2) + Math.pow(yDist, 2)) -
-            NodeMatrix[np(n1, 'size')] -
-            NodeMatrix[np(n2, 'size')]
-          );
-
-          if (W.settings.linLogMode) {
-            if (W.settings.outboundAttractionDistribution) {
-
-              //-- LinLog Degree Distributed Anti-collision Attraction
-              if (distance > 0) {
-                factor = -coefficient * ewc * Math.log(1 + distance) /
-                distance /
-                NodeMatrix[np(n1, 'mass')];
-              }
-            }
-            else {
-
-              //-- LinLog Anti-collision Attraction
-              if (distance > 0) {
-                factor = -coefficient * ewc * Math.log(1 + distance) / distance;
-              }
-            }
-          }
-          else {
-            if (W.settings.outboundAttractionDistribution) {
-
-              //-- Linear Degree Distributed Anti-collision Attraction
-              if (distance > 0) {
-                factor = -coefficient * ewc / NodeMatrix[np(n1, 'mass')];
-              }
-            }
-            else {
-
-              //-- Linear Anti-collision Attraction
-              if (distance > 0) {
-                factor = -coefficient * ewc;
-              }
-            }
-          }
-        }
-        else {
-
-          distance = Math.sqrt(
-            Math.pow(xDist, 2) + Math.pow(yDist, 2)
-          );
-
-          if (W.settings.linLogMode) {
-            if (W.settings.outboundAttractionDistribution) {
-
-              //-- LinLog Degree Distributed Attraction
-              if (distance > 0) {
-                factor = -coefficient * ewc * Math.log(1 + distance) /
-                  distance /
-                  NodeMatrix[np(n1, 'mass')];
-              }
-            }
-            else {
-
-              //-- LinLog Attraction
-              if (distance > 0)
-                factor = -coefficient * ewc * Math.log(1 + distance) / distance;
-            }
-          }
-          else {
-            if (W.settings.outboundAttractionDistribution) {
-
-              //-- Linear Attraction Mass Distributed
-              // NOTE: Distance is set to 1 to override next condition
-              distance = 1;
-              factor = -coefficient * ewc / NodeMatrix[np(n1, 'mass')];
-            }
-            else {
-
-              //-- Linear Attraction
-              // NOTE: Distance is set to 1 to override next condition
-              distance = 1;
-              factor = -coefficient * ewc;
-            }
-          }
-        }
-
-        // Updating nodes' dx and dy
-        // TODO: if condition or factor = 1?
-        if (distance > 0) {
-
-          // Updating nodes' dx and dy
-          NodeMatrix[np(n1, 'dx')] += xDist * factor;
-          NodeMatrix[np(n1, 'dy')] += yDist * factor;
-
-          NodeMatrix[np(n2, 'dx')] -= xDist * factor;
-          NodeMatrix[np(n2, 'dy')] -= yDist * factor;
-        }
-      }
-
-
-      // 5) Apply Forces
-      //-----------------
-      var force,
-          swinging,
-          traction,
-          nodespeed;
-
-      // MATH: sqrt and square distances
-      if (W.settings.adjustSizes) {
-
-        for (n = 0; n < W.nodesLength; n += W.ppn) {
-          if (!NodeMatrix[np(n, 'fixed')]) {
-            force = Math.sqrt(
-              Math.pow(NodeMatrix[np(n, 'dx')], 2) +
-              Math.pow(NodeMatrix[np(n, 'dy')], 2)
-            );
-
-            if (force > W.maxForce) {
-              NodeMatrix[np(n, 'dx')] =
-                NodeMatrix[np(n, 'dx')] * W.maxForce / force;
-              NodeMatrix[np(n, 'dy')] =
-                NodeMatrix[np(n, 'dy')] * W.maxForce / force;
-            }
-
-            swinging = NodeMatrix[np(n, 'mass')] *
-              Math.sqrt(
-                (NodeMatrix[np(n, 'old_dx')] - NodeMatrix[np(n, 'dx')]) *
-                (NodeMatrix[np(n, 'old_dx')] - NodeMatrix[np(n, 'dx')]) +
-                (NodeMatrix[np(n, 'old_dy')] - NodeMatrix[np(n, 'dy')]) *
-                (NodeMatrix[np(n, 'old_dy')] - NodeMatrix[np(n, 'dy')])
-              );
-
-            traction = Math.sqrt(
-              (NodeMatrix[np(n, 'old_dx')] + NodeMatrix[np(n, 'dx')]) *
-              (NodeMatrix[np(n, 'old_dx')] + NodeMatrix[np(n, 'dx')]) +
-              (NodeMatrix[np(n, 'old_dy')] + NodeMatrix[np(n, 'dy')]) *
-              (NodeMatrix[np(n, 'old_dy')] + NodeMatrix[np(n, 'dy')])
-            ) / 2;
-
-            nodespeed =
-              0.1 * Math.log(1 + traction) / (1 + Math.sqrt(swinging));
-
-            // Updating node's positon
-            NodeMatrix[np(n, 'x')] =
-              NodeMatrix[np(n, 'x')] + NodeMatrix[np(n, 'dx')] *
-              (nodespeed / W.settings.slowDown);
-            NodeMatrix[np(n, 'y')] =
-              NodeMatrix[np(n, 'y')] + NodeMatrix[np(n, 'dy')] *
-              (nodespeed / W.settings.slowDown);
-          }
-        }
-      }
-      else {
-
-        for (n = 0; n < W.nodesLength; n += W.ppn) {
-          if (!NodeMatrix[np(n, 'fixed')]) {
-
-            swinging = NodeMatrix[np(n, 'mass')] *
-              Math.sqrt(
-                (NodeMatrix[np(n, 'old_dx')] - NodeMatrix[np(n, 'dx')]) *
-                (NodeMatrix[np(n, 'old_dx')] - NodeMatrix[np(n, 'dx')]) +
-                (NodeMatrix[np(n, 'old_dy')] - NodeMatrix[np(n, 'dy')]) *
-                (NodeMatrix[np(n, 'old_dy')] - NodeMatrix[np(n, 'dy')])
-              );
-
-            traction = Math.sqrt(
-              (NodeMatrix[np(n, 'old_dx')] + NodeMatrix[np(n, 'dx')]) *
-              (NodeMatrix[np(n, 'old_dx')] + NodeMatrix[np(n, 'dx')]) +
-              (NodeMatrix[np(n, 'old_dy')] + NodeMatrix[np(n, 'dy')]) *
-              (NodeMatrix[np(n, 'old_dy')] + NodeMatrix[np(n, 'dy')])
-            ) / 2;
-
-            nodespeed = NodeMatrix[np(n, 'convergence')] *
-              Math.log(1 + traction) / (1 + Math.sqrt(swinging));
-
-            // Updating node convergence
-            NodeMatrix[np(n, 'convergence')] =
-              Math.min(1, Math.sqrt(
-                nodespeed *
-                (Math.pow(NodeMatrix[np(n, 'dx')], 2) +
-                 Math.pow(NodeMatrix[np(n, 'dy')], 2)) /
-                (1 + Math.sqrt(swinging))
-              ));
-
-            // Updating node's positon
-            NodeMatrix[np(n, 'x')] =
-              NodeMatrix[np(n, 'x')] + NodeMatrix[np(n, 'dx')] *
-              (nodespeed / W.settings.slowDown);
-            NodeMatrix[np(n, 'y')] =
-              NodeMatrix[np(n, 'y')] + NodeMatrix[np(n, 'dy')] *
-              (nodespeed / W.settings.slowDown);
-          }
-        }
-      }
-
-      // Counting one more iteration
-      W.iterations++;
-    }
-
-    /**
-     * Message reception & sending
-     */
-
-    // Sending data back to the supervisor
-    var sendNewCoords;
-
-    if (typeof window !== 'undefined' && window.document) {
-
-      // From same document as sigma
-      sendNewCoords = function() {
-        var e;
-
-        if (document.createEvent) {
-          e = document.createEvent('Event');
-          e.initEvent('newCoords', true, false);
-        }
-        else {
-          e = document.createEventObject();
-          e.eventType = 'newCoords';
-        }
-
-        e.eventName = 'newCoords';
-        e.data = {
-          nodes: NodeMatrix.buffer
-        };
-        requestAnimationFrame(function() {
-          document.dispatchEvent(e);
-        });
-      };
-    }
-    else {
-
-      // From a WebWorker
-      sendNewCoords = function() {
-        self.postMessage(
-          {nodes: NodeMatrix.buffer},
-          [NodeMatrix.buffer]
-        );
-      };
-    }
-
-    // Algorithm run
-    function run(n) {
-      for (var i = 0; i < n; i++)
-        pass();
-      sendNewCoords();
-    }
-
-    // On supervisor message
-    var listener = function(e) {
-      switch (e.data.action) {
-        case 'start':
-          init(
-            new Float32Array(e.data.nodes),
-            new Float32Array(e.data.edges),
-            e.data.config
-          );
-
-          // First iteration(s)
-          run(W.settings.startingIterations);
-          break;
-
-        case 'loop':
-          NodeMatrix = new Float32Array(e.data.nodes);
-          run(W.settings.iterationsPerRender);
-          break;
-
-        case 'config':
-
-          // Merging new settings
-          configure(e.data.config);
-          break;
-
-        case 'kill':
-
-          // Deleting context for garbage collection
-          __emptyObject(W);
-          NodeMatrix = null;
-          EdgeMatrix = null;
-          RegionMatrix = null;
-          self.removeEventListener('message', listener);
-          break;
-
-        default:
-      }
-    };
-
-    // Adding event listener
-    self.addEventListener('message', listener);
-  };
-
-
-  /**
-   * Exporting
-   * ----------
-   *
-   * Crush the worker function and make it accessible by sigma's instances so
-   * the supervisor can call it.
-   */
-  function crush(fnString) {
-    var pattern,
-        i,
-        l;
-
-    var np = [
-      'x',
-      'y',
-      'dx',
-      'dy',
-      'old_dx',
-      'old_dy',
-      'mass',
-      'convergence',
-      'size',
-      'fixed'
-    ];
-
-    var ep = [
-      'source',
-      'target',
-      'weight'
-    ];
-
-    var rp = [
-      'node',
-      'centerX',
-      'centerY',
-      'size',
-      'nextSibling',
-      'firstChild',
-      'mass',
-      'massCenterX',
-      'massCenterY'
-    ];
-
-    // rp
-    // NOTE: Must go first
-    for (i = 0, l = rp.length; i < l; i++) {
-      pattern = new RegExp('rp\\(([^,]*), \'' + rp[i] + '\'\\)', 'g');
-      fnString = fnString.replace(
-        pattern,
-        (i === 0) ? '$1' : '$1 + ' + i
-      );
-    }
-
-    // np
-    for (i = 0, l = np.length; i < l; i++) {
-      pattern = new RegExp('np\\(([^,]*), \'' + np[i] + '\'\\)', 'g');
-      fnString = fnString.replace(
-        pattern,
-        (i === 0) ? '$1' : '$1 + ' + i
-      );
-    }
-
-    // ep
-    for (i = 0, l = ep.length; i < l; i++) {
-      pattern = new RegExp('ep\\(([^,]*), \'' + ep[i] + '\'\\)', 'g');
-      fnString = fnString.replace(
-        pattern,
-        (i === 0) ? '$1' : '$1 + ' + i
-      );
-    }
-
-    return fnString;
+        // select new link
+        selected_link = link;
+        selected_node = null;
+        restart();
+      });
+
+    // show node IDs
+    g.append('svg:text')
+        .attr('x', 0)
+        .attr('y', 4)
+        .attr('class', 'id')
+        .text(function(d) { return d.id; });
+
+    // remove old nodes
+    circle.exit().remove();
+
+    // set the graph in motion
+    force.start();
   }
 
-  // Exporting
-  function getWorkerFn() {
-    var fnString = crush ? crush(Worker.toString()) : Worker.toString();
-    return ';(' + fnString + ').call(this);';
+  function mousedown() {
+
   }
 
-  if (inWebWorker) {
+  function mousemove() {
 
-    // We are in a webworker, so we launch the Worker function
-    eval(getWorkerFn());
   }
-  else {
 
-    // We are requesting the worker from sigma, we retrieve it therefore
-    if (typeof sigma === 'undefined')
-      throw 'sigma is not declared';
+  function mouseup() {
 
-    sigma.prototype.getForceAtlas2Worker = getWorkerFn;
   }
-}).call(this);
 
-// Worker js end.
-
-
-var i,
-    s,
-    N = 100,
-    E = 500,
-    g = {
-      nodes: [],
-      edges: []
-    };
-
-// Generate a random graph:
-for (i = 0; i < N; i++)
-  g.nodes.push({
-    id: 'n' + i,
-    label: 'Node ' + i,
-    x: Math.random(),
-    y: Math.random(),
-    size: Math.random(),
-    color: '#666'
-  });
-
-for (i = 0; i < E; i++)
-  g.edges.push({
-    id: 'e' + i,
-    source: 'n' + (Math.random() * N | 0),
-    target: 'n' + (Math.random() * N | 0),
-    size: Math.random(),
-    color: '#ccc'
-  });
-
-// Instantiate sigma:
-s = new sigma({
-  graph: g,
-  settings: {
-    enableHovering: false
+  function spliceLinksForNode(node) {
+    var toSplice = links.filter(function(l) {
+      return (l.source === node || l.target === node);
+    });
+    toSplice.map(function(l) {
+      links.splice(links.indexOf(l), 1);
+    });
   }
-});
 
-s.addRenderer({
-  id: 'main',
-  type: 'svg',
-  container: document.getElementById('centrality-graph-container'),
-  freeStyle: true
-});
+  // only respond once per keydown
+  var lastKeyDown = -1;
 
-s.refresh();
+  function keydown() {
+    d3.event.preventDefault();
 
-// Binding silly interactions
-function mute(node) {
-  if (!~node.getAttribute('class').search(/muted/))
-    node.setAttributeNS(null, 'class', node.getAttribute('class') + ' muted');
-}
+    if(lastKeyDown !== -1) return;
+    lastKeyDown = d3.event.keyCode;
 
-function unmute(node) {
-  node.setAttributeNS(null, 'class', node.getAttribute('class').replace(/(\s|^)muted(\s|$)/g, '$2'));
-}
+    // ctrl
+    if(d3.event.keyCode === 17) {
+      circle.call(force.drag);
+      svg.classed('ctrl', true);
+    }
 
-$('.sigma-node').click(function() {
+    if(!selected_node && !selected_link) return;
+    switch(d3.event.keyCode) {
+      case 46: // delete
+        if(selected_node) {
+          nodes.splice(nodes.indexOf(selected_node), 1);
+          spliceLinksForNode(selected_node);
+        } else if(selected_link) {
+          links.splice(links.indexOf(selected_link), 1);
+        }
+        selected_link = null;
+        selected_node = null;
+        restart();
+        break;
+    }
+  }
 
-  // Muting
-  $('.sigma-node, .sigma-edge').each(function() {
-    mute(this);
-  });
+  function keyup() {
+    lastKeyDown = -1;
 
-  // Unmuting neighbors
-  var neighbors = s.graph.neighborhood($(this).attr('data-node-id'));
-  neighbors.nodes.forEach(function(node) {
-    unmute($('[data-node-id="' + node.id + '"]')[0]);
-  });
+    // ctrl
+    if(d3.event.keyCode === 17) {
+      circle
+        .on('mousedown.drag', null)
+        .on('touchstart.drag', null);
+      svg.classed('ctrl', false);
+    }
+  }
 
-  neighbors.edges.forEach(function(edge) {
-    unmute($('[data-edge-id="' + edge.id + '"]')[0]);
+  // app starts here
+  svg.on('mousedown', mousedown)
+    .on('mousemove', mousemove)
+    .on('mouseup', mouseup);
+  d3.select(window)
+    .on('keydown', keydown)
+    .on('keyup', keyup);
+  restart();
+  restart();
+
+  $(window).resize(function() {
+    width  = $("#centrality-graph-container").width(),
+    height = $("#centrality-graph-container").height(),
+
+
+    // init D3 force layout
+    force = d3.layout.force()
+        .nodes(nodes)
+        .links(links)
+        .size([width, height])
+        .linkDistance(width/6)
+        .charge(-500)
+        .on('tick', tick)
+
+    restart();
+
   });
 });
 
-s.bind('clickStage', function() {
-  $('.sigma-node, .sigma-edge').each(function() {
-    unmute(this);
-  });
-});
