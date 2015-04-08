@@ -19,6 +19,9 @@ Org: duXel
 
 .main-container {
     margin-bottom: 60px;
+    background-image: url("../images/backgrounds/starthere3.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 .main-container h3{
@@ -84,7 +87,7 @@ Org: duXel
     display: block;
 }
 
-.delete-button {  
+.delete-button {
     position: absolute;
     bottom: 0;
     right: 0px;
