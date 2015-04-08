@@ -49,8 +49,8 @@ $(document).ready(function(){
         <section class='chart-container' >\
             <img class='img-responsive popular-terms-img' src='images/charts/popular-terms.png' alt=''>\
             <a href='#' class='delete-button' id='delete-popular-terms'></a>\
-            <a href='#' class='settings-button' id='configure-popular-terms' data-target='#'></a>\
-            <a href='#' class='fullscreen-button' id='fullscreen-popular-terms' data-toggle='modal' data-target='.bs-example-modal-lg'></a>\             </section>\
+            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#main-filters'></a>\
+            <a href='#' class='fullscreen-button' id='fullscreen-popular-terms' data-toggle='modal' data-target='#fullscreen-modal'></a>\             </section>\
     </a>\
 </div>",
         
@@ -62,8 +62,8 @@ $(document).ready(function(){
         <section class='chart-container' >\
             <img class='img-responsive trending-topics-img' src='images/charts/trending-topics.png' alt=''>\
             <a href='#' class='delete-button' id='delete-popular-terms'></a>\
-            <a href='#' class='settings-button' id='configure-popular-terms'></a>\
-            <a href='#' class='fullscreen-button' id='fullscreen-tendencies' data-toggle='modal' data-target='.bs-example-modal-lg'></a>\             </section>\
+            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#main-filters'></a>\
+            <a href='#' class='fullscreen-button' id='fullscreen-tendencies' data-toggle='modal' data-target='#fullscreen-modal'></a>\             </section>\
     </a>\
 </div>",
         
@@ -76,7 +76,7 @@ $(document).ready(function(){
             <img class='img-responsive popular-terms-img' src='images/charts/network.png' alt=''>\
             <a href='#' class='delete-button' id='delete-popular-terms'></a>\
             <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#data-analysis-filter'></a>\
-            <a href='#' class='fullscreen-button' id='fullscreen-network' data-toggle='modal' data-target='.bs-example-modal-lg'></a>\
+            <a href='#' class='fullscreen-button' id='fullscreen-network' data-toggle='modal' data-target='#fullscreen-modal'></a>\
         </section>\
     </a>\
 </div>",
@@ -89,7 +89,7 @@ $(document).ready(function(){
         <section class='chart-container' >\
             <img class='img-responsive popular-terms-img' src='images/charts/density.png' alt=''>\
             <a href='#' class='delete-button' id='delete-popular-terms'></a>\
-            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#data-analysis-filter'></a>\                 <a href='#' class='fullscreen-button' id='fullscreen-density' data-toggle='modal' data-target='.bs-example-modal-lg'></a>\
+            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#data-analysis-filter'></a>\                 <a href='#' class='fullscreen-button' id='fullscreen-density' data-toggle='modal' data-target='#fullscreen-modal'></a>\
         </section>\
     </a>\
 </div>",
@@ -102,7 +102,7 @@ $(document).ready(function(){
         <section class='chart-container' >\
             <img class='img-responsive popular-terms-img' src='images/charts/distance.jpg' alt=''>\
             <a href='#' class='delete-button' id='delete-popular-terms'></a>\
-            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#distance-filter'></a>\                     <a href='#' class='fullscreen-button' id='fullscreen-distance' data-toggle='modal' data-target='.bs-example-modal-lg'></a>\                </section>\
+            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#distance-filter'></a>\                     <a href='#' class='fullscreen-button' id='fullscreen-distance' data-toggle='modal' data-target='#fullscreen-modal'></a>\                </section>\
     </a>\
 </div>",
         
@@ -113,7 +113,7 @@ $(document).ready(function(){
         <section class='chart-container' >\
             <img class='img-responsive popular-terms-img' src='images/charts/centrality.png' alt=''>\
             <a href='#' class='delete-button' id='delete-popular-terms'></a>\
-            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#data-analysis-filter'></a>\         <a href='#' class='fullscreen-button' id='fullscreen-centrality' data-toggle='modal' data-target='.bs-example-modal-lg'></a>\
+            <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#data-analysis-filter'></a>\         <a href='#' class='fullscreen-button' id='fullscreen-centrality' data-toggle='modal' data-target='#fullscreen-modal'></a>\
         </section>\
     </a>\
 </div>"

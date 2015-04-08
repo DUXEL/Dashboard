@@ -170,7 +170,11 @@ $(function () {
     //manipulate multiple regions in the map using options and an array containig the regions to manipulate.
     var manipulateMultiple = function(option,regionList){
         for (i in regionList){
-            $('#vmap').vectorMap(option, regionList[i]);
+            if( $('#vmap').vectorMap("isSelected", regionList[i]) && option=="deselect"){
+                $('#vmap').vectorMap(option, regionList[i]);
+            }else if(option=="select"){
+                $('#vmap').vectorMap(option, regionList[i]);
+            }
         }
     };
 
