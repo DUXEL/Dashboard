@@ -1,23 +1,67 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  footer:
+    languages:
+      lang: "Languages"
+      es: "Spanish"
+      en: "English"
+      pt: "Portuguese"
+    sign: "Created by DUXEL"
+  charts:
+    pt: "Popular terms"
+    tr: "Trending topics"
+    net: "Network"
+    ct: "Centrality"
+    ds: "Density"
+    dt: "Distance"
+  graph-info:
+    ds: "Density: "
+    dt: "Degrees of separation: "
+  filters:
+    title: "Filter configuration"
+    sna:
+      sn: "Social network:"
+      user: "User:"
+      depth: "Depth level:"
+    phrases:
+      region:
+        tab-nm: "Region"
+        title: "Region selection"
+        dropdown:
+          title: "Select a region"
+          na: "North America"
+          ca: "Central America"
+          sa: "South America"
+          car: "Caribbean"
+          euw: "Western Europe"
+          eue: "Eastern Europe"
+          af: "Africa"
+          as: "Asia"
+          oce: "Oceania"
+          lata: "Latin America"
+      time:
+        tab-nm: "Time"
+        title: "Time range selection"
+        init: "Start"
+        fin: "End"
+        subtitle: "Time range summary"
+        years: "Years"
+        months: "Months"
+        days: "Days"
+      lang:
+        tab-nm: "Language"
+        title: "Language selection"
+        lang-select: "Enter a language"
+        lang-list: "Selected languages"
+  buttons:
+    apply: "Apply"
+    filters:
+      clean: "Reset filter"
+      clean-all: "Reset all"
+
+
+
+
+
+
+
+

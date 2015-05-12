@@ -1,0 +1,42 @@
+%nav.navbar.navbar-inverse.navbar-static-top.top-bar{:role => "navigation"}
+  .container
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      %a.navbar-brand{:href => "#"}
+        %h1.dashboard-title Social Dashboard
+  / Collect the nav links, forms, and other content for toggling
+  / /.container
+/ Sidebar
+/ Sidebar Button
+.sidebar-button.shadowed.vcentered{:title => "Agregar grafico"}
+  #arrow-container
+    %p#arrow-char ◂
+/ Sidebar Options
+.sidebar.vcentered
+  .sidebar-content.shadowed
+    / Menu
+    %ul
+      %li.graph-type{:value => "popularTerms"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+          = t('charts.pt')
+      %li.graph-type{:value => "trends"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+          = t ('charts.tr')
+      %li.graph-type{:value => "network"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+          = t('charts.net')
+      %li.graph-type{:value => "centrality"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+          = t('charts.ct')
+      %li.graph-type{:value => "density"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+          = t('charts.ds')
+      %li.graph-type{:value => "distance"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+          = t('charts.dt')
