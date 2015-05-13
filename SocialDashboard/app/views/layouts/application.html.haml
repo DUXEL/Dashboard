@@ -10,7 +10,7 @@
     %div#body-container
       %header
         %nav.navbar.navbar-static-top.navbar-default
-          .container
+          .container.navbar-container
             %h4.pull-left.navbar-logo
               %i.fa.fa-users
                 SocialDashboard
@@ -20,11 +20,11 @@
 
       %footer.footer
         %nav.navbar.navbar-default
-          .container
+          .container.navbar-container
             %h5.pull-right
-              %i.fa.fa-copyright
-                = t('footer.sign')
-            %ul.nav.navbar-nav.navbar-left
+              &copy;
+              = t('footer.sign')
+            %ul.nav.navbar-nav.navbar-left.dropup-navbar
               %li.dropdown.dropup
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   = t('footer.languages.lang')
