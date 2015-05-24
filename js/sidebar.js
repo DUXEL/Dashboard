@@ -50,7 +50,7 @@ $(document).ready(function(){
             <img class='img-responsive popular-terms-img' src='images/charts/popular-terms.png' alt=''>\
             <a href='#' class='delete-button' id='delete-popular-terms'></a>\
             <a href='#' class='settings-button' id='configure-popular-terms' data-toggle='modal' data-target='#main-filters'></a>\
-            <a href='#' class='fullscreen-button' id='fullscreen-popular-terms' data-toggle='modal' data-target='#fullscreen-modal'></a>\             </section>\
+            <a href='#' class='fullscreen-button' id='fullscreen-popular-terms' data-toggle='modal' ></a>\             </section>\
     </a>\
 </div>",
         
