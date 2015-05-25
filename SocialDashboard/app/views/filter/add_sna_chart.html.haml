@@ -1,0 +1,52 @@
+/ Filter for data analysis modal
+#data-analysis-filter.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#myModalLabel.modal-title
+          = t('filters.title')
+      .modal-body
+        %h5
+          = t('filters.sna.sn')
+        %form
+          .row
+            .col-sm-9
+              .btn-group{"data-toggle" => "buttons"}
+                %label.btn.btn-default
+                  %input#q156{:name => "quality[25]", :type => "radio", :value => "1"}
+                  Twitter
+                %label.btn.btn-default
+                  %input#q157{:name => "quality[25]", :type => "radio", :value => "2"}
+                  Kodu
+        %form
+          .form-group
+            %h5{:for => "inputUser1"}
+              = t('filters.sna.user')
+            %input.form-control
+        %h5
+          = t('filters.sna.depth')
+        %form
+          .row
+            .col-sm-9
+              .btn-group{"data-toggle" => "buttons"}
+                %label.btn.btn-default
+                  %input#q158{:name => "quality[25]", :type => "radio", :value => "1"}
+                    1
+                %label.btn.btn-default
+                  %input#q159{:name => "quality[25]", :type => "radio", :value => "2"}
+                    2
+                %label.btn.btn-default
+                  %input#q160{:name => "quality[25]", :type => "radio", :value => "3"}
+                    3
+                %label.btn.btn-default
+                  %input#q161{:name => "quality[25]", :type => "radio", :value => "4"}
+                    4
+                %label.btn.btn-default
+                  %input#q162{:name => "quality[25]", :type => "radio", :value => "5"}
+                    5
+      .modal-footer
+        %button.btn.btn-primary{:type => "button"}
+          = t('buttons.apply')
+          / Filter for data analysis modal END
