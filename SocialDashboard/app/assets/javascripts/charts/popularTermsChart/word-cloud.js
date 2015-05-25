@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var ready = function() {
     var fill = d3.scale.category20b();
     
     var h = $("#popular-terms-tab").height(),
@@ -88,5 +88,7 @@ $(document).ready(function() {
         layout.stop().words(tags).start();
     }
     
-});
+}
 
+$(document).on('page:load', ready);
+$(document).ready(ready);

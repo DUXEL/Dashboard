@@ -1,0 +1,12 @@
+.container.graph-container
+  .graph-row
+    .graph-columns
+      .graph
+        .control-zoom
+          %a.control-zoom-in{:href => "#", :title => "Zoom in"}
+          %a.control-zoom-out{:href => "#", :title => "Zoom out"}
+        .node-info
+          .close-button
+          .node-link-container
+            %a.node-link{:href => "#"}
+          %textarea.node-description{:readonly => ""}

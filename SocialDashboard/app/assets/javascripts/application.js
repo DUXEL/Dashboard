@@ -22,9 +22,8 @@
 //= require charts/popularTermsChart/d3.layout.cloud
 //= require charts/popularTermsChart/tags
 //= require charts/popularTermsChart/word-cloud
-//= require charts/network/network
+//= require charts/graphChart/graph
 //= require filters/moment
-//= require filters/typeahead
 //= require filters/bootstrap-datetimepicker.min
 //= require filters/filters
 //= require filters/jquery.vmap.js

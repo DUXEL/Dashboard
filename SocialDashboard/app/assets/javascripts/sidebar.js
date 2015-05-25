@@ -1,5 +1,4 @@
-$(document).ready(function(){
-
+var ready = function(){
     // Hide sidebar when page loads.
 	$('.sidebar-content').hide();
 
@@ -38,8 +37,6 @@ $(document).ready(function(){
 			
 		}
 	});
-
-    
     
     // Event to handle when a graph's type is clicked 
     // in orden to add it to the page(main container).
@@ -78,6 +75,7 @@ $(document).ready(function(){
         
     });    
 	
-});
+}
 
-
+$(document).on('page:load', ready);
+$(document).ready(ready);
