@@ -41,5 +41,6 @@ gem "haml-rails"
 #Use i18n for internationalization.
 gem 'rails-i18n', '~> 4.0.0'
 
-
+#Use twitter api client
+gem 'twitter'
 
