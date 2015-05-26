@@ -16,6 +16,14 @@
 //= require turbolinks
 //= require mainScript
 //= require sidebar
+
+
+//= require filters/filters
+//= require filters/jquery.vmap.js
+//= require filters/jquery.vmap.world
+//= require filters/moment
+//= require filters/bootstrap-datetimepicker.min
+
 //= require d3/d3.min
 //= require d3/d3-transform
 //= require charts/bubbleChart/bubbleChart
@@ -23,8 +31,4 @@
 //= require charts/popularTermsChart/tags
 //= require charts/popularTermsChart/word-cloud
 //= require charts/graphChart/graph
-//= require filters/moment
-//= require filters/bootstrap-datetimepicker.min
-//= require filters/filters
-//= require filters/jquery.vmap.js
-//= require filters/jquery.vmap.world
+

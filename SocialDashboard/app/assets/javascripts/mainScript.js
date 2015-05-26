@@ -1,5 +1,4 @@
 var ready = function() {
-
     $(document).on("click", ".delete-button", function () {
         $(this).parent().parent().remove();
     });
