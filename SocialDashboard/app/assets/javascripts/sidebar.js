@@ -37,7 +37,44 @@ var ready = function(){
 			
 		}
 	});
+    
+    // Event to handle when a graph's type is clicked 
+    // in orden to add it to the page(main container).
+    $(".graph-type").click(function (){
 
+        var id = $(this).attr('id'); // Value holds the name of the graph for gettting the html from the graphsForIndex map.
+        var value = $(this).attr('value');
+
+        if (value=="phrase"){
+            var modalName = "#main-filters";
+        }else if (value=="sna"){
+            var modalName = "#data-analysis-filter";
+        }
+
+
+        var $bigChart = $('#big-chart');
+		if ( $bigChart.children().length == 0) { // Has nothing
+
+            $.ajax({
+                method: 'get',
+                url: "/graph/create",
+                data: {type: id, category: value},
+                async: false
+            }).done(function(response){
+                $("#modal-container").html(response);
+                $(modalName).modal('show');
+            }).fail(function(jqXHR, textStatus){
+                alert("Ups accion no disponible.");
+            });
+
+        }else{
+
+        }
+
+
+        
+    });    
+	
 }
 
 $(document).on('page:load', ready);

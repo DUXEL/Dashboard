@@ -13,6 +13,8 @@ pt:
     ct: "Centralidade"
     ds: "Densidade"
     dt: "Distância"
+  sidebar:
+    title: "Adicionar gráfico"
   graph-info:
     ds: "Densidade: "
     dt: "Graus de separação: "

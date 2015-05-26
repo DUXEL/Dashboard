@@ -3053,5 +3053,6 @@ var ready = function() {
         }
     }).call(this);
 }
+
 $(document).on('page:load', ready);
 $(document).ready(ready);

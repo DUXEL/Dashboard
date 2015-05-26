@@ -13,6 +13,8 @@ en:
     ct: "Centrality"
     ds: "Density"
     dt: "Distance"
+  sidebar:
+    title: "Add chart"
   graph-info:
     ds: "Density: "
     dt: "Degrees of separation: "
