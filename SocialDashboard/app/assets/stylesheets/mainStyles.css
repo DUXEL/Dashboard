@@ -117,11 +117,6 @@ html, body {
     background-image: url('../images/icons/fullscreen-icon-hover.png');
 }
 
-
-.img-responsive {
-    width: 100%;
-}
-
 .tab-img {
     height: 60px;
     width: 60px;

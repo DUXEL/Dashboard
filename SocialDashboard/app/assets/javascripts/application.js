@@ -17,18 +17,16 @@
 //= require mainScript
 //= require sidebar
 
-
-//= require filters/filters
-//= require filters/jquery.vmap.js
+//= require moment
+//= require bootstrap-datetimepicker
+//= require filters/jquery.vmap
 //= require filters/jquery.vmap.world
-//= require filters/moment
-//= require filters/bootstrap-datetimepicker.min
+//= require filters/filters
 
 //= require d3/d3.min
 //= require d3/d3-transform
 //= require charts/bubbleChart/bubbleChart
 //= require charts/popularTermsChart/d3.layout.cloud
-//= require charts/popularTermsChart/tags
 //= require charts/popularTermsChart/word-cloud
 //= require charts/graphChart/graph
 

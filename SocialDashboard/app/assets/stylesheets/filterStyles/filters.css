@@ -125,8 +125,8 @@ ul{
 
 @media (min-width:1000px){
     #vmap{
-        width: 780px;
-        height: 520px;
+        width: 600px;
+        height: 250px;
     }
     
     #popular-terms-tab {
