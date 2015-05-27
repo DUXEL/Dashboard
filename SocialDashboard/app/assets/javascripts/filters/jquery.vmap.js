@@ -1101,7 +1101,6 @@ var ready = function() {
         };
 
     })(jQuery);
-
 }
 
 $(document).on('page:load', ready);
