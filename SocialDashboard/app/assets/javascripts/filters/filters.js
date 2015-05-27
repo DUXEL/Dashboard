@@ -1,12 +1,16 @@
 var ready = function() {
 
+    //Hide checks
+    $("#region-check").hide();
+    $("#time-check").hide();
+    $("#language-check").hide();
+
+
      var myFunc = function (){
          var start = $('#start-timepicker1').data("DateTimePicker").date();
          var finish = $('#finish-timepicker1').data("DateTimePicker").date();
          if ( start != null && finish != null ){
          $("#time-check").show();
-         $("#li-region").addClass('disabled');
-         $("#region-link").attr('href','#');
          var years  = finish.diff(start,'years');
          var month  = finish.subtract(years,'years').diff(start,'months');
          var days = finish.subtract(month,'months').diff(start,'days');
@@ -17,8 +21,6 @@ var ready = function() {
 
          }
      };
-
-
 
     $('#start-timepicker1').datetimepicker();
     $('#finish-timepicker1').datetimepicker();
@@ -54,11 +56,23 @@ var ready = function() {
 
     });
 
-   //Deleted languages autocomplete.
+   //Languages autocomplete.
+    var input = document.getElementById("language-input");
+    new Awesomplete(input, {
+        list: ["Español", "Inglés","Portugués"]
+    });
+
+
+    $("#language-input").on("input", function (e) {
+        if($(this).val() == "") {
+            $("#language-check").hide();
+        }else {
+            $("#language-check").show();
+        }
+    });
 
 
     // Code necesary for the jqvmap
-    console.log($('#vmap'));
     $('#vmap').vectorMap({
         map: 'world_en',
         locale: 'es',
@@ -77,8 +91,6 @@ var ready = function() {
         onRegionClick: function(element, code, region)
         {
             $("#region-check").show();
-            $("#li-time").addClass('disabled');
-            $("#time-link").attr('href','#');
         }
 
     });
@@ -99,21 +111,27 @@ var ready = function() {
 
     //posible options select,deselect,highlight,unhighlight;
     var regions = {
-        'worldRegions':
+        'worldRegion':
             ["ae","af","ag","al","am","ao","ar","at","au","az","ba","bb","bd","be","bf","bg","bi","bj","bn","bo","br","bs","bt","bw","by","bz","ca","cd","cf","cg","ch","ci","cl","cm","cn","co","cr","cu","cv","cy","cz","de","dj","dk","dm","do","dz","ec","ee","eg","er","es","et","fi","fj","fk","fr","ga","gb","gd","ge","gf","gh","gl","gm","gn","gq","gr","gt","gw","gy","hn","hr","ht","hu","id","ie","il","in","iq","ir","is","it","jm","jo","jp","ke","kg","kh","km","kn","kp","kr","kw","kz","la","lb","lc","lk","lr","ls","lt","lv","ly","ma","md","mg","mk","ml","mm","mn","mr","mt","mu","mv","mw","mx","my","mz","na","nc","ne","ng","ni","nl","no","np","nz","om","pa","pe","pf","pg","ph","pk","pl","pt","py","qa","re","ro","rs","ru","rw","sa","sb","sc","sd","se","si","sk","sl","sn","so","sr","st","sv","sy","sz","td","tg","th","tj","tl","tm","tn","tr","tt","tw","tz","ua","ug","us","uy","uz","ve","vn","vu","ye","za","zm","zw"],
-        'europeRegion':[],
-        'americaRegion':["ar", "cl", "co", "cr", "cu", "ec", "sv", "gt", "hn", "mx", "ni", "pa", "py", "pe", "do", "uy", "ve", "us", "br", "ca", "gy", "sr", "gf", "ag", "lc", "tt", "bb", "ht", "bs", "jm", "dm", "kn", "gd", "fk", "bo"],
-        'latamRegion': ["ar","bo","cl","co","cr","cu","ec","sv","es","gt","hn","mx","ni","pa","py","pe","do","uy","ve"],
-        'nortAmericaRegion': [],
-        'southAmericRegion':[]
-    };
+        'naRegion':["ca","us","mx","gl"],
+        'saRegion':["ve","co","pe","ec","br","gy","sr","gf","bo","py","uy","cl","ar","fk"],
+        'caRegion': ["bz","gt","hn","sv", "ni","cr","pa"],
+        'euwRegion':["se","fi","no","is","gb","ie","fr","es","pt","ch","de","nl","dk","it","mt","be","at"],
+        'carRegion':["cr", "ni", "cu","bs", "ht","jm", "ag","kn","lc","dm","bb", "tt", "gd","do", "bz","gt","hn","co","ve", "gy","sr","gf","pa"],
+        'eueRegion':["ru","pl","cz","sk","hu","ro","si","hr","ba","mk","bg","rs","al","ua","ee","lt","lv","by","md","gr"],
+        'afRegion':["ly","dz","ma","mr","ml","gn","sn","gm","gw","lr","sl","ci","gh","bf","bj","ne","tg","ng","sd","eg","td","et","er","so","ke","ug","cd","cf","cm","ga","cg","st","gq","tz","mz","mw","zm","rw","bi","mg","zw","bw","na","ao","ls","sz","za","tn","dj"],
+        'asRegion':["ru","mn","cn","kp","kr","jp","kz","bd","np","in","bt","th","la","mm","vn","kh","my","ph","tw","lk","id","pk","af","tm","kg","uz","tj","sa","ye","om","ir","iq","jo","sy","ae","kw","qa","tr","az","am","ge"],
+        'oceRegion':["au","nz","pg","sb","nc","vu","fj","id","tl"],
+        'lataRegion': ["ve","co","ec","pe","bo","py","gf","br","ar","uy","cl","fk","mx","gt","hn","ni","cr","pa","bz","sv"],
+
+};
 
     $("#vmap").click(function(){
 
     });
 
     $(".region-options").click(function (){
-        manipulateMultiple('deselect',regions['worldRegions']);
+        manipulateMultiple('deselect',regions['worldRegion']);
         var value = $(this).attr('value');
         manipulateMultiple('select',regions[value]);
 
@@ -124,18 +142,16 @@ var ready = function() {
      * tabs deppendig which is selected first (modified first)
      */
     $("#region-btn-clear").click(function(){
-        manipulateMultiple('deselect', regions['worldRegions']);
+        manipulateMultiple('deselect', regions['worldRegion']);
         $("#region-check").hide();
         $("#time-link").attr('href','#time');
-        $("#li-time").removeClass('disabled');
 
     });
 
     $("#time-btn-clear").click(function(){
-        manipulateMultiple('deselect', regions['worldRegions']);
+        manipulateMultiple('deselect', regions['worldRegion']);
         $("#time-check").hide();
         $("#region-link").attr('href','#region');
-        $("#li-region").removeClass('disabled');
         $('#finish-timepicker2').val('');
         $('#start-timepicker2').val('');
         $("#start-timepicker1").data("DateTimePicker").date(null);
@@ -147,23 +163,15 @@ var ready = function() {
     });
 
     $("#language-btn-clear").click(function(){
-        var temp = selectedLanguages;
-        for (cc in temp){
-            switcAvailability(selectedLanguages,temp[cc]);
-        }
-        $("#language-textbox").typeahead('destroy');
-        $("#language-textbox").typeahead({source: availableLanguages });
-        $("#languages-list").html('');
-        $('#language-check').hide();
-
+        $("#language-check").hide();
+        $("#language-input").val("");
     });
+
     $("#filters-btn-clear").click(function(){
         $("#language-btn-clear").click();
         $("#time-btn-clear").click();
         $("#region-btn-clear").click();
-
     });
-    alert("Filters script loaded succesfully");
 
 };
 

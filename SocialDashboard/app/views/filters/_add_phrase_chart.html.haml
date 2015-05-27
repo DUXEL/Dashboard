@@ -4,8 +4,9 @@
     .modal-content
       .modal-header
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} ×
-        %h4.modal-title Configuracion de filtros
+          %span{"aria-hidden" => "true"} &times;
+        %h3.modal-title
+          = t('filters.title')
       %div
         .container-fluid
           .row
@@ -16,101 +17,154 @@
                 %ul.nav.nav-tabs
                   %li#li-region.active
                     %a#region-link{"data-toggle" => "tab", :href => "#region"}
+                      %span#region-check.check-span.fa.fa-check-circle-o{"aria-hidden" => "true"}
+                      .clear
                       = image_tag("icons/region.png", class: "img-responsive filter-image", alt: "Region icon")
-                      %span#region-check.glyphicon.glyphicon-ok-circle{"aria-hidden" => "true"}
-                      %label.filter-label Region
+                      %label.filter-label
+                        = t('filters.phrases.region.tab-nm')
                   %li#li-time
                     %a#time-link{"data-toggle" => "tab", :href => "#time"}
+                      %span#time-check.check-span.fa.fa-check-circle-o{"aria-hidden" => "true"}
+                      .clear
                       = image_tag("icons/time.png", class: "img-responsive filter-image", alt: "Time icon")
-                      %span#time-check.glyphicon.glyphicon-ok-circle{"aria-hidden" => "true"}
-                      %label.filter-label Tiempo
+                      %label.filter-label
+                        = t('filters.phrases.time.tab-nm')
                   %li
                     %a{"data-toggle" => "tab", :href => "#language"}
-                      /%img.filter-image{:alt => "tiempo", :src => "assets/icons/idiomas.png"}
+                      %span#language-check.check-span.fa.fa-check-circle-o{"aria-hidden" => "true"}
+                      .clear
                       = image_tag("icons/languages.jpg", class: "img-responsive filter-image", alt: "Languages icon")
-                      %span#language-check.glyphicon.glyphicon-ok-circle{"aria-hidden" => "true"}
-                      %label.filter-label Lenguaje
+                      %label.filter-label
+                        = t('filters.phrases.lang.tab-nm')
                 .tab-content
+
+
+
                   #region.tab-pane.active.region
                     .region-container
-                      %h2 Seleccion de regiones
+                      %button#region-btn-clear.btn.btn-sm.pull-right{:type => "button"}
+                        = t('buttons.filters.clean')
+                      %h4
+                        = t('filters.phrases.region.title')
                       %hr
                       .region-select
-                        .dropdown
+                        %h5.region-label
+                          = t('filters.phrases.region.dropdown-label')
+                        .dropdown.region-dropdown
                           %button#dropdownMenu1.btn.btn-default.dropdown-toggle.drop-down-toggle-region{"aria-expanded" => "true", "data-toggle" => "dropdown", :type => "button"}
-                            Seleccione una region
+                            = t('filters.phrases.region.dropdown.title')
                             %span.caret
                           %ul.dropdown-menu.dropdown-menu-regions{"aria-labelledby" => "dropdownMenu1", :role => "menu"}
-                            %li.region-options{:role => "presentation", :value => "worldRegions"}
-                              %a{:role => "menuitem", :tabindex => "-1"} Mundo
-                            %li.region-options{:role => "presentation", :value => "latamRegion"}
-                              %a{:role => "menuitem", :tabindex => "-1"} Latinoamerica
-                            %li.region-options{:role => "presentation", :value => "americaRegion"}
-                              %a{:role => "menuitem", :tabindex => "-1"} America
-                            %li.region-options{:role => "presentation", :value => "europeRegion"}
-                              %a{:role => "menuitem", :tabindex => "-1"} Europa
+                            %li.region-options{:role => "presentation", :value => "worldRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.ww')
+                            %li.region-options{:role => "presentation", :value => "naRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.na')
+                            %li.region-options{:role => "presentation", :value => "caRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.ca')
+                            %li.region-options{:role => "presentation", :value => "saRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.sa')
+                            %li.region-options{:role => "presentation", :value => "carRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.car')
+                            %li.region-options{:role => "presentation", :value => "euwRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.euw')
+                            %li.region-options{:role => "presentation", :value => "eueRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.eue')
+                            %li.region-options{:role => "presentation", :value => "afRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.af')
+                            %li.region-options{:role => "presentation", :value => "asRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.as')
+                            %li.region-options{:role => "presentation", :value => "oceRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.oce')
+                            %li.region-options{:role => "presentation", :value => "lataRegion"}
+                              %a{:role => "menuitem", :tabindex => "-1"}
+                                = t('filters.phrases.region.dropdown.lata')
                       .region-map-container
                         #vmap
-                      .tab-footer
-                        %button#region-btn-clear.btn.btn-sm.pull-right{:type => "button"} Limpiar filtro
+
+
+
+
                   #time.tab-pane.time
-                    %h2 Rango de tiempo
-                    %hr/
-                    /
-                      <div class="container-fluid">
-                      <div class="row">
-                    .filter-datepicker-containers
-                      .col-sm-5
-                        %h4 Inicio
-                        .form-group
-                          #start-timepicker1.input-group.date
-                            %input#start-timepicker2.form-control.time-input-picker{:type => "text"}/
-                            %span#start-timepicker3.input-group-addon
-                              %span.glyphicon.glyphicon-calendar
-                      .col-sm-5
-                        %h4 Final
-                        .form-group
-                          #finish-timepicker1.input-group.date
-                            %input#finish-timepicker2.form-control.time-input-picker{:type => "text"}/
-                            %span#finish-timepicker3.input-group-addon
-                              %span.glyphicon.glyphicon-calendar
-                    .filter-time-resume.col-sm-10
-                      %h4 Resumen de rango seleccionado
-                      %hr/
-                      .filter-time-resume-container
-                        .filter-date-summary-box
-                          %h4 Años
-                          #filter-resume-year
-                            / here goes the number corresponding to the year difference
-                            %span 0
-                        .filter-date-summary-box
-                          %h4 Meses
-                          #filter-resume-month
-                            / here goes the number corresponding to the year difference
-                            %span 0
-                        .filter-date-summary-box
-                          %h4 Días
-                          #filter-resume-day
-                            / here goes the number corresponding to the days difference
-                            %span 0
-                    .tab-footer
-                      %button#time-btn-clear.btn.btn-sm.pull-right.pull-bottom{:type => "button"} Limpiar filtro
+                    %button#time-btn-clear.btn.btn-sm.pull-right{:type => "button"}
+                      = t('buttons.filters.clean')
+                    %h4
+                      = t('filters.phrases.time.title')
+                    %hr
+                      .filter-datepicker-containers
+                        %div.row
+                          %div.col-sm-8
+                            %div.col-sm-6
+                              %h5.font-bold
+                                = t('filters.phrases.time.init')
+                              .form-group
+                                #start-timepicker1.input-group.date
+                                  %input#start-timepicker2.form-control.time-input-picker{:type => "text"}/
+                                  %span#start-timepicker3.input-group-addon
+                                    %span.fa.fa-calendar
+                            %div.col-sm-6
+                              %h5.font-bold
+                                = t('filters.phrases.time.fin')
+                              .form-group
+                                #finish-timepicker1.input-group.date
+                                  %input#finish-timepicker2.form-control.time-input-picker{:type => "text"}/
+                                  %span#finish-timepicker3.input-group-addon
+                                    %span.fa.fa-calendar
+                            .filter-time-resume
+                            %hr
+                            %hr
+                              %h4
+                                = t('filters.phrases.time.subtitle')
+                              %br
+                              .filter-time-resume-container.col-sm-10
+                                .filter-date-summary-box
+                                  %h6.font-bold
+                                    = t('filters.phrases.time.years')
+                                  #filter-resume-year
+                                    / here goes the number corresponding to the year difference
+                                    %span 0
+                                .filter-date-summary-box
+                                  %h6.font-bold
+                                    = t('filters.phrases.time.months')
+                                  #filter-resume-month
+                                    / here goes the number corresponding to the year difference
+                                    %span 0
+                                .filter-date-summary-box
+                                  %h6.font-bold
+                                    = t('filters.phrases.time.days')
+                                  #filter-resume-day
+                                    / here goes the number corresponding to the days difference
+                                    %span 0
+                            .tab-footer
+                  /
                   #language.tab-pane.language
+                    %button#language-btn-clear.btn.btn-sm.pull-right.pull-bottom{:type => "button"}
+                      = t('buttons.filters.clean')
+                    %h4
+                      = t('filters.phrases.lang.title')
+                    %hr
                     .language-info-container
-                      .col-sm-8
-                        %h2 Seleccion de idiomas
-                        %hr/
-                        %h4 Ingrese el lenguaje
-                        #language-header
-                          / <input id="language-textbox" placeholder="Language">
-                          %input#language-textbox{"data-provide" => "typeahead", :placeholder => "Language", :type => "text"}/
-                        .list-container
-                          %h4 Idiomas seleccionados
-                          %ul#languages-list
-                      .tab-footer
-                        %button#language-btn-clear.btn.btn-sm.pull-right.pull-bottom{:type => "button"} Limpiar filtro
+                      %div.row
+                        %div.col-sm-10
+                          %h5.font-bold
+                            = t('filters.phrases.lang.input-label')
+                          %form
+                            .form-group
+                              %input{"data-list" => "", class: "form-control", id: "language-input", placeholder: "#{t('filters.phrases.lang.input-placeholder')}"}
       / /tabs
       / /row
       .modal-footer
-        %button#filters-btn-clear.btn{:type => "button"} Limpiar filtros
-        %button.btn.btn-primary{:type => "button"} Aplicar
+        %button#filters-btn-clear.btn{:type => "button"}
+          = t('buttons.filters.clean-all')
+        %button.btn.btn-success{:type => "button"}
+          = t('buttons.apply')
+          / Filter for popular terms and trends modal END
