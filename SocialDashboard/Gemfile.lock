@@ -39,6 +39,8 @@ GEM
     addressable (2.3.8)
     algorithms (0.5.0)
     arel (6.0.0)
+    bootstrap3-datetimepicker-rails (4.0.0)
+      momentjs-rails (>= 2.8.1)
     buftok (0.2.0)
     builder (3.2.2)
     coffee-rails (4.1.0)
@@ -100,6 +102,8 @@ GEM
     mime-types (2.5)
     mini_portile (0.6.2)
     minitest (5.6.1)
+    momentjs-rails (2.10.2)
+      railties (>= 3.1)
     multi_json (1.11.0)
     multipart-post (2.0.0)
     naught (1.0.0)
@@ -196,12 +200,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap3-datetimepicker-rails (~> 4.0.0)
   coffee-rails (~> 4.1.0)
   font-awesome-rails
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
   less-rails
+  momentjs-rails (>= 2.8.1)
   rails (= 4.2.0)
   rails-i18n (~> 4.0.0)
   rgl

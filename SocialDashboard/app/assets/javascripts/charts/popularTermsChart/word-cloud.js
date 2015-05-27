@@ -1,4 +1,5 @@
 var ready = function() {
+
     var fill = d3.scale.category20b();
     
     var h = $("#popular-terms-tab").height(),

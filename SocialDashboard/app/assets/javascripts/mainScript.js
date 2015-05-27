@@ -1,5 +1,6 @@
 var ready = function() {
     $(document).on("click", ".delete-button", function () {
+        //It has to make an ajax request to delete the cookie filter and then delete graph from the view.
         $(this).parent().parent().remove();
     });
 

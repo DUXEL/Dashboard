@@ -14,24 +14,26 @@
           .row
             .col-sm-9
               .btn-group{"data-toggle" => "buttons"}
-                %label.btn.btn-default
-                  %input#q156{:name => "quality[25]", :type => "radio", :value => "1"}
+                %label.btn.btn-default.active
+                  %input#q156{:name => "quality[25]", :type => "radio", :value => "twitter"}
                   Twitter
                 %label.btn.btn-default
-                  %input#q157{:name => "quality[25]", :type => "radio", :value => "2"}
+                  %input#q157{:name => "quality[25]", :type => "radio", :value => "kodu"}
                   Kodu
+        %br
+        %h5
+          = t('filters.sna.user')
         %form
           .form-group
-            %h5{:for => "inputUser1"}
-              = t('filters.sna.user')
             %input.form-control
+        %br
         %h5
           = t('filters.sna.depth')
         %form
           .row
             .col-sm-9
               .btn-group{"data-toggle" => "buttons"}
-                %label.btn.btn-default
+                %label.btn.btn-default.active
                   %input#q158{:name => "quality[25]", :type => "radio", :value => "1"}
                     1
                 %label.btn.btn-default

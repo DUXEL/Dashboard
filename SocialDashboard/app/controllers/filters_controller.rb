@@ -7,9 +7,9 @@ class FiltersController < ApplicationController
     category = params[:category]
 
     if category.eql? "phrase"
-      render 'filter/add_phrase_chart' , layout: false
+      render 'filters/add_phrase_chart' , layout: false
     elsif category.eql? "sna"
-      render 'filter/add_sna_chart' , layout: false
+      render 'filters/add_sna_chart' , layout: false
     end
   end
 

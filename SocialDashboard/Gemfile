@@ -46,3 +46,7 @@ gem 'twitter'
 
 #Use Ruby graph library.
 gem 'rgl'
+
+#Use bootstrap datepicker
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
