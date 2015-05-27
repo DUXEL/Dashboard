@@ -50,14 +50,15 @@ var ready = function(){
         }else if (value=="sna"){
             var modalName = "#data-analysis-filter";
         }
+        $(modalName).modal('show');
 
-
+        /*
         var $bigChart = $('#big-chart');
 		if ( $bigChart.children().length == 0) { // Has nothing
 
             $.ajax({
                 method: 'get',
-                url: "/graph/create",
+                url: "/filters/new",
                 data: {type: id, category: value},
                 async: false
             }).done(function(response){
@@ -70,10 +71,8 @@ var ready = function(){
         }else{
 
         }
-
-
-        
-    });    
+    */
+    });
 	
 }
 

@@ -23,6 +23,8 @@
             %div.row#big-chart{style:"background-color:#667;"}
             %div.row#small-charts
         %div#modal-container
+          = render "filters/add_phrase_chart"
+          = render "filters/add_sna_chart"
 
       %footer.footer
         %nav.navbar.navbar-default
@@ -44,4 +46,5 @@
                     = link_to t('footer.languages.pt'), change_locale_path(:pt)
 
 
+%script{:src => "/assets/filters/filters.js" }
 

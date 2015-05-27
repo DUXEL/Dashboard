@@ -1,8 +1,5 @@
 var ready = function() {
 
-    alert("loaded filters");
-
-    /*
      var myFunc = function (){
          var start = $('#start-timepicker1').data("DateTimePicker").date();
          var finish = $('#finish-timepicker1').data("DateTimePicker").date();
@@ -20,7 +17,7 @@ var ready = function() {
 
          }
      };
-     */
+
 
 
     $('#start-timepicker1').datetimepicker();
@@ -46,7 +43,7 @@ var ready = function() {
     });
 
 
-    /* Simulate clicking the addon-icon */
+     //Simulate clicking the addon-icon
     $("#finish-timepicker2").click(function(){
         $("#finish-timepicker3").click();
 
@@ -57,99 +54,11 @@ var ready = function() {
 
     });
 
-    /*================================================================*/
-    // Variable that contains a list of available languages
-    var availableLanguages = [
-        "Aleman",
-        "Arabe",
-        "Mandarin",
-        "Coreano",
-        "Español",
-        "Frances",
-        "Griego",
-        "Holandes",
-        "Ingles",
-        "Italiano",
-        "Japones",
-        "Portugues",
-        "Rumano",
-        "Ruso",
-        "Sueco",
-        "Vietnamita"
-    ];
-
-    var selectedLanguages = [];
-
-    //$("#language-textbox").typeahead({source: availableLanguages });
-
-    /*
-    // This function goes over the list of available languages to verify if the input is in the list
-    var contains = function(array,value){
-        for (i in array) {
-            if (array[i]===value){
-                return true;
-            }
-        }
-        return false;
-    };
-
-    var switcAvailability = function(array,lang){
-        var newArray = [];
-        for (cc in array){
-            if ( array[cc]!=lang ){
-                newArray.push(array[cc]);
-            }
-        }
-        if (contains(availableLanguages,lang)){
-            availableLanguages = newArray;
-            selectedLanguages.push(lang);
-        }else{
-            selectedLanguages = newArray;
-            availableLanguages.push(lang);
-        }
-
-    };
-
-    var isItValid = function(lang){
-        return (contains(availableLanguages,lang) && !contains(selectedLanguages,lang))
-    };
-    */
-
-    // Button to remove items from selected languages
-    $(document).on("click","#languages-list li a",function(){
-        var lang = $(this).attr('id');
-        switcAvailability(selectedLanguages,lang);
-        $("#language-textbox").typeahead('destroy');
-        $("#language-textbox").typeahead({source: availableLanguages });
-        $(this).parent().remove();
-        if (selectedLanguages.length == 0 ){
-            $('#language-check').hide();
-        }
-    });
-
-    // Verifies if keypress is enter to add a language to the selected list
-    $(document).keypress(function(key) {
-        if(key.which == 13) {
-            var text = $("#language-textbox").val();
-            if ( isItValid(text)===true ){
-                switcAvailability(availableLanguages,text);
-                $("#language-textbox").typeahead('destroy');
-                $("#language-textbox").typeahead({source: availableLanguages });
-                var id = "language-"+text;
-                var item = "<li id="+id+">"+text+"&nbsp;<a id="+text+" href='#'><img src='icons/language-delete.png'/></a> </li>";
-                $("#languages-list").append(item);
-                $('#language-check').show();
-            }
-            $("#language-textbox").val("");
+   //Deleted languages autocomplete.
 
 
-        }
-    });
-
-
-    /*====================================================*/
     // Code necesary for the jqvmap
-
+    console.log($('#vmap'));
     $('#vmap').vectorMap({
         map: 'world_en',
         locale: 'es',
@@ -175,7 +84,7 @@ var ready = function() {
     });
 
 
-    /*
+
     //manipulate multiple regions in the map using options and an array containig the regions to manipulate.
     var manipulateMultiple = function(option,regionList){
         for (i in regionList){
@@ -186,7 +95,7 @@ var ready = function() {
             }
         }
     };
-    */
+
 
     //posible options select,deselect,highlight,unhighlight;
     var regions = {
@@ -197,8 +106,6 @@ var ready = function() {
         'latamRegion': ["ar","bo","cl","co","cr","cu","ec","sv","es","gt","hn","mx","ni","pa","py","pe","do","uy","ve"],
         'nortAmericaRegion': [],
         'southAmericRegion':[]
-
-
     };
 
     $("#vmap").click(function(){
@@ -256,7 +163,7 @@ var ready = function() {
         $("#region-btn-clear").click();
 
     });
-    alert("at the end");
+    alert("Filters script loaded succesfully");
 
 };
 
