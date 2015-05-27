@@ -1,0 +1,35 @@
+/ Sidebar
+/ Sidebar Button
+#sidebar
+  .sidebar-button.shadowed.vcentered{:title => "#{t('sidebar.title')}"}
+    #arrow-container
+      %p#arrow-char ◂
+  / Sidebar Options
+  .sidebar.vcentered
+    .sidebar-content.shadowed
+      / Menu
+      %ul
+        %li.graph-type{:id => "popularTerms",:value => "phrase"}
+          %a{:href => "#"}
+            %i.fa.fa-plus-circle
+            = t('charts.pt')
+        %li.graph-type{:id => "trends",:value => "phrase"}
+          %a{:href => "#"}
+            %i.fa.fa-plus-circle
+            = t ('charts.tr')
+        %li.graph-type{:id => "network",:value => "sna"}
+          %a{:href => "#"}
+            %i.fa.fa-plus-circle
+            = t('charts.net')
+        %li.graph-type{:id => "centrality",:value => "sna"}
+          %a{:href => "#"}
+            %i.fa.fa-plus-circle
+            = t('charts.ct')
+        %li.graph-type{:id => "density",:value => "sna"}
+          %a{:href => "#"}
+            %i.fa.fa-plus-circle
+            = t('charts.ds')
+        %li.graph-type{:id => "distance",:value => "sna"}
+          %a{:href => "#"}
+            %i.fa.fa-plus-circle
+            = t('charts.dt')

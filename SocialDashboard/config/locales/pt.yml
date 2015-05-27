@@ -1,0 +1,69 @@
+pt:
+  footer:
+    languages:
+      lang: "Línguas"
+      es: "Espanhol"
+      en: "Inglês"
+      pt: "Português"
+    sign: "Criado por DUXEL"
+  charts:
+    pt: "Termos populares"
+    tr: "Tendências"
+    net: "Rede"
+    ct: "Centralidade"
+    ds: "Densidade"
+    dt: "Distância"
+  sidebar:
+    title: "Adicionar gráfico"
+  graph-info:
+    ds: "Densidade: "
+    dt: "Graus de separação: "
+  filters:
+    title: "Configurações de filtro"
+    sna:
+      sn: "Rede social:"
+      user: "Usuário:"
+      depth: "Nível de profundidade:"
+    phrases:
+      region:
+        tab-nm: "Região"
+        title: "Selecção de regiões"
+        dropdown:
+          title: "Escolha uma região"
+          na: "América do Norte"
+          ca: "América Central"
+          sa: "Ámérica do Sul"
+          car: "Caribe"
+          euw: "Europa Ocidental"
+          eue: "Europa Oriental"
+          af: "África"
+          as: "Ásia"
+          oce: "Oceânia"
+          lata: "América Latina"
+      time:
+        tab-nm: "Tempo"
+        title: "Intervalo de tempo"
+        init: "Iniciação"
+        fin: "Final"
+        subtitle: "Resumo do intervalo selecionado"
+        years: "Anos"
+        months: "Meses"
+        days: "Días"
+      lang:
+        tab-nm: "Língua"
+        title: "Selecção de idiomas"
+        lang-select: "Introduzir um idioma"
+        lang-list: "Idiomas selecionados"
+  buttons:
+    apply: "Aplicar"
+    filters:
+      clean: "Filtro limpo"
+      clean-all: "Filtros limpos"
+
+
+
+
+
+
+
+

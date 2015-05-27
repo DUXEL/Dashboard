@@ -1,0 +1,127 @@
+/*
+Dashboard Project - Software Design.
+ITCR - Alajuela - 2015
+Developers:
+- Diego Ugalde Avila
+- Daniel Gerardo Solis Mendez
+- Melvin Alonso Elizondo Perez
+- Luis Eduardo Ugalde Barrantes
+
+Org: duXel
+*/
+
+/*--------------------------------------------------------------------------------------------*/
+/*Main styles*/
+
+html, body {
+    box-sizing: border-box !important;
+    margin:0 !important;
+    padding:0 !important;
+    height:100% !important;
+}
+
+.clear {
+    clear: both;
+}
+
+.main-container {
+    background-image: url("../images/backgrounds/starthere3.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.main-container h3{
+    margin-left: 10px;
+    color: darkslategrey;
+}
+
+/*--------------------------------------------------------------------------------------------*/
+/* Styles for each chart box*/
+.box-container {
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+
+.chart-container {
+    border: 5px solid #ACB2B1;
+    border-radius: 40px;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.chart-container:hover img {
+    -webkit-filter: invert(0.1);
+}
+
+.chart-container:hover .delete-button{
+    display: block;
+}
+
+.chart-container:hover .settings-button{
+    display: block;
+}
+
+.chart-container:hover .fullscreen-button{
+    display: block;
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/trash-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.delete-button:hover {
+    background-image: url('../images/icons/trash-icon-hover.png');
+}
+
+.settings-button {
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/settings-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.settings-button:hover {
+    background-image: url('../images/icons/settings-icon-hover.png');
+}
+
+.fullscreen-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 15px;
+    margin-top: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/fullscreen-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.fullscreen-button:hover {
+    background-image: url('../images/icons/fullscreen-icon-hover.png');
+}
+
+.tab-img {
+    height: 60px;
+    width: 60px;
+}
+
+.inline {
+    display: inline-block;
+}
