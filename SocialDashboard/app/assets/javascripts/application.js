@@ -17,7 +17,6 @@
 //= require mainScript
 //= require sidebar
 
-
 //= require filters/filters
 //= require filters/jquery.vmap.js
 //= require filters/jquery.vmap.world
