@@ -5,15 +5,15 @@ class APIAccessor
     #initialize_kodu_client
   end
 
-  def get_graph(social_network, user, depth_level)
+  def get_graph(filter)
 
   end
 
-  def get_trending_topics(region, time, languages)
+  def get_trending_topics(filter)
 
   end
 
-  def get_popular_terms(region, time, languages)
+  def get_popular_terms(filter)
 
   end
 
@@ -26,6 +26,10 @@ class APIAccessor
         config.access_token        = "3290559083-s5Ocy79jPz2k35vwTqNjYrkOdcXmexPDsPd4cMQ"
         config.access_token_secret = "ZuuxBToNh46XARERWbCYRRnskTFSMiv9HUN58HleiyRTo"
       end
+    end
+
+    def initialize_kodu_client
+      @kodu_client = KoduClient.new
     end
 
 end

@@ -44,3 +44,5 @@ gem 'rails-i18n', '~> 4.0.0'
 #Use twitter api client
 gem 'twitter'
 
+#Use Ruby graph library.
+gem 'rgl'
