@@ -19,6 +19,7 @@
 
 //= require moment
 //= require bootstrap-datetimepicker
+//= require filters/awesomplete.min.js
 //= require filters/jquery.vmap
 //= require filters/jquery.vmap.world
 //= require filters/filters
