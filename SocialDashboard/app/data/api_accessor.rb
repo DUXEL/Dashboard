@@ -9,8 +9,9 @@ class APIAccessor
 
   end
 
-  def get_trending_topics(filter)
-
+  def get_trending_topics(country)
+    country_trends = @twitter_client.trends(country.woeid)
+    puts country_trends
   end
 
   def get_popular_terms(filter)
