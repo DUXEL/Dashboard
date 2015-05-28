@@ -1,6 +1,7 @@
-var ready = function() {
-    // Word cloud layout by Jason Davies, http://www.jasondavies.com/word-cloud/
+// Word cloud layout by Jason Davies, http://www.jasondavies.com/word-cloud/
 // Algorithm due to Jonathan Feinberg, http://static.mrfeinberg.com/bv_ch03.pdf
+
+var ready = function() {
     (function() {
         function cloud() {
             var size = [256, 256],
@@ -400,7 +401,6 @@ var ready = function() {
         if (typeof module === "object" && module.exports) module.exports = cloud;
         else (d3.layout || (d3.layout = {})).cloud = cloud;
     })();
-
 }
 
 $(document).on('page:load', ready);

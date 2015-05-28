@@ -14,6 +14,10 @@
  *= require_self
  */
 
+html, body {
+    overflow-x: hidden;
+}
+
 /*Styles for the body container, includes: topbar-main-footerbar*/
 #body-container{
     min-height: 100%;
