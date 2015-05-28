@@ -37,7 +37,22 @@ var ready = function(){
 			
 		}
 	});
-    
+
+
+    $('body').click(function (evt) {
+        if (evt.target.id == "sidebar")
+            return;
+        //For descendants of menu_content being clicked, remove this check if you do not want to put constraint on descendants.
+        if ($(evt.target).closest('#sidebar').length)
+            return;
+
+        var $sidebar = $('.sidebar-content');
+
+        if ($sidebar.is(':visible')) {
+            $('.sidebar-button').click();
+        }
+    });
+
     // Event to handle when a graph's type is clicked 
     // in orden to add it to the page(main container).
     $(".graph-type").click(function (){

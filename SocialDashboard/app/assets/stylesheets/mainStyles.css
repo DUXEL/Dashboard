@@ -108,13 +108,14 @@ html, body {
     margin-top: 10px;
     height: 30px;
     width: 30px;
-    background-image: url('../images/icons/fullscreen-icon.png');
+    background-image: url('icons/fullscreen-icon.png');
     transition: all 1s ease;
+    z-index: 1000;
     display: none;
 }
 
 .fullscreen-button:hover {
-    background-image: url('../images/icons/fullscreen-icon-hover.png');
+    background-image: url('icons/fullscreen-icon-hover.png');
 }
 
 .tab-img {
@@ -125,3 +126,18 @@ html, body {
 .inline {
     display: inline-block;
 }
+
+
+
+/*--------------------------------------------------------------------------------------------*/
+/* Styles for charts' slider  */
+
+.slider-div{
+    height: 170px;
+    border: black solid 2px;
+}
+
+#charts-slider li:hover .fullscreen-button {
+    display: block;
+}
+

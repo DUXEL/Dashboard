@@ -3,7 +3,6 @@ class ChartsController < ApplicationController
   before_action :set_chart_service, only: [:create]
 
   def create
-
   end
 
   private
