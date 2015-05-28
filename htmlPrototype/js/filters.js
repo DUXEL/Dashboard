@@ -24,20 +24,18 @@ $(function () {
 
     $("#start-timepicker1").on("dp.change", function (e) {
         var start = $('#start-timepicker1').data("DateTimePicker").date();
-        var finish = $('#finish-timepicker1').data("DateTimePicker").date();
-        if ( start != null && finish != null ){
+        if ( start != null ){
             $('#finish-timepicker1').data("DateTimePicker").minDate(e.date);
         }
         myFunc();
     });
 
     $("#finish-timepicker1").on("dp.change", function (e) {
-        var start = $('#start-timepicker1').data("DateTimePicker").date();
         var finish = $('#finish-timepicker1').data("DateTimePicker").date();
-        if ( start != null && finish != null ){
+        if ( finish != null ){
             $('#start-timepicker1').data("DateTimePicker").maxDate(e.date);
-            myFunc();
         }
+        myFunc();
     });
 
 
@@ -213,16 +211,19 @@ $(function () {
         $("#li-time").removeClass('disabled');
 
     });
+    
 
     $("#time-btn-clear").click(function(){
         manipulateMultiple('deselect', regions['worldRegions']);
         $("#time-check").hide(); 
         $("#region-link").attr('href','#region');
         $("#li-region").removeClass('disabled');
-        $('#finish-timepicker2').val('');
-        $('#start-timepicker2').val('');
-        $("#start-timepicker1").data("DateTimePicker").date(null);
-        $("#finish-timepicker1").data("DateTimePicker").date(null);
+        //$('#finish-timepicker2').val('');
+        //$('#start-timepicker2').val('');
+        $('#finish-timepicker1').data("DateTimePicker").minDate(false);
+        $('#start-timepicker1').data("DateTimePicker").maxDate(false);
+        $("#start-timepicker1").data("DateTimePicker").clear();
+        $("#finish-timepicker1").data("DateTimePicker").clear();
         $('#filter-resume-day').html("<span>"+0+"</span>");
         $('#filter-resume-month').html("<span>"+0+"</span>");
         $('#filter-resume-year').html("<span>"+0+"</span>");
