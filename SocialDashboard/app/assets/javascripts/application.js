@@ -17,7 +17,6 @@
 //= require mainScript
 //= require sidebar
 
-
 //= require moment
 //= require bootstrap-datetimepicker
 //= require filters/jquery.vmap
