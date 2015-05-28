@@ -1,6 +1,7 @@
+var displayGraph;
 var ready = function() {
-    function displayGraph(jsonObject) {
-
+    displayGraph = function(jsonObject, div) {
+        console.log(jsonObject);
         var url = 'data.json'
         var r = 10;
         var graph, layout, zoom, nodes, links, data;
@@ -93,7 +94,7 @@ var ready = function() {
                 .linkDistance(100);
 
             // Setup graph
-            graph = d3.select(".graph")
+            graph = d3.select(div)
                 .append("svg:svg")
                 .attr("pointer-events", "all")
                 .call(zoom)
@@ -117,8 +118,8 @@ var ready = function() {
         }
 
         function resize() {
-            graphWidth = $(".graph-container").width(),
-                graphHeight = $(".graph-container").height();
+            graphWidth = $(div).width(),
+                graphHeight = $(div).height();
             graph.attr("width", graphWidth)
                 .attr("height", graphHeight);
             layout.size([graphWidth, graphHeight])

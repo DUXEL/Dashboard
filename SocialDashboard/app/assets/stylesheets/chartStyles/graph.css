@@ -98,12 +98,12 @@ path.link.resolved {
 }
 
 .control-zoom > .control-zoom-in {
-    background-image: url('../img/plus.jpg');
+    background-image: url('../icons/plusZoomGraph.jpg');
     margin-bottom: 5px;
 }
 
 .control-zoom > .control-zoom-out {
-    background-image: url('../img/minus.jpg');
+    background-image: url('../icons/minusZoomGraph.jpg');
     margin-bottom: 5px;
 }
 
@@ -137,7 +137,7 @@ path.link.resolved {
 }
 
 .close-button {
-    background-image: url(../img/close.jpg);
+    background-image: url('../icons/closeNode.jpg');
     height: 12px;
     width: 12px;
     margin: 0 auto;
@@ -145,5 +145,5 @@ path.link.resolved {
 }
 
 .close-button:hover {
-    background-image: url(../img/closeHover.jpg);
+    background-image: url('../icons/closeNodeHover.jpg');
 }
