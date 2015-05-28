@@ -5,10 +5,10 @@
       .modal-header
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} &times;
-        %h4#myModalLabel.modal-title
+        %h3#myModalLabel.modal-title
           = t('filters.title')
       .modal-body
-        %h5
+        %h4
           = t('filters.sna.sn')
         %form
           .row
@@ -21,13 +21,13 @@
                   %input#q157{:name => "quality[25]", :type => "radio", :value => "kodu"}
                   Kodu
         %br
-        %h5
+        %h4
           = t('filters.sna.user')
         %form
           .form-group
             %input.form-control
         %br
-        %h5
+        %h4
           = t('filters.sna.depth')
         %form
           .row

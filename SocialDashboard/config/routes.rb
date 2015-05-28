@@ -7,13 +7,13 @@ Rails.application.routes.draw do
 
 
   #Routes for filter controller.
-  get '/filters/new', to: 'filters#new'
-  get '/filters/:id/edit', to: 'filters#edit'
-  delete '/filters/:id', to: 'filters#destroy'
+  get '/filters/:id/edit', to: 'filters#edit', as: :edit_filter
+  delete '/filters/:id', to: 'filters#destroy', as: :destroy_filter
   post '/filters', to: 'filters#create'
   put '/filters', to: 'filters#update'
 
 
   #Route for chart controller.
   post '/charts', to: 'charts#create'
+
 end

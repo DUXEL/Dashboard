@@ -27,9 +27,10 @@ en:
     phrases:
       region:
         tab-nm: "Region"
-        title: "Region selection"
+        title: "Country selection"
         dropdown:
           title: "Select a region"
+          ww: "World"
           na: "North America"
           ca: "Central America"
           sa: "South America"
@@ -40,6 +41,7 @@ en:
           as: "Asia"
           oce: "Oceania"
           lata: "Latin America"
+        dropdown-label: "Or you can pick a predefined region"
       time:
         tab-nm: "Time"
         title: "Time range selection"
@@ -52,8 +54,8 @@ en:
       lang:
         tab-nm: "Language"
         title: "Language selection"
-        lang-select: "Enter a language"
-        lang-list: "Selected languages"
+        input-label: "Type in a language"
+        input-placeholder: "Example: Español"
   buttons:
     apply: "Apply"
     filters:
