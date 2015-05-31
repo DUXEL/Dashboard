@@ -52,3 +52,27 @@
 .dropup .dropdown-menu {
     margin-bottom: 0 !important;
 }
+
+
+
+.font-bold {
+    font-weight: bold !important;
+}
+
+.dropup,.dropdown{
+    cursor: pointer;
+}
+
+
+#languages-dropup{
+    background-color: #2D3030 !important;
+}
+
+#languages-dropup a{
+    color: #f1f1f1 !important;
+}
+
+#languages-dropup li:hover a{
+    background-color: #474747 !important;
+    color: #d1d1d1 !important;
+}

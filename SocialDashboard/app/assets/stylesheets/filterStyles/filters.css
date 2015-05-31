@@ -68,7 +68,6 @@ ul{
 /* ================== Styles for resume div =============================*/
 
 .filter-time-resume-container{
-    width: 100%;
     display: inline-block;
 
 }
@@ -123,37 +122,36 @@ ul{
     margin: 0 5px 5px 0;
 }
 
+
+
+
 @media (min-width:1000px){
     #vmap{
-        width: 600px;
-        height: 250px;
+        width: 680px;
+        height: 270px;
     }
-    
-    #popular-terms-tab {
-         width: 780px;
-        height: 520px;
+
+}
+
+@media (max-width:1000px){
+    #vmap{
+        width: 400px;
+        height: 270px;
     }
+
 }
 
 @media (max-width:800px){
     #vmap{
-        width: 380px;
-        height: 220px;
-    }
-    
-    #popular-terms-tab {
-         width: 380px;
+        width: 280px;
         height: 220px;
     }
 }
 
 @media (max-width:450px){
     #vmap{
-        width: 180px;
+        width: 140px;
         height: 100px;
-    }
-    #popular-terms-tab {
-         width: 180px;
     }
 }
 
@@ -181,3 +179,16 @@ ul{
     margin-right: 5px;
 }
 
+.check-span {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: darkolivegreen;
+}
+.region-dropdown{
+    margin-left: 10px;
+}
+
+.region-label{
+    margin-top: 9px;
+}

@@ -27,7 +27,7 @@ es:
     phrases:
       region:
         tab-nm: "Región"
-        title: "Selección de regiones"
+        title: "Selección de países"
         dropdown:
           title: "Seleccione una región"
           ww: "Mundo"
@@ -41,6 +41,7 @@ es:
           as: "Asia"
           oce: "Oceanía"
           lata: "América Latina"
+        dropdown-label: "O puede escoger una region predefinida"
       time:
         tab-nm: "Tiempo"
         title: "Selección de rango de tiempo"
@@ -52,9 +53,9 @@ es:
         days: "Días"
       lang:
         tab-nm: "Idioma"
-        title: "Selección de idiomas"
-        lang-select: "Ingrese un idioma"
-        lang-list: "Idiomas seleccionados"
+        title: "Selección de idioma"
+        input-label: "Ingrese un idioma"
+        input-placeholder: "Ejemplo: Español"
   buttons:
     apply: "Aplicar"
     filters:

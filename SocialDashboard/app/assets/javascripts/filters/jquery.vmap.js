@@ -457,7 +457,6 @@ var ready = function() {
             jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (e) {
                 if (!params.multiSelectRegion) {
                     for (var key in mapData.pathes) {
-                        console.log("si entra aqui");
                         map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
                         map.countries[key].setFill(map.countries[key].getOriginalFill());
                     }
