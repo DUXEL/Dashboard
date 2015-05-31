@@ -4,20 +4,14 @@ var ready = function() {
         $(this).parent().parent().remove();
     });
 
-    $('body').click(function (evt) {
 
-        if (evt.target.id == "sidebar")
-            return;
-        //For descendants of menu_content being clicked, remove this check if you do not want to put constraint on descendants.
-        if ($(evt.target).closest('#sidebar').length)
-            return;
-
-        var $sidebar = $('.sidebar-content');
-
-        if ($sidebar.is(':visible')) {
-            $('.sidebar-button').click();
-        }
-
+    $('#charts-slider').bxSlider({
+        adaptiveHeight: true,
+        minSlides: 3,
+        maxSlides: 3,
+        slideWidth: 270,
+        slideMargin: 30,
+        pager:false
     });
 
 
@@ -95,6 +89,7 @@ var ready = function() {
             $tabList.append(tabContent [graphs[i]]);
         }
     }
+
 
 }
 

@@ -91,9 +91,6 @@
                       .region-map-container
                         #vmap
 
-
-
-
                   #time.tab-pane.time
                     %button#time-btn-clear.btn.btn-sm.pull-right{:type => "button"}
                       = t('buttons.filters.clean')
@@ -164,6 +161,6 @@
       .modal-footer
         %button#filters-btn-clear.btn{:type => "button"}
           = t('buttons.filters.clean-all')
-        %button.btn.btn-success{:type => "button"}
+        %button#phrases-filter-apply.btn.btn-success{:type => "button"}
           = t('buttons.apply')
           / Filter for popular terms and trends modal END

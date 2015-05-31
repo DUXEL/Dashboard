@@ -19,15 +19,21 @@
 
 //= require moment
 //= require bootstrap-datetimepicker
-//= require filters/awesomplete.min.js
+//= require filters/awesomplete.min
 //= require filters/jquery.vmap
 //= require filters/jquery.vmap.world
 //= require filters/filters
 
 //= require d3/d3.min
+
+//= require charts/trendsChart/d3.layout.cloud
+//= require charts/trendsChart/word_cloud
+
 //= require d3/d3-transform
-//= require charts/bubbleChart/bubbleChart
-//= require charts/popularTermsChart/d3.layout.cloud
-//= require charts/popularTermsChart/word-cloud
+//= require charts/popularTermsChart/bubbleChart
+
+//= require charts/graphChart/underscore-min
 //= require charts/graphChart/graph
+
+//= require jquery.bxslider
 
