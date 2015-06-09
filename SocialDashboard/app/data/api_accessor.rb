@@ -64,10 +64,10 @@ class APIAccessor
 
     def initialize_twitter_client
       @twitter_client = Twitter::REST::Client.new do |config|
-        config.consumer_key        = "VsOQsvlSupZW28ALI6PH4aan5"
-        config.consumer_secret     = "IoZGeuxJAIP4ryS4yiscBJM7HC34VNQTS2lNScNk5yjo27cG24"
-        config.access_token        = "3290559083-s5Ocy79jPz2k35vwTqNjYrkOdcXmexPDsPd4cMQ"
-        config.access_token_secret = "ZuuxBToNh46XARERWbCYRRnskTFSMiv9HUN58HleiyRTo"
+        config.consumer_key        = ENV["consumer_key"]
+        config.consumer_secret     = ENV["consumer_secret"]
+        config.access_token        = ENV["access_token"]
+        config.access_token_secret = ENV["access_token_secret"]
       end
     end
 
