@@ -37,7 +37,7 @@ class APIAccessor
     #q = "siince:#{filter.start_date} until:#{filter.end_date}"
     results = Array.new
     filter.country_list.each do |country|
-      geocode = "#{country.latitude},#{country.longitude},56mi"
+      geocode = "#{country.latitude},#{country.longitude},90km"
       options[:geocode] = geocode
       var = @twitter_client.search(nil,options)
       var.each.collect do |tweet|
@@ -53,7 +53,7 @@ class APIAccessor
     end
   end
 
-  def get_friends(user)
+  def get_friends(username)
     @twitter_client.friends(username).each.collect do |user|
       "#{user.screen_name}"
     end
