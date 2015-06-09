@@ -10,21 +10,20 @@ class APIAccessor
   end
 
   def get_trending_topics(country)
-    puts @twitter_client
-    puts country.woeid
+    @twitter_client
+    country.woeid
     country_trends = @twitter_client.trends(country.woeid)
     country_trends.take(10).collect do |tweet|
       "#{tweet.name}"
     end
-    #return country_trends
   end
 
   def get_available_woeid
      var = @twitter_client.trends_available
     var.each do |v|
-      puts "#{v.name} , #{v.id}"
+      "#{v.name} , #{v.id}"
     end
-    return true
+    true
   end
 
 
@@ -39,7 +38,7 @@ class APIAccessor
     filter.country_list.each do |country|
       geocode = "#{country.latitude},#{country.longitude},90km"
       options[:geocode] = geocode
-      var = @twitter_client.search(nil,options)
+      var = @twitter_client.search("",options)
       var.each.collect do |tweet|
           "#{tweet.text}"
       end
