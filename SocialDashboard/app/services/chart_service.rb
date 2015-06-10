@@ -30,8 +30,8 @@ class ChartService
       country_trends = @api_accessor.get_trending_topics(country)
       trends_hash = set_hash(country_trends, trends_hash)
     end
-    all_trends = trends_hash.sort_by { |name, amount| amount }
-    top_ten = all_trends.drop(10)
+    all_trends = (trends_hash.sort_by { |name, amount| amount }).reverse
+    top_ten = all_trends.take(10)
     phrase_list = Array.new
     top_ten.each do |phrase|
       p = Phrase.new(phrase[0], phrase[1])
@@ -41,7 +41,20 @@ class ChartService
   end
 
   def get_popular_terms(filter)
+    country_list = filter.country_list
+    posts = Array.new
+    country_list.each do |country|
+      (posts << @api_accessor.get_posts(country,filter.language,filter.end_date,filter.start_date)).flatten!
+    end
+    post_hash = Hash.new
+    stop_words = read_stop_words(filter.language)
+    post_words = delete_stop_words(posts,stop_words)
+    post_hash = set_hash(post_words, post_hash)
 
+    ordered_posts = (post_hash.sort_by { |post, amount| amount }).reverse
+    ordered_posts.each do |post|
+      puts post
+    end
   end
 
   def get_network(filter)
@@ -71,6 +84,32 @@ class ChartService
         end
       end
       hash
+    end
+
+    def read_stop_words(lang)
+      stop_words = Array.new
+      File.open("config/stopwords/"+lang+".words", "r") do |f|
+        f.each_line do |line|
+          stop_words.push(line[0...-1])
+        end
+      end
+      stop_words
+    end
+
+    def delete_stop_words(posts,stop_words)
+      result = Array.new
+      posts.each do |post|
+        post_words = post.split(" ")
+        stop_words.each do |sw|
+          post_words.delete_if do |pw|
+            if pw.to_s.eql? sw.to_s
+              true
+            end
+          end
+        end
+        (result << post_words).flatten!
+      end
+      result
     end
 
 end
