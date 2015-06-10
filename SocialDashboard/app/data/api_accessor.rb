@@ -16,7 +16,6 @@ class APIAccessor
     country_trends.take(10).collect do |tweet|
       "#{tweet.name}"
     end
-    #return country_trends
   end
 
   def get_available_woeid
@@ -29,21 +28,50 @@ class APIAccessor
 
 
   def get_popular_terms(filter)# This param is a PhraseFilter
+
     options = {}
     options[:lang] = filter.language
     options[:count] = 10
-    options[:until] = "#{filter.end_date}"
-    q = nil
-    #q = "siince:#{filter.start_date} until:#{filter.end_date}"
-    results = Array.new
+
+    q = "\"The Flash\" since:#{filter.start_date} until:#{filter.end_date}"
+
+    tweets = []
+
     filter.country_list.each do |country|
-      geocode = "#{country.latitude},#{country.longitude},90km"
+      geocode = "#{country.latitude},#{country.longitude},1000km" #"37.781157,-122.398720,1mi"
       options[:geocode] = geocode
-      var = @twitter_client.search(nil,options)
-      var.each.collect do |tweet|
-          "#{tweet.text}"
+      var = @twitter_client.search(q,options)
+      var.take(1).collect do |tweet|
+          puts "#{tweet.text}"
+          tweets.push("#{tweet.text}")
       end
     end
+
+    stopwords=[]
+    File.open("config/stopwords/"+filter.language+".words", "r") do |f|
+      f.each_line do |line|
+        stopwords.push(line[0...-1])
+      end
+    end
+
+    tweet_words = []
+    tweets.each do |tweet|
+      tweet_words = tweet.split(" ")
+      stopwords.each do |sw|
+        tweet_words.delete_if do |tw|
+          if tw.to_s.eql? sw.to_s
+            true
+          end
+        end
+      end
+
+      # remaining words
+      tweet_words.each do |tw|
+        puts tw
+      end
+      puts "============================"
+    end
+
   end
 
 
