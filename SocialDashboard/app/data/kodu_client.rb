@@ -15,4 +15,8 @@ class KoduClient
   def posts(filter)
     Array.new
   end
+
+  def user(username)
+    User.new("Mock","http://www.prueba.com","Pais")
+  end
 end

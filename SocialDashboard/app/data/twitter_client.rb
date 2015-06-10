@@ -5,15 +5,11 @@ class TwitterClient
   end
 
   def followers(username)
-    @twitter_accessor.followers(username).each.collect do |user|
-      "#{user.screen_name}"
-    end
+    @twitter_accessor.followers(username)
   end
 
   def friends(username)
-    @twitter_accessor.friends(username).each.collect do |user|
-      "#{user.screen_name}"
-    end
+    @twitter_accessor.friends(username)
   end
 
   def trends(country)
@@ -38,6 +34,11 @@ class TwitterClient
       end
     end
     tweets
+  end
+
+  def user(username)
+    twitter_user = @twitter_accessor.user(username)
+    User.new(username, twitter_user.profile_image_url, twitter_user.location)
   end
 
   private
