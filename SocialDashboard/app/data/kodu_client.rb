@@ -1,17 +1,18 @@
 class KoduClient
-  def followers(username)
 
+  def followers(username)
+    Array.new
   end
 
   def friends(username)
-
+    Array.new
   end
 
-  def trends(countries)
-
+  def trends(country)
+    Array.new
   end
 
-  def posts(countries, languages, start_date, end_date)
-
+  def posts(country,lang,end_date,start_date)
+    Array.new
   end
 end
