@@ -37,3 +37,4 @@
 
 //= require jquery.bxslider
 
+//=require countries_data
