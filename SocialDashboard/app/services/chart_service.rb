@@ -28,15 +28,7 @@ class ChartService
     trends_hash = Hash.new
     filter.country_list.each do |country|
       country_trends = @api_accessor.get_trending_topics(country)
-      country_trends
-      country_trends.each do |trend|
-        if not trends_hash.has_key?(trend)
-          trends_hash[trend] = 1
-        else
-          trends_hash[trend] += 1
-        end
-      trend
-      end
+      trends_hash = set_hash(country_trends, trends_hash)
     end
     all_trends = trends_hash.sort_by { |name, amount| amount }
     top_ten = all_trends.drop(10)
@@ -68,6 +60,17 @@ class ChartService
       both = follows.zip(followed).flatten.compact
       neighbors = both.uniq.length
       neighbors
+    end
+
+    def set_hash(word_list, hash)
+      word_list.each do |trend|
+        if not hash.has_key?(trend)
+          hash[trend] = 1
+        else
+          hash[trend] += 1
+        end
+      end
+      hash
     end
 
 end
