@@ -5,11 +5,19 @@ class ChartService
   end
 
   def calculate_density(graph)
-
+    node_amount = graph.vertices.length
+    potential_connections = (node_amount * (node_amount - 1)) / 2
+    actual_connections = graph.edges.length
+    density = actual_connections / potential_connections
+    density
   end
 
   def calculate_centrality(graph)
-
+    node_amount = graph.vertices.length
+    user = graph.vertices[0]
+    user_connections = get_neighbor_amount(graph, user)
+    centrality_degree = user_connections / node_amount
+    centrality_degree
   end
 
   def calculate_distance(graph)
@@ -51,4 +59,15 @@ class ChartService
   def get_network_aux(username, current_level)
 
   end
+
+  private
+
+    def get_neighbor_amount(graph, vertice)
+      follows = graph.adjacent_vertices(vertice)
+      followed = graph.reverse.adjacent_vertices(vertice)
+      both = follows.zip(followed).flatten.compact
+      neighbors = both.uniq.length
+      neighbors
+    end
+
 end
