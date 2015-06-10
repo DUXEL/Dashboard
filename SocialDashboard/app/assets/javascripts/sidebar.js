@@ -59,34 +59,13 @@ var ready = function(){
 
         var id = $(this).attr('id'); // Value holds the name of the graph for gettting the html from the graphsForIndex map.
         var value = $(this).attr('value');
-
+        alert(value);
         if (value=="phrase"){
             var modalName = "#main-filters";
         }else if (value=="sna"){
             var modalName = "#data-analysis-filter";
         }
         $(modalName).modal('show');
-
-        /*
-        var $bigChart = $('#big-chart');
-		if ( $bigChart.children().length == 0) { // Has nothing
-
-            $.ajax({
-                method: 'get',
-                url: "/filters/new",
-                data: {type: id, category: value},
-                async: false
-            }).done(function(response){
-                $("#modal-container").html(response);
-                $(modalName).modal('show');
-            }).fail(function(jqXHR, textStatus){
-                alert("Ups accion no disponible.");
-            });
-
-        }else{
-
-        }
-    */
     });
 	
 }

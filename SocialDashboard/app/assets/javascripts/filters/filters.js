@@ -138,7 +138,8 @@ var ready = function() {
     });
 
 
-    /* Buttons for clear each filter also have to enable or disable time or region
+    /*
+     * Buttons for clear each filter also have to enable or disable time or region
      * tabs deppendig which is selected first (modified first)
      */
     $("#region-btn-clear").click(function(){
@@ -173,6 +174,9 @@ var ready = function() {
         $("#region-btn-clear").click();
     });
 
+    $("#phrases-filter-apply").click(function(){
+
+    });
 };
 
 $(document).on('page:load', ready);

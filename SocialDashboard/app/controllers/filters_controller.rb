@@ -9,7 +9,8 @@ class FiltersController < ApplicationController
   end
 
   def create
-    @filter_service.add_filter(set_filter)
+     key = @filter_service.add_filter(set_filter)
+    render json: key
   end
 
   def update
@@ -34,12 +35,12 @@ class FiltersController < ApplicationController
       else
         param_list = []
         country_list = params[:countries]
-        country_list.each do |country|
-          c = Country.new(country.name, country.latitude, country.longitud)
+        country_list.each_value do |country|
+          c = Country.new(country[:name], country[:location][:latitude].to_f, country[:location][:longitude].to_f, country[:location][:woeid].to_i)
           param_list.push(c)
         end
         filter = PhrasesFilter.new(params[:language], param_list, params[:start_time], params[:end_time])
       end
-      return filter
+      filter
     end
 end
