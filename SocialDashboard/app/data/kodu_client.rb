@@ -15,4 +15,8 @@ class KoduClient
   def posts(country,lang,end_date,start_date)
     Array.new
   end
+
+  def user(username)
+    User.new("Mock","http://www.prueba.com","Pais")
+  end
 end
