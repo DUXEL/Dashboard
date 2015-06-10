@@ -10,14 +10,13 @@ class APIAccessor
       current_trends = client.trends(country)
       (trends << current_trends).flatten!
     end
-    trends
   end
 
 
-  def get_posts(filter)
+  def get_posts(country,lang,end_date,start_date)
     posts = Array.new
     @data_source.each do |client|
-      current_posts = client.posts(filter)
+      current_posts = client.posts(country,lang,end_date,start_date)
       (posts << current_posts).flatten!
     end
     posts

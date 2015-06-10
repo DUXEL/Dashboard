@@ -19,19 +19,17 @@ class TwitterClient
     end
   end
 
-  def posts(filter)
+  def posts(country,lang,end_date,start_date)
     options = Hash.new
-    options[:lang] = filter.language
+    options[:lang] = lang
     options[:count] = 10
-    q = "since:#{filter.start_date} until:#{filter.end_date}"
+    q = "since:#{start_date} until:#{end_date}"
     tweets = Array.new
-    filter.country_list.each do |country|
-      geocode = "#{country.latitude},#{country.longitude},500km"
-      options[:geocode] = geocode
-      var = @twitter_accessor.search(q,options)
-      var.take(1).collect do |tweet|
-        tweets.push("#{tweet.text}")
-      end
+    geocode = "#{country.latitude},#{country.longitude},500km"
+    options[:geocode] = geocode
+    post_list = @twitter_accessor.search(q,options)
+    post_list.take(10).collect do |tweet|
+      tweets.push("#{tweet.text}")
     end
     tweets
   end
