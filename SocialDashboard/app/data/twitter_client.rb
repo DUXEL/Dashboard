@@ -22,11 +22,20 @@ class TwitterClient
 
   def posts(country,lang,end_date,start_date)
     options = Hash.new
-    options[:lang] = lang
-    options[:count] = 10
-    q = "since:#{start_date} until:#{end_date}"
+    options[:lang] = lang if lang != nil
+    if start_date !=nil
+      q = "since:#{start_date} until:#{end_date}"
+    else
+      end_date = Time.now.strftime("%Y-%m-%d")
+      start_date = (Time.now - 2592000).strftime("%Y-%m-%d") # A month ago
+    end
     tweets = Array.new
-    geocode = "#{country.latitude},#{country.longitude},500km"
+    if country != nil
+      geocode = "#{country.latitude},#{country.longitude},1000km"
+    elsif
+      # Latitude and longitude for Equator meridian
+      geocode = "0,0,100000km"
+    end
     options[:geocode] = geocode
     post_list = @twitter_accessor.search(q,options)
     post_list.take(10).collect do |tweet|
@@ -41,7 +50,6 @@ class TwitterClient
   end
 
   private
-
     def initialize_twitter_client
       @twitter_accessor = Twitter::REST::Client.new do |config|
         config.consumer_key        = ENV["consumer_key"]
@@ -50,4 +58,5 @@ class TwitterClient
         config.access_token_secret = ENV["access_token_secret"]
       end
     end
+
 end
