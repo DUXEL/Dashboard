@@ -23,7 +23,7 @@ class ChartService
   end
 
   def calculate_distance(graph)
-
+    return 1
   end
 
   def get_trends(filter)
@@ -73,16 +73,6 @@ class ChartService
     add_neighbors(followers, root_user, "followers")
 
     graph = RGL::DirectedAdjacencyGraph[*@edges]
-
-  end
-
-  def get_network(filter)
-
-
-  end
-
-  def get_network_aux(username, current_level)
-
   end
 
   private
