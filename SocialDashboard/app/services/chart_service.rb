@@ -59,7 +59,7 @@ class ChartService
       p = Phrase.new(post[0],post[1])
       phrase_list.append(p)
     end
-    phrase_list
+    phrase_list.take(200)
   end
 
 
@@ -130,7 +130,7 @@ class ChartService
         post_words = post.split(" ")
         stop_words.each do |sw|
           post_words.delete_if do |pw|
-            if pw.to_s.eql? sw.to_s
+            if pw.to_s.downcase.eql? sw.to_s
               true
             end
           end

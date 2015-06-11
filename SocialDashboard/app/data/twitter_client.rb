@@ -38,7 +38,7 @@ class TwitterClient
     end
     options[:geocode] = geocode
     post_list = @twitter_accessor.search(q,options)
-    post_list.take(10).collect do |tweet|
+    post_list.take(650).collect do |tweet|
       tweets.push("#{tweet.text}")
     end
     tweets
