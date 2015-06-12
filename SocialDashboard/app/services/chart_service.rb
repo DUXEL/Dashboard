@@ -23,7 +23,7 @@ class ChartService
   end
 
   def calculate_distance(graph)
-
+    1
   end
 
   def get_trends(filter)

@@ -22,6 +22,10 @@ var ready = function() {
             })
             .on("end", draw);
 
+        /*svg = d3.select(div).append("div")
+            .attr("class", "frequency-div")
+            .attr("id", "frequency-"+div);*/
+
         var svg = d3.select(div).append("svg")
             .attr("width", w)
             .attr("height", h);
@@ -69,7 +73,13 @@ var ready = function() {
                 .style("opacity", 1e-6)
                 .transition()
                 .duration(1000)
-                .style("opacity", 1);
+                .style("opacity", 1)
+                .style("z-index", 1000)
+                .attr("frequency", function(d) {
+                    return d.value;
+                })
+                .attr("onclick","alert('hello')")
+                .attr("class", "word-cloud");
             text.style("font-family", function(d) {
                 return d.font;
             })
@@ -91,8 +101,11 @@ var ready = function() {
             }
             layout.stop().words(tags).start();
         }
-    }
 
+        function showFrequency(frequency) {
+            $(".frequency-"+div).html(frequency);
+        }
+    }
 }
 
 $(document).on('page:load', ready);
