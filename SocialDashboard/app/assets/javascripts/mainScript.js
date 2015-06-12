@@ -5,7 +5,7 @@ var ready = function() {
     });
 
 
-    $('#charts-slider').bxSlider({
+    var slider = $('#charts-slider').bxSlider({
         adaptiveHeight: true,
         minSlides: 3,
         maxSlides: 3,
@@ -14,6 +14,9 @@ var ready = function() {
         pager:false
     });
 
+    $(".bx-next,.bx-prev").click(function(){
+        slider.reloadSlider();
+    });
 
     $(document).on("click", ".fullscreen-button", function () {
         var $mainContent = $('.main-container');

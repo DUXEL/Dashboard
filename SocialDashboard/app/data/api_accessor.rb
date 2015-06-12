@@ -1,77 +1,46 @@
 class APIAccessor
 
   def initialize
-    initialize_twitter_client
-    #initialize_kodu_client
-  end
-
-  def get_graph(filter)
-
+    @data_source = [TwitterClient.new, KoduClient.new]
   end
 
   def get_trending_topics(country)
-    @twitter_client
-    country.woeid
-    country_trends = @twitter_client.trends(country.woeid)
-    country_trends.take(10).collect do |tweet|
-      "#{tweet.name}"
-    end
-  end
-
-  def get_available_woeid
-     var = @twitter_client.trends_available
-    var.each do |v|
-      "#{v.name} , #{v.id}"
-    end
-    true
-  end
-
-
-  def get_popular_terms(filter)# This param is a PhraseFilter
-    options = {}
-    options[:lang] = filter.language
-    options[:count] = 10
-    options[:until] = "#{filter.end_date}"
-    q = nil
-    #q = "siince:#{filter.start_date} until:#{filter.end_date}"
-    results = Array.new
-    filter.country_list.each do |country|
-      geocode = "#{country.latitude},#{country.longitude},90km"
-      options[:geocode] = geocode
-      var = @twitter_client.search("",options)
-      var.each.collect do |tweet|
-          "#{tweet.text}"
-      end
+    trends = Array.new
+    @data_source.each do |client|
+      current_trends = client.trends(country)
+      (trends << current_trends).flatten!
     end
   end
 
 
-  def get_followers(username)
-    @twitter_client.followers(username).each.collect do |user|
-      "#{user.screen_name}"
+  def get_posts(country,lang,end_date,start_date)
+    posts = Array.new
+    @data_source.each do |client|
+      current_posts = client.posts(country,lang,end_date,start_date)
+      (posts << current_posts).flatten!
     end
+    posts
   end
 
-  def get_friends(username)
-    @twitter_client.friends(username).each.collect do |user|
-      "#{user.screen_name}"
-    end
+  def get_followers(username, social_network)
+    get_client(social_network).followers(username)
   end
 
+  def get_friends(username, social_network)
+    get_client(social_network).friends(username)
+  end
+
+  def get_user(username, social_network)
+    get_client(social_network).user(username)
+  end
 
   private
-
-    def initialize_twitter_client
-      @twitter_client = Twitter::REST::Client.new do |config|
-        config.consumer_key        = ENV["consumer_key"]
-        config.consumer_secret     = ENV["consumer_secret"]
-        config.access_token        = ENV["access_token"]
-        config.access_token_secret = ENV["access_token_secret"]
+    def get_client(social_network)
+      @data_source.each do |client|
+        if client.class.name.eql? "#{social_network}Client"
+          return client
+        end
       end
-    end
-
-    def initialize_kodu_client
-      @kodu_client = KoduClient.new
     end
 
 end

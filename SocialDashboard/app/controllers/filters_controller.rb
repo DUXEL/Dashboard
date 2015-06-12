@@ -31,7 +31,7 @@ class FiltersController < ApplicationController
 
     def set_filter
       if params[:type] == "sna"
-        filter = SNAFilter.new(params[:social_network], params[:user], params[:depth_level])
+        filter = SNAFilter.new(params[:social_network], params[:user], params[:depth_level], params[:sna_type])
       else
         param_list = []
         country_list = params[:countries]
@@ -39,7 +39,7 @@ class FiltersController < ApplicationController
           c = Country.new(country[:name], country[:location][:latitude].to_f, country[:location][:longitude].to_f, country[:location][:woeid].to_i)
           param_list.push(c)
         end
-        filter = PhrasesFilter.new(params[:language], param_list, params[:start_time], params[:end_time])
+        filter = PhrasesFilter.new(params[:language], param_list, params[:start_time], params[:end_time], params[:phrase_type])
       end
       filter
     end
