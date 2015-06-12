@@ -54,9 +54,12 @@ class ChartService
     post_hash = set_hash(post_words, post_hash)
 
     ordered_posts = (post_hash.sort_by { |post, amount| amount }).reverse
+    phrase_list = Array.new
     ordered_posts.each do |post|
-      puts post
+      p = Phrase.new(post[0],post[1])
+      phrase_list.append(p)
     end
+    phrase_list
   end
 
 
