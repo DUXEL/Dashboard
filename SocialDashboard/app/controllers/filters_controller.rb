@@ -5,7 +5,7 @@ class FiltersController < ApplicationController
   def edit
     key = params[:id].to_sym
     json_object = @filter_service.get_filter(key)
-    render json: json_object.to_json
+    render json: json_object
   end
 
   def create
@@ -20,7 +20,7 @@ class FiltersController < ApplicationController
   def destroy
     key = params[:id].to_sym
     @filter_service.remove_filter(key)
-    render json: {"Prueba":"prueba exito"}
+    render json: key
   end
 
   private
