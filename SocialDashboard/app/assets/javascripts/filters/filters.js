@@ -1,12 +1,64 @@
+var startTime = null;
+var finishTime = null;
+var languages = {
+    'Français': 'fr',
+    'English': 'en',
+    'Arabic': 'ar',
+    '日本人': 'ja',
+    'Español': 'es',
+    'Deutsch': 'de',
+    'Italiano': 'it',
+    'Indonesia': 'id',
+    'Português': 'pt',
+    '한국의': 'ko',
+    'Türk': 'tr',
+    'Pусский': 'ru',
+    'Nederlands': 'nl',
+    '中國傳統': 'zh-tw',
+    '简体中国':'zh-cn',
+    'हिन्दी': 'hi',
+    'Norsk': 'no',
+    'Svenska': 'sv',
+    'Suomalainen': 'fi',
+    'Dansk': 'da',
+    'Polski': 'pl',
+    'Magyar': 'hu',
+    'Urdu': 'ur',
+    'ไทย': 'th',
+    'English UK': 'en-gb'};
+
 var ready = function() {
 
     //Hide checks
     $("#region-check").hide();
     $("#time-check").hide();
     $("#language-check").hide();
+    $('#start-timepicker1').datetimepicker({
+        format: 'YYYY-MM-DD',
+        icons:{
+            time: 'fa fa-clock-o',
+            date: 'fa fa-calendar',
+            up: 'fa fa-chevron-up',
+            down: 'fa fa-chevron-down',
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            clear: 'fa fa-trash-o'}
+    });
 
-
-     var myFunc = function (){
+    $('#finish-timepicker1').datetimepicker({
+        format: 'YYYY-MM-DD',
+        icons:{
+            time: 'fa fa-clock-o',
+            date: 'fa fa-calendar',
+            up: 'fa fa-chevron-up',
+            down: 'fa fa-chevron-down',
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            clear: 'fa fa-trash-o'}
+    });
+    startTime = $('#start-timepicker1').data("DateTimePicker");
+    finishTime = $('#finish-timepicker1').data("DateTimePicker");
+    var myFunc = function (){
          var start = $('#start-timepicker1').data("DateTimePicker").date();
          var finish = $('#finish-timepicker1').data("DateTimePicker").date();
          if ( start != null && finish != null ){
@@ -21,9 +73,6 @@ var ready = function() {
 
          }
      };
-
-    $('#start-timepicker1').datetimepicker();
-    $('#finish-timepicker1').datetimepicker();
 
 
     $("#start-timepicker1").on("dp.change", function (e) {
@@ -59,7 +108,9 @@ var ready = function() {
    //Languages autocomplete.
     var input = document.getElementById("language-input");
     new Awesomplete(input, {
-        list: ["Español", "Inglés","Portugués"]
+        list: ['Español', 'English', 'English UK', 'Français', 'Arabic', '日本人', 'Deutsch', 'Italiano',
+            'Indonesia', 'Português', '한국의', 'Türk', 'Pусский', 'Nederlands', '中國傳統', '简体中国',' हिन्दी',
+            'Norsk', 'Svenska', 'Suomalainen', 'Dansk', 'Polski', 'Magyar', 'Urdu', 'ไทย']
     });
 
 
@@ -172,10 +223,6 @@ var ready = function() {
         $("#language-btn-clear").click();
         $("#time-btn-clear").click();
         $("#region-btn-clear").click();
-    });
-
-    $("#phrases-filter-apply").click(function(){
-
     });
 };
 

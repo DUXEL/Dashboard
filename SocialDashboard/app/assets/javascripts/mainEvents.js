@@ -56,26 +56,41 @@ var ready = function() {
         //var wordList2WordCloud = [{"key": "Cat", "value": 20}, {"key": "fish", "value": 20}, {"key": "things", "value": 20}, {"key": "look", "value": 20}, {"key": "two", "value": 20}, {"key": "like", "value": 20}, {"key": "hat", "value": 20}, {"key": "Oh", "value": 20}, {"key": "mother", "value": 20}, {"key": "One", "value": 20}];
         var selectedRegions = $("#vmap").vectorMap("getSelectedRegions");
         var requestData = [];
+        var language = $('#language-input').val();
+        console.log(language);
+        console.log(languages[language]);
+        language = languages[language];
         if (selectedRegions.length==0) return;
         for (i in selectedRegions){
             var c = countries[selectedRegions[i]];
             requestData.push(c);
         }
+        //startTime, finishTime are defined in filter.js
+        var start = null;
+        var finish = null;
+        if (startTime.date() != null && finishTime.date() != null){
+            start =startTime.date().format("YYYY-MM-DD");
+            finish = finishTime.date().format("YYYY-MM-DD");
+        }
+        var phraseType;
         $.ajax({
             method: 'post',
             url: '/filters',
-            data: {countries: requestData, type:"phrase"}
-        }).done(function(response){
+            data: {countries: requestData, type:"phrase", language:language ,start_time:start, end_time: finish},
+            async: 'false'
+        }).done(function(filterKey){
+            console.log(filterKey);
             $.ajax({
                 method: "post",
-                url: 'chart',
-                data: {type: "?", filterKey: response}
-
+                url: '/charts',
+                data: {type: "?", filterKey: filterKey, phrase_type: phraseType},
+                async: 'false'
             }).done(function(response){
-                //eval(response.function);
+                console.log(response);
+                console.log(filterKey);
             });
         });
-        $("#main-filters.modal").modal("hide");
+        $("#main-filters").modal("hide");
     });
 
 
@@ -97,7 +112,47 @@ var ready = function() {
         }
         ct++;
     });
+    var availableFilters = function(){
+        for (var i = 1; i<7 ; i++){
+            $.ajax({method: 'get', url: '/filters/filter'+i+'/edit', async: false}).done(function (response) {
+                console.log(response);
+                if (response != null){
+                    $('main').prepend('<button class= "btn btn-default edit-filter" id="filter'+i+'">filter'+i+'</button>');
+                }
+            });
+        }
+    }
 
+    availableFilters();
+    $('body').on('click', '.edit-filter', function() {
+        $('#filters-btn-clear').click();
+        var filter = $(this).attr('id');
+        $.ajax({
+            method: 'get',
+            url: '/filters/'+filter+'/edit',
+            async: false
+        }).done(function (response) {
+
+            startTime.date(moment(response.start_date));
+            finishTime.date(moment(response.end_date));
+            var country_list = response.country_list;
+            for (i in country_list){
+                for (key in countries){
+                    if (countries[key].name == country_list[i].name){
+                        $("#vmap").vectorMap('select', key);
+                    }
+                }
+            }
+            for (key in languages){
+                if (response.language == languages[key]){
+                    $('#language-input').val(key);
+                }
+            }
+            $("#main-filters").modal("show");
+        });
+
+
+    });
     var jsonGraph = {
         "node1" : {"name": "Examen Diagnostico", "description": "Curso de la carrera de ingenieria en computacion del ITCR", "link": "http://www.tec.ac.cr/estudiantes/Planes%20de%20Estudio/Plan%20Ingenier%C3%ADa%20en%20Computaci%C3%B3n%20Diurna%20Cartago.pdf", "connectsTo":["node2"] },
         "node2" : {"name": "Ingles Basico", "description": "Curso de la carrera de ingenieria en computacion del ITCR", "link": "http://www.tec.ac.cr/estudiantes/Planes%20de%20Estudio/Plan%20Ingenier%C3%ADa%20en%20Computaci%C3%B3n%20Diurna%20Cartago.pdf", "connectsTo":["node4"] },
