@@ -34,6 +34,8 @@ class ChartsController < ApplicationController
 
     def get_cookie_filter(json_filter, type)
       data = JSON.parse(json_filter)
+      p json_filter
+      p type
       if type.eql?("trends") || type.eql?("popular_terms")
         filter = PhrasesFilter.new(data['language'], generate_country_list(data['country_list']), data['start_date'], data['end_date'],data['type'])
       else

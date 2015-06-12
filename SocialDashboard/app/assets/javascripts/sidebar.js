@@ -1,3 +1,5 @@
+//id=type and value= sna or phrase
+var chartInfo = ['',''];
 var ready = function(){
     // Hide sidebar when page loads.
 	$('.sidebar-content').hide();
@@ -57,9 +59,10 @@ var ready = function(){
     // in orden to add it to the page(main container).
     $(".graph-type").click(function (){
         $('#filters-btn-clear').click();
-        var id = $(this).attr('id'); // Value holds the name of the graph for gettting the html from the graphsForIndex map.
+        // Value holds the name of the graph for gettting the html from the graphsForIndex map.
         var value = $(this).attr('value');
-        //alert(value);
+        chartInfo[0] = $(this).attr('id');
+        chartInfo[1] = value;
         if (value=="phrase"){
             var modalName = "#main-filters";
         }else if (value=="sna"){
