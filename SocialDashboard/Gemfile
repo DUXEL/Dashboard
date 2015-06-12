@@ -28,15 +28,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Gems added for SocialDashboard
 
 #Bootstrap.
-gem "twitter-bootstrap-rails"
-gem "therubyracer"
-gem "less-rails"
+gem 'twitter-bootstrap-rails'
+gem 'therubyracer'
+gem 'less-rails'
 
 # Use FontAwesome styles.
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 
 # Use haml instead of erb.
-gem "haml-rails"
+gem 'haml-rails'
 
 #Use i18n for internationalization.
 gem 'rails-i18n', '~> 4.0.0'
@@ -52,4 +52,7 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
 #To set environment variables
-gem "figaro"
+gem 'figaro'
+
+#Use bxslider
+gem 'bxslider-rails'
