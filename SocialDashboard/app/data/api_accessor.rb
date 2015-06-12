@@ -4,10 +4,6 @@ class APIAccessor
     @data_source = [TwitterClient.new, KoduClient.new]
   end
 
-  def get_graph(filter)
-
-  end
-
   def get_trending_topics(country)
     trends = Array.new
     @data_source.each do |client|
@@ -15,6 +11,7 @@ class APIAccessor
       (trends << current_trends).flatten!
     end
   end
+
 
   def get_posts(country,lang,end_date,start_date)
     posts = Array.new
@@ -31,6 +28,10 @@ class APIAccessor
 
   def get_friends(username, social_network)
     get_client(social_network).friends(username)
+  end
+
+  def get_user(username, social_network)
+    get_client(social_network).user(username)
   end
 
   private

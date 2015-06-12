@@ -474,7 +474,7 @@ var ready = function() {
                     }
                 }
 
-                console.log(map.selectedRegions);
+                //console.log(map.selectedRegions);
 
             });
 
@@ -672,6 +672,9 @@ var ready = function() {
                 return this.selectedRegions.indexOf(cc) >= 0;
             },
 
+            getSelectedRegions: function(){
+                return this.selectedRegions;
+            },
             resize: function () {
                 var curBaseScale = this.baseScale;
                 if (this.width / this.height > this.defaultWidth / this.defaultHeight) {
