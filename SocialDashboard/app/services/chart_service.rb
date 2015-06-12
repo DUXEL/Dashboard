@@ -131,6 +131,13 @@ class ChartService
           stop_words.push(line[0...-1])
         end
       end
+
+      File.open("config/stopwords/symbols", "r") do |f|
+        f.each_line do |line|
+          stop_words.push(line[0...-1])
+        end
+      end
+
       stop_words
     end
 
