@@ -23,7 +23,7 @@ class ChartService
   end
 
   def calculate_distance(graph)
-    1
+    return 1
   end
 
   def get_trends(filter)
@@ -59,7 +59,7 @@ class ChartService
       p = Phrase.new(post[0],post[1])
       phrase_list.append(p)
     end
-    phrase_list
+    phrase_list.take(200)
   end
 
 
@@ -76,16 +76,6 @@ class ChartService
     add_neighbors(followers, root_user, "followers")
 
     graph = RGL::DirectedAdjacencyGraph[*@edges]
-
-  end
-
-  def get_network(filter)
-
-
-  end
-
-  def get_network_aux(username, current_level)
-
   end
 
   private
@@ -140,7 +130,7 @@ class ChartService
         post_words = post.split(" ")
         stop_words.each do |sw|
           post_words.delete_if do |pw|
-            if pw.to_s.eql? sw.to_s
+            if pw.to_s.downcase.eql? sw.to_s
               true
             end
           end
