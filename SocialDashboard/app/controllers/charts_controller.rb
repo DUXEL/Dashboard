@@ -7,7 +7,11 @@ class ChartsController < ApplicationController
   def create
     json_filter = cookies[params[:key]]
     filter = get_cookie_filter(json_filter,params[:type])
-    self.send("create_#{params[:type]}_chart", filter)
+    puts "------------------------"
+    p self.send("create_#{params[:type]}_chart", filter)
+    puts "------------------------"
+    res = "hola"
+    render json: res
   end
 
 

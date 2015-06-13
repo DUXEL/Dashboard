@@ -56,7 +56,7 @@ var ready = function(){
     });
 
     // Event to handle when a graph's type is clicked 
-    // in orden to add it to the page(main container).
+    // in order to add it to the page(main container).
     $(".graph-type").click(function (){
         $('#filters-btn-clear').click();
         var value = $(this).attr('value');

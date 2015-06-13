@@ -52,7 +52,6 @@ var ready = function() {
             $("#main-chart").html("");
             displayGraph(convertJSON([curr_chart]), "#div1");
         }
-
         curr_chart = jsonGraph;
         displayGraph(convertJSON(jsonGraph), "#main-chart");
         $("#data-analysis-filter").modal("hide");
