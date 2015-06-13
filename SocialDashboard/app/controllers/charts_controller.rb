@@ -11,18 +11,18 @@ class ChartsController < ApplicationController
 
   private
     def create_graph_chart(filter)
-      graph = @chart_service.get_graph(filter)
-      graph_to_json(graph)
+      @chart_service.get_graph(filter)
     end
 
 
     def create_trends_chart(filter)
-      @chart_service.get_trends(filter).to_json
+      @chart_service.get_trends(filter)
     end
 
 
     def create_popular_terms_chart(filter)
-      @chart_service.get_popular_terms(filter).to_json
+      @chart_service.get_popular_terms(filter)
+
     end
 
 

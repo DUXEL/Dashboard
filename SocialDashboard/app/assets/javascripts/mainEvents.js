@@ -71,6 +71,7 @@ var ready = function() {
                 async: 'false'
             }).done(function(response){
                 console.log(response);
+                displayGraph(response,"#main-chart");
             });
         });
         $('#data-analysis-filter').modal('hide');
@@ -121,6 +122,7 @@ var ready = function() {
         });
         $("#main-filters").modal("hide");
     });
+
 
     $('body').on("click",".close-button", function() {
         $('.node-info').css('display','none');

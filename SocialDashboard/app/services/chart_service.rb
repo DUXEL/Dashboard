@@ -78,7 +78,7 @@ class ChartService
     add_neighbors(friends, root_user, "friends")
     add_neighbors(followers, root_user, "followers")
     graph = RGL::DirectedAdjacencyGraph[*@edges]
-    graph_to_json(graph).to_json
+    graph_to_json(graph)
   end
 
   private
@@ -86,7 +86,7 @@ class ChartService
     def add_neighbors(neighbors, root_user, type)
       neighbors.each do |neighbor|
         if not @user_hash.has_key?(neighbor.screen_name)
-          @user_hash[neighbor.screen_name] = User.new(neighbor.screen_name, neighbor.profile_image_url.to_s, neighbor.location)
+          @user_hash[neighbor.screen_name] = User.new(neighbor.screen_name, neighbor.profile_image_url.to_s)
         end
         if type.eql?("friends")
           @edges.push(root_user)
@@ -183,10 +183,9 @@ class ChartService
 
     def get_user_hash(user)
       res = Hash.new
-      res[:username] = user.username
-      res[:profile_image_url] = user.image_url
-      res[:country] = user.country
-      return res
+      res[:id] = user.username
+      res[:link] = user.image_url
+      res
     end
 
 end

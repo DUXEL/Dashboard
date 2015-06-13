@@ -31,7 +31,7 @@ class TwitterClient
     tweets = Array.new
     if country != nil
       geocode = "#{country.latitude},#{country.longitude},1000km"
-    elsif
+    else
       # Latitude and longitude for Equator meridian
       geocode = "0,0,100000km"
     end
@@ -45,7 +45,7 @@ class TwitterClient
 
   def user(username)
     twitter_user = @twitter_accessor.user(username)
-    User.new(username, twitter_user.profile_image_url.to_s, twitter_user.location)
+    User.new(username, twitter_user.profile_image_url.to_s)
   end
 
   private
