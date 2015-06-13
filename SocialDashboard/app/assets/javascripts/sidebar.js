@@ -59,12 +59,20 @@ var ready = function(){
     // in order to add it to the page(main container).
     $(".graph-type").click(function (){
         $('#filters-btn-clear').click();
+        $('#filter-user-input').val('');
+        $('#social-network input').parent().removeClass('active');
+        $('#depth-level input').parent().removeClass('active');
+        $('#social-network label:first-child').addClass('active');
+        $('#depth-level label:first-child').addClass('active');
+
         var value = $(this).attr('value');
         chartInfo[0] = $(this).attr('id');
         chartInfo[1] = value;
         if (value == "trends" || value == "popular_terms"){
+            $('#phrases-filter-apply').attr('value','new-filter');
             var modalName = "#main-filters";
         }else if (value == "graph"){
+            $('#sna-filter-apply').attr('value','new-filter');
             var modalName = "#data-analysis-filter";
         }
         $(modalName).modal('show');

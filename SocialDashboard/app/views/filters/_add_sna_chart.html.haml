@@ -13,26 +13,26 @@
         %form
           .row
             .col-sm-9
-              .btn-group{"data-toggle" => "buttons"}
+              .btn-group#social-network{"data-toggle" => "buttons"}
                 %label.btn.btn-default.active#sna-twitter-label
-                  %input#sna-twitter-button{:name => "quality[25]", :type => "radio", :value => "twitter"}
+                  %input#sna-twitter-button{:name => "quality[25]", :type => "radio", :value => "Twitter"}
                   Twitter
                 %label.btn.btn-default#sna-kodu-label
-                  %input#sna-kodu-button{:name => "quality[25]", :type => "radio", :value => "kodu"}
+                  %input#sna-kodu-button{:name => "quality[25]", :type => "radio", :value => "Kodu"}
                   Kodu
         %br
         %h4
           = t('filters.sna.user')
         %form
           .form-group
-            %input.form-control
+            %input.form-control#filter-user-input
         %br
         %h4
           = t('filters.sna.depth')
         %form
           .row
             .col-sm-9
-              .btn-group{"data-toggle" => "buttons"}
+              .btn-group#depth-level{"data-toggle" => "buttons"}
                 %label.btn.btn-default.active
                   %input#q158{:name => "quality[25]", :type => "radio", :value => "1"}
                     1
