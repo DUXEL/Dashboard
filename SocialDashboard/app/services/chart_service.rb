@@ -1,4 +1,5 @@
 require 'rgl/adjacency'
+require 'json'
 
 class ChartService
 
@@ -46,7 +47,7 @@ class ChartService
   def get_popular_terms(filter)
     country_list = filter.country_list
     posts = Array.new
-    post_quantity = country_list.length.round
+    post_quantity = (700/country_list.length).round
     country_list.each do |country|
       (posts << @api_accessor.get_posts(country,filter.language,filter.end_date,filter.start_date, post_quantity)).flatten!
     end
@@ -76,8 +77,8 @@ class ChartService
 
     add_neighbors(friends, root_user, "friends")
     add_neighbors(followers, root_user, "followers")
-
     graph = RGL::DirectedAdjacencyGraph[*@edges]
+    graph_to_json(graph).to_json
   end
 
   private
@@ -85,7 +86,7 @@ class ChartService
     def add_neighbors(neighbors, root_user, type)
       neighbors.each do |neighbor|
         if not @user_hash.has_key?(neighbor.screen_name)
-          @user_hash[neighbor.screen_name] = User.new(neighbor.screen_name, neighbor.profile_image_url, neighbor.location)
+          @user_hash[neighbor.screen_name] = User.new(neighbor.screen_name, neighbor.profile_image_url.to_s, neighbor.location)
         end
         if type.eql?("friends")
           @edges.push(root_user)
@@ -147,6 +148,45 @@ class ChartService
         (result << post_words).flatten!
       end
       result
+    end
+
+    def graph_to_json(graph)
+      res = Hash.new
+      res[:directed] = true
+      res[:graph] = Array.new
+      res[:multigraph] = false
+
+      node_list = Array.new
+      link_list = Array.new
+      node_index = Hash.new
+
+      graph_vertices = graph.vertices
+
+      graph_vertices.each_with_index do | element, index|
+        node_index[element.username] = index
+      end
+
+      graph_vertices.each do |v|
+        node_list.push(get_user_hash(v))
+        source = node_index[v.username]
+        graph.adjacent_vertices(v).each do |ad_v|
+          link = Hash.new
+          link[:source] = source
+          link[:target] = node_index[ad_v.username]
+          link_list.push(link)
+        end
+      end
+      res[:nodes] = node_list
+      res[:links] = link_list
+      res
+    end
+
+    def get_user_hash(user)
+      res = Hash.new
+      res[:username] = user.username
+      res[:profile_image_url] = user.image_url
+      res[:country] = user.country
+      return res
     end
 
 end

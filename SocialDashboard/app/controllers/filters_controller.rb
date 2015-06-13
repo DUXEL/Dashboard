@@ -1,6 +1,6 @@
 class FiltersController < ApplicationController
 
-  before_action :set_filter_service, only: [:create, :update, :destroy, :edit, :test]
+  before_action :set_filter_service, only: [:create, :update, :destroy, :edit]
 
   def edit
     key = params[:id].to_sym
@@ -30,8 +30,8 @@ class FiltersController < ApplicationController
     end
 
     def set_filter
-      if params[:type] == "sna"
-        filter = SNAFilter.new(params[:social_network], params[:user], params[:depth_level], params[:sna_type])
+      if params[:type].eql?("graph")
+        filter = SNAFilter.new(params[:social_network], params[:user], params[:depth_level], params[:filter_type])
       else
         param_list = []
         country_list = params[:countries]
@@ -39,7 +39,7 @@ class FiltersController < ApplicationController
           c = Country.new(country[:name], country[:location][:latitude].to_f, country[:location][:longitude].to_f, country[:location][:woeid].to_i)
           param_list.push(c)
         end
-        filter = PhrasesFilter.new(params[:language], param_list, params[:start_time], params[:end_time], params[:phrase_type])
+        filter = PhrasesFilter.new(params[:language], param_list, params[:start_time], params[:end_time], params[:filter_type])
       end
       filter
     end

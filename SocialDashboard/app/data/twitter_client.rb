@@ -45,7 +45,7 @@ class TwitterClient
 
   def user(username)
     twitter_user = @twitter_accessor.user(username)
-    User.new(username, twitter_user.profile_image_url, twitter_user.location)
+    User.new(username, twitter_user.profile_image_url.to_s, twitter_user.location)
   end
 
   private

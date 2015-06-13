@@ -74,13 +74,12 @@ var ready = function() {
             requestData.push(c);
         }
         //startTime, finishTime are defined in filter.js
-        var start = null;
-        var finish = null;
+        var start = undefined;
+        var finish = undefined;
         if (startTime.date() != null && finishTime.date() != null){
             start =startTime.date().format("YYYY-MM-DD");
             finish = finishTime.date().format("YYYY-MM-DD");
         }
-        var phraseType;
         $.ajax({
             method: 'post',
             url: '/filters',
@@ -162,18 +161,6 @@ var ready = function() {
 
     });
 
-    function appendGraphButtons(div) {
-        $(div).append("                        \
-        <div class='control-zoom'>\
-        <a class='control-zoom-in' href='#' title='Zoom in'></a>\
-            <a class='control-zoom-out' href='#' title='Zoom out'></a>\
-            </div>\
-            <div class='node-info'>\
-            <div class='close-button'></div>\
-            <div class='node-link-container'><a class='node-link' href='#'></a></div>\
-        <textarea readonly class='node-description'></textarea>\
-            </div>");
-    }
 /* HTML For graph.
 */
 }
