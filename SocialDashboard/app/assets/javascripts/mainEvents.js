@@ -51,7 +51,6 @@ var ready = function() {
             $("#main-chart").html("");
             displayGraph(convertJSON([curr_chart]), "#div1");
         }
-
         curr_chart = jsonGraph;
         displayGraph(convertJSON(jsonGraph), "#main-chart");
         $("#data-analysis-filter").modal("hide");
@@ -85,14 +84,14 @@ var ready = function() {
         $.ajax({
             method: 'post',
             url: '/filters',
-            data: {countries: requestData, language:language ,start_time:start, end_time: finish, phrase_type:chartInfo[1]},
+            data: {countries: requestData, language:language ,start_time:start, end_time: finish, phrase_type:chartInfo[0]},
             async: 'false'
         }).done(function(filterKey){
             console.log(filterKey);
             $.ajax({
                 method: "post",
                 url: '/charts',
-                data: {type: chartInfo[0], key: filterKey},
+                data: {type: chartInfo[1], key: filterKey},
                 async: 'false'
             }).done(function(response){
                 console.log(response);

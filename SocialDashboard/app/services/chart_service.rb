@@ -39,14 +39,16 @@ class ChartService
       p = Phrase.new(phrase[0], phrase[1])
       phrase_list.push(p)
     end
+    p phrase_list
     phrase_list
   end
 
   def get_popular_terms(filter)
     country_list = filter.country_list
     posts = Array.new
+    post_quantity = country_list.length.round
     country_list.each do |country|
-      (posts << @api_accessor.get_posts(country,filter.language,filter.end_date,filter.start_date)).flatten!
+      (posts << @api_accessor.get_posts(country,filter.language,filter.end_date,filter.start_date, post_quantity)).flatten!
     end
     post_hash = Hash.new
     stop_words = read_stop_words(filter.language)

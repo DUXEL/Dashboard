@@ -12,7 +12,7 @@ class KoduClient
     Array.new
   end
 
-  def posts(country,lang,end_date,start_date)
+  def posts(country,lang,end_date,start_date, post_quantity)
     Array.new
   end
 
