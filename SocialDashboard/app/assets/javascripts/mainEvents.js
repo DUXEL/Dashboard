@@ -210,12 +210,6 @@ var ready = function() {
             }
         });
     });
-<<<<<<< HEAD
-
-/* HTML For graph.
-*/
-=======
->>>>>>> upstream/develop
 }
 
 $(document).on('page:load', ready);
