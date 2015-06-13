@@ -14,7 +14,9 @@ class FiltersController < ApplicationController
   end
 
   def update
-    @filter_service.update_filter(params[:id], set_filter)
+    @filter_service.update_filter(params[:filter_key], set_filter)
+
+    render json: params[:filter_key]
   end
 
   def destroy
@@ -30,7 +32,7 @@ class FiltersController < ApplicationController
     end
 
     def set_filter
-      if params[:type].eql?("graph")
+      if params[:type].eql?('graph')
         filter = SNAFilter.new(params[:social_network], params[:user], params[:depth_level], params[:filter_type])
       else
         param_list = []
