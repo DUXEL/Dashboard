@@ -1,4 +1,5 @@
 var curr_chart;
+var deleteAllFilters = null;
 var ready = function() {
 
     // Function used to convert the JSON file to the format needed for the graph
@@ -85,14 +86,14 @@ var ready = function() {
         $.ajax({
             method: 'post',
             url: '/filters',
-            data: {countries: requestData, language:language ,start_time:start, end_time: finish, phrase_type:chartInfo[1]},
+            data: {countries: requestData, language:language ,start_time:start, end_time: finish, phrase_type:chartInfo[0]},
             async: 'false'
         }).done(function(filterKey){
             console.log(filterKey);
             $.ajax({
                 method: "post",
                 url: '/charts',
-                data: {type: chartInfo[0], key: filterKey},
+                data: {type: chartInfo[1], key: filterKey},
                 async: 'false'
             }).done(function(response){
                 console.log(response);
@@ -122,6 +123,7 @@ var ready = function() {
         }
         ct++;
     });
+
     var availableFilters = function(){
         for (var i = 1; i<7 ; i++){
             $.ajax({method: 'get', url: '/filters/filter'+i+'/edit', async: false}).done(function (response) {
@@ -132,7 +134,11 @@ var ready = function() {
             });
         }
     }
-
+    deleteAllFilters = function(){
+        for (var i =1; i<7;i++){
+            $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
+        }
+    };
     availableFilters();
     $('body').on('click', '.edit-filter', function() {
         $('#filters-btn-clear').click();
@@ -142,7 +148,7 @@ var ready = function() {
             url: '/filters/'+filter+'/edit',
             async: false
         }).done(function (response) {
-
+            console.log(response);
             startTime.date(moment(response.start_date));
             finishTime.date(moment(response.end_date));
             var country_list = response.country_list;

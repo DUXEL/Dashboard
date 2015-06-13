@@ -59,13 +59,12 @@ var ready = function(){
     // in orden to add it to the page(main container).
     $(".graph-type").click(function (){
         $('#filters-btn-clear').click();
-        // Value holds the name of the graph for gettting the html from the graphsForIndex map.
         var value = $(this).attr('value');
         chartInfo[0] = $(this).attr('id');
         chartInfo[1] = value;
-        if (value=="phrase"){
+        if (value == "trends" || value == "popular_terms"){
             var modalName = "#main-filters";
-        }else if (value=="sna"){
+        }else if (value == "graph"){
             var modalName = "#data-analysis-filter";
         }
         $(modalName).modal('show');
