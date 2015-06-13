@@ -1,4 +1,5 @@
 var curr_chart;
+var deleteAllFilters = null;
 var ready = function() {
 
     // Function used to convert the JSON file to the format needed for the graph
@@ -46,22 +47,38 @@ var ready = function() {
 
 
     $("#sna-filter-apply").click(function(){
-        if (!$("#main-chart").is(':empty')) {
-            alert(curr_chart);
-            $("#main-chart").html("");
-            displayGraph(convertJSON([curr_chart]), "#div1");
+        var socialNetwork = $('#social-network .active input').val();
+        var depthLevel = $('#depth-level .active input').val();
+        var filterUser = $('#filter-user-input').val();
+        if (filterUser == "") return;
+        var method;
+        var currentFilterKey = $("#filter-key").val();
+        if ($(this).val() == "new-filter"){
+            method = "post";
+        }else{
+            method = "put";
         }
-        curr_chart = jsonGraph;
-        displayGraph(convertJSON(jsonGraph), "#main-chart");
-        $("#data-analysis-filter").modal("hide");
-        appendGraphButtons("#main-chart");
-
+        $.ajax({
+            method: method,
+            url: '/filters',
+            data: {type: chartInfo[1], filter_type:chartInfo[0], user: filterUser, social_network: socialNetwork, depth_level: depthLevel, filter_key: currentFilterKey}
+        }).done(function(filterKey){
+            console.log(filterKey);
+            $.ajax({
+                method: "post",
+                url: '/charts',
+                data: {type: chartInfo[1], key: filterKey},
+                async: 'false'
+            }).done(function(response){
+                console.log(response);
+            });
+        });
+        $('#data-analysis-filter').modal('hide');
     });
 
 
 
     $("#phrases-filter-apply").click(function() {
-        // SD modifications
         var selectedRegions = $("#vmap").vectorMap("getSelectedRegions");
         var requestData = [];
         var language = $('#language-input').val();
@@ -74,20 +91,25 @@ var ready = function() {
             requestData.push(c);
         }
         //startTime, finishTime are defined in filter.js
-        var start = null;
-        var finish = null;
+        var start = undefined;
+        var finish = undefined;
         if (startTime.date() != null && finishTime.date() != null){
             start =startTime.date().format("YYYY-MM-DD");
             finish = finishTime.date().format("YYYY-MM-DD");
         }
-        var phraseType;
+        var method;
+        var currentFilterKey = $("#filter-key").val();
+        if ($(this).val() == "new-filter"){
+            method = "post";
+        }else{
+            method = "put";
+        }
         $.ajax({
-            method: 'post',
+            method: method,
             url: '/filters',
-            data: {countries: requestData, language:language ,start_time:start, end_time: finish, phrase_type:chartInfo[0]},
+            data: {countries: requestData, language:language ,start_time:start, end_time: finish, filter_type:chartInfo[0], filter_key: currentFilterKey},
             async: 'false'
         }).done(function(filterKey){
-            console.log(filterKey);
             $.ajax({
                 method: "post",
                 url: '/charts',
@@ -99,9 +121,6 @@ var ready = function() {
         });
         $("#main-filters").modal("hide");
     });
-
-
-
 
     $('body').on("click",".close-button", function() {
         $('.node-info').css('display','none');
@@ -121,10 +140,11 @@ var ready = function() {
         }
         ct++;
     });
+
     var availableFilters = function(){
         for (var i = 1; i<7 ; i++){
             $.ajax({method: 'get', url: '/filters/filter'+i+'/edit', async: false}).done(function (response) {
-                console.log(response);
+                //console.log(response);
                 if (response != null){
                     $('main').prepend('<button class= "btn btn-default edit-filter" id="filter'+i+'">filter'+i+'</button>');
                 }
@@ -132,50 +152,64 @@ var ready = function() {
         }
     }
 
+    deleteAllFilters = function(){
+        for (var i =1; i<7;i++){
+            $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
+        }
+    };
+
     availableFilters();
-    $('body').on('click', '.edit-filter', function() {
+
+    var loadPhraseFilter = function(response){
         $('#filters-btn-clear').click();
+        startTime.date(moment(response.start_date));
+        finishTime.date(moment(response.end_date));
+        var country_list = response.country_list;
+        for (i in country_list){
+            for (key in countries){
+                if (countries[key].name == country_list[i].name){
+                    $("#vmap").vectorMap('select', key);
+                }
+            }
+        }
+        for (key in languages){
+            if (response.language == languages[key]){
+                $('#language-input').val(key);
+            }
+        }
+        $("#main-filters").modal("show");
+    };
+
+    var loadGraphFilter = function(response){
+        $('#social-network input').parent().removeClass('active');
+        $('#depth-level input').parent().removeClass('active');
+        $('#social-network input[value='+response.social_network+']').parent().addClass('active');
+        $('#depth-level input[value='+response.depth_level+']').parent().addClass('active');
+        $('#filter-user-input').val(response.username);
+        $('#data-analysis-filter').modal('show');
+    };
+
+    $('body').on('click', '.edit-filter', function() {
         var filter = $(this).attr('id');
+        $("#filter-key").val(filter);
         $.ajax({
             method: 'get',
             url: '/filters/'+filter+'/edit',
             async: false
         }).done(function (response) {
-
-            startTime.date(moment(response.start_date));
-            finishTime.date(moment(response.end_date));
-            var country_list = response.country_list;
-            for (i in country_list){
-                for (key in countries){
-                    if (countries[key].name == country_list[i].name){
-                        $("#vmap").vectorMap('select', key);
-                    }
-                }
+            console.log(response);
+            chartInfo[0] = response.type;
+            if (response.type == "popular_terms" || response.type == "trends"){
+                $('#phrases-filter-apply').attr('value','edit-filter');
+                chartInfo[1] = response.type;
+                loadPhraseFilter(response);
+            }else{
+                $('#sna-filter-apply').attr('value','edit-filter');
+                chartInfo[1] = "graph";
+                loadGraphFilter(response);
             }
-            for (key in languages){
-                if (response.language == languages[key]){
-                    $('#language-input').val(key);
-                }
-            }
-            $("#main-filters").modal("show");
         });
-
     });
-
-    function appendGraphButtons(div) {
-        $(div).append("                        \
-        <div class='control-zoom'>\
-        <a class='control-zoom-in' href='#' title='Zoom in'></a>\
-            <a class='control-zoom-out' href='#' title='Zoom out'></a>\
-            </div>\
-            <div class='node-info'>\
-            <div class='close-button'></div>\
-            <div class='node-link-container'><a class='node-link' href='#'></a></div>\
-        <textarea readonly class='node-description'></textarea>\
-            </div>");
-    }
-/* HTML For graph.
-*/
 }
 
 $(document).on('page:load', ready);

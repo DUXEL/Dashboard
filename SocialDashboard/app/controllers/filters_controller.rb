@@ -14,7 +14,9 @@ class FiltersController < ApplicationController
   end
 
   def update
-    @filter_service.update_filter(params[:id], set_filter)
+    @filter_service.update_filter(params[:filter_key], set_filter)
+
+    render json: params[:filter_key]
   end
 
   def destroy
@@ -30,8 +32,8 @@ class FiltersController < ApplicationController
     end
 
     def set_filter
-      if params[:type] == "sna"
-        filter = SNAFilter.new(params[:social_network], params[:user], params[:depth_level], params[:sna_type])
+      if params[:type].eql?('graph')
+        filter = SNAFilter.new(params[:social_network], params[:user], params[:depth_level], params[:filter_type])
       else
         param_list = []
         country_list = params[:countries]
@@ -39,7 +41,7 @@ class FiltersController < ApplicationController
           c = Country.new(country[:name], country[:location][:latitude].to_f, country[:location][:longitude].to_f, country[:location][:woeid].to_i)
           param_list.push(c)
         end
-        filter = PhrasesFilter.new(params[:language], param_list, params[:start_time], params[:end_time], params[:phrase_type])
+        filter = PhrasesFilter.new(params[:language], param_list, params[:start_time], params[:end_time], params[:filter_type])
       end
       filter
     end
