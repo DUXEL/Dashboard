@@ -58,6 +58,7 @@ en:
         input-placeholder: "Example: Español"
   buttons:
     apply: "Apply"
+    delete-filters: "Delete all charts"
     filters:
       clean: "Reset filter"
       clean-all: "Reset all"

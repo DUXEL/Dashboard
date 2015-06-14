@@ -5,20 +5,20 @@ class CookieAccessor
   end
 
   def save(map)
-    filters = [:filter1, :filter2, :filter3, :filter4, :filter5, :filter6]
+    filters = [:filter1, :filter2, :filter3, :filter4, :filter5]
     i = 0
     while @cookies.has_key?(filters[i])
       i+=1
-      if i > 5
+      if i > 4
         return -1
       end
     end
     @cookies[filters[i]] = map
-    return filters[i]
+    filters[i]
   end
 
   def find(key)
-    return @cookies[key]
+    @cookies[key]
   end
 
   def update(key, map)

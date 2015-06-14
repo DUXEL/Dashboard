@@ -1,7 +1,6 @@
 var displayGraph;
 var ready = function() {
     displayGraph = function(jsonObject, div) {
-        console.log(jsonObject);
         var url = 'data.json'
         var r = 10;
         var graph, layout, zoom, nodes, links, data;
@@ -163,12 +162,20 @@ var ready = function() {
 
             // Circles
             nodes.attr("class", function(d) { return formatClassName('node', d) })
-            nodes.append("svg:circle")
-                .attr("class", function(d) { return formatClassName('circle', d) })
-                .attr("r", 7)
-                .on("mouseover", _.bind(onNodeMouseOver, this, nodes, links))
-                .on("mouseout", _.bind(onNodeMouseOut, this, nodes, links) )
-                .on("click", _.bind(nodeClick, this, nodes, links));
+            if(div == "#main-chart") {
+                nodes.append("svg:circle")
+                    .attr("class", function(d) { return formatClassName('circle', d) })
+                    .attr("r", 7)
+                    .on("mouseover", _.bind(onNodeMouseOver, this, nodes, links))
+                    .on("mouseout", _.bind(onNodeMouseOut, this, nodes, links) )
+                    .on("click", _.bind(nodeClick, this, nodes, links));
+            }else {
+                nodes.append("svg:circle")
+                    .attr("class", function(d) { return formatClassName('circle', d) })
+                    .attr("r", 7)
+                    .on("mouseover", _.bind(onNodeMouseOver, this, nodes, links))
+                    .on("mouseout", _.bind(onNodeMouseOut, this, nodes, links) )
+            }
 
             // A copy of the text with a thick white stroke for legibility.
             nodes.append("svg:text")
@@ -203,9 +210,8 @@ var ready = function() {
 
         // Function to display detailed information for the node clicked.
         function nodeClick(nodes, links, d) {
-            $('.node-link').html(d.id);
-            $('.node-link').attr('href', d.link);
-            $('.node-description').html(d.description);
+            $('.node-info-username').html(d.id);
+            $('.node-img').attr('src', d.link);
             $('.node-info').css('display','block');
         }
 

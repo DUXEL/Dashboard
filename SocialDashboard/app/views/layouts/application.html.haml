@@ -17,10 +17,6 @@
       %main
         = render "partials/sidebar"
         = yield
-        %div.container
-          %div#charts-section
-            %div.row#big-chart{style:"background-color:#667;"}
-            %div.row#small-charts
         %div#modal-container
           %label#filter-key
           = render "filters/add_phrase_chart"

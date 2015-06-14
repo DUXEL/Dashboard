@@ -58,6 +58,7 @@ pt:
         input-placeholder: "Exemplo: Español"
   buttons:
     apply: "Aplicar"
+    delete-filters: "Remover todu os graficos"
     filters:
       clean: "Limpar Filtro"
       clean-all: "Limpar Filtros"

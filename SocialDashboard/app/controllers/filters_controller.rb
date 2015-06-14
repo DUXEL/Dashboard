@@ -1,6 +1,6 @@
 class FiltersController < ApplicationController
 
-  before_action :set_filter_service, only: [:create, :update, :destroy, :edit, :test]
+  before_action :set_filter_service, only: [:create, :update, :destroy, :edit]
 
   def edit
     key = params[:id].to_sym

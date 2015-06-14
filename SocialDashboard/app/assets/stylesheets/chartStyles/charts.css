@@ -2,11 +2,12 @@
     margin-top: 15px;
     width:100%;
     margin-bottom: 15px;
+    position: relative;
 }
 
 @media (min-height:600px){
     #main-chart{
-        height: 500px;
+        height: 450px;
     }
 
 }
@@ -23,3 +24,45 @@
         height: 220px;
     }
 }
+
+#delete-all-charts {
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 1em;
+    background: #8f2f35;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+#delete-all-charts:hover {
+    background: #b54e53;
+    text-decoration: none;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#small-charts {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.small-chart-div {
+    position: relative;
+    height: 180px;
+    width: 100%;
+    margin-bottom: 5px;
+    border: 4px solid darkslategray;
+}
+
+.chart-info {
+    float: left;
+    z-index: 99;
+}
+

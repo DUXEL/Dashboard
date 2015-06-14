@@ -2,7 +2,7 @@ var displayWordCloud;
 
 var ready = function() {
 
-    displayWordCloud = function(div, tags) {
+    displayWordCloud = function( tags, div) {
         var fill = d3.scale.category20b();
 
         var w = $(div).width(),
@@ -70,7 +70,7 @@ var ready = function() {
                 .style("font-size", function(d) {
                     return d.size + "px";
                 })
-                .style("opacity", 1e-6)
+                .style("opacity", 1)
                 .transition()
                 .duration(1000)
                 .style("opacity", 1)

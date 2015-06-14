@@ -1,15 +1,19 @@
 .row
+  %div#loadingDiv
+  #delete-all-charts
+    = t('buttons.delete-filters')
+    %i.fa.fa-trash-o
   .container
-  .col-md-8.col-md-offset-2#main-chart-col
-    %div#main-chart
+    .col-md-10.col-md-offset-1#main-chart-col
+      %div#main-chart
 
-    %ul#charts-slider
-      %li
-        /%a.fullscreen-button
-        %div#div1.slider-div
-      %li
-        %div#div2.slider-div
-      %li
-        %div#div3.slider-div
-      %li
-        %div#div4.slider-div
+  .row#small-charts
+    .container
+      .col-md-3
+        %div#div1.small-chart-div
+      .col-md-3
+        %div#div2.small-chart-div
+      .col-md-3
+        %div#div3.small-chart-div
+      .col-md-3
+        %div#div4.small-chart-div

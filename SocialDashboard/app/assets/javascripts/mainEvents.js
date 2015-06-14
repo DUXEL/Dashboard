@@ -1,4 +1,3 @@
-var curr_chart;
 var deleteAllFilters = null;
 var en_disableFilterTabs = function(value){
     if (value == "trends"){
@@ -15,49 +14,38 @@ var en_disableFilterTabs = function(value){
 };
 var ready = function() {
 
-    // Function used to convert the JSON file to the format needed for the graph
-    function convertJSON(jsonObject) {
-        alert("json object\n"+jsonObject);
-        var graphLength = Object.keys(jsonObject).length;
-        var newGraph = {};
-        var nodesIndex = [];
-        var newNodes = [];
-        var newLinks = [];
+    var chartObjects = {};
 
-        newGraph["directed"] = "true";
-        newGraph["multigraph"] = "false";
-        newGraph["graph"] = [];
-
-        for(var node in jsonObject) {
-            nodesIndex.push(node);
+    var $mainChart = $("#main-chart");
+    var displayChartHash = {
+        trends: function(object, div) {
+          displayBubbleChart(fillWordCloudList(object), div);
+        },
+        popular_terms: function(object, div) {
+            displayWordCloud(object, div);
+        },
+        density: function(object, div) {
+            displayGraphChart("Densidad", object, div);
+        },
+        distance: function(object, div) {
+            displayGraphChart("Distancia", object, div);
+        },
+        centrality: function(object, div) {
+            displayGraphChart("Centralidad", object, div);
+        },
+        network: function(object, div) {
+            displayGraphChart("", object, div);
         }
+    };
 
-        for(var property in jsonObject) {
-            var currNode = jsonObject[property];
-            var newNode = {};
-            newNode["id"] = currNode["name"];
-            newNode["description"] = currNode["description"];
-            newNode["link"] = currNode["link"];
-            newNodes.push(newNode);
 
-            var currNodeLinks = currNode["connectsTo"];
-            for(var i = 0; i < currNodeLinks.length; i++) {
-                currLink = currNodeLinks[i];
-                var link = {};
-                var source = nodesIndex.indexOf(property);
-                var target = nodesIndex.indexOf(currLink);
-                link["source"] = source;
-                link["target"] = target;
-                newLinks.push(link);
-            }
+    function displayGraphChart(type, object, div) {
+        displayGraph(object.graph, div);
+        if(div == "#main-chart") {
+            $(div).prepend("<h5 class='chart-info'>"+type+"  "+object.value+"</h5>");
+            $(div).prepend("<div class='node-info'> <div class='close-button'></div> <h5 class='node-info-username'></h5><img class='node-img' src='' /></div>");
         }
-        newGraph["links"] = newLinks;
-        newGraph["nodes"] = newNodes;
-        return newGraph;
     }
-
-
-
 
     $("#sna-filter-apply").click(function(){
         var socialNetwork = $('#social-network .active input').val();
@@ -71,20 +59,13 @@ var ready = function() {
         }else{
             method = "put";
         }
+        $('#loadingDiv').show();
         $.ajax({
             method: method,
             url: '/filters',
             data: {type: chartInfo[1], filter_type:chartInfo[0], user: filterUser, social_network: socialNetwork, depth_level: depthLevel, filter_key: currentFilterKey}
         }).done(function(filterKey){
-            console.log(filterKey);
-            $.ajax({
-                method: "post",
-                url: '/charts',
-                data: {type: chartInfo[1], key: filterKey},
-                async: 'false'
-            }).done(function(response){
-                console.log(response);
-            });
+            createChartAjax(filterKey);
         });
         $('#data-analysis-filter').modal('hide');
     });
@@ -116,6 +97,7 @@ var ready = function() {
         }else{
             method = "put";
         }
+        $('#loadingDiv').show();
         if ( !$("#region-check").is(":visible") &&
              !$('#time-check').is(":visible") &&
              !$('#language-check').is(":visible") ){
@@ -128,39 +110,87 @@ var ready = function() {
             data: {countries: requestData, language:language ,start_time:start, end_time: finish, filter_type:chartInfo[0], filter_key: currentFilterKey},
             async: 'false'
         }).done(function(filterKey){
+            createChartAjax(filterKey);
+        });
+        $("#main-filters").modal("hide");
+    });
+
+    function createChartAjax(filterKey) {
+        if(filterKey == -1) {
+            alert("No se pueden crear más gráficos!");
+            $('#loadingDiv').hide();
+        }else {
             $.ajax({
                 method: "post",
                 url: '/charts',
                 data: {type: chartInfo[1], key: filterKey},
-                async: 'false'
-            }).done(function(response){
-                console.log(response);
+                async: 'false',
+                statusCode: {
+                    500: function() {
+                        alert("Ha superado el límite de consultas!");
+                        $('#loadingDiv').hide();
+                    }
+                }
+            }).success(function(response){
+                displayChart(chartInfo[0], chartInfo[1], response, filterKey);
             });
-        });
-        $("#main-filters").modal("hide");
-    });
+        }
+    }
+
+    var displayChart = function(specificType, type, jsonObject, filterKey) {
+        if($mainChart.html() != "") {
+            var newDiv = availableDiv();
+            var oldSpecificType = $mainChart.attr("specific-type");
+            var oldChartId = $mainChart.attr("chart-id");
+            addChartAttributes(newDiv, $mainChart.attr("type"), oldSpecificType, oldChartId);
+            displayChartHash[oldSpecificType](chartObjects[oldChartId], newDiv);
+            $mainChart.html("");
+            addChartButtons(newDiv);
+        }
+        var chartId = 'chart-'+filterKey;
+        addChartAttributes("#main-chart", type, specificType, chartId);
+        displayChartHash[specificType](jsonObject, "#main-chart");
+        chartObjects[chartId] = jsonObject;
+        $('#loadingDiv').hide();
+    }
+
+    function addChartAttributes(element, type, specificType, chartId) {
+        var $element = $(element);
+        $element.attr('type', type);
+        $element.attr('specific-type', specificType);
+        $element.attr('chart-id', chartId);
+    }
+
+    function addChartButtons(div) {
+        $(div).prepend("<div class='delete-button'></div>");
+        $(div).prepend("<div class='fullscreen-button'></div>")
+    }
+
+    var availableDiv = function() {
+       for(var i = 1; i < 5; i++) {
+           var divHTML = $('#div'+i).html();
+           if(divHTML == "") return '#div'+i;
+       }
+    }
+
+    var getFirstChartDiv = function() {
+        for(var i = 1; i < 5; i++) {
+            var divHTML = $('#div'+i).html();
+            if(divHTML != "") return '#div'+i;
+        }
+        return -1;
+    }
+
+
+
+
 
     $('body').on("click",".close-button", function() {
         $('.node-info').css('display','none');
     });
 
-    $(".fullscreen-button").on("click",function() {
-        $("#div1").html("");
-        $("#main-chart").html("");
-        if(ct%2 == 0) {
-            displayGraph(convertJSON(jsonGraph),"#div1");
-            appendGraphButtons("#div1")
-            displayWordCloud("#main-chart",wordsListWordCloud);
-        }else {
-            displayWordCloud("#div1",wordsListWordCloud);
-            displayGraph(convertJSON(jsonGraph),"#main-chart");
-            appendGraphButtons("#main-chart")
-        }
-        ct++;
-    });
-
     var availableFilters = function(){
-        for (var i = 1; i<7 ; i++){
+        for (var i = 1; i<6 ; i++){
             $.ajax({method: 'get', url: '/filters/filter'+i+'/edit', async: false}).done(function (response) {
                 //console.log(response);
                 if (response != null){
@@ -170,8 +200,20 @@ var ready = function() {
         }
     }
 
+    $("#delete-all-charts").click(function() {
+        for (var i =1; i<6;i++){
+            $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
+        }
+        $mainChart.html("");
+        for(var i = 1; i < 5; i++) {
+            $("#div"+i).html("");
+        }
+        chartObjects = {};
+    });
+
+
     deleteAllFilters = function(){
-        for (var i =1; i<7;i++){
+        for (var i =1; i<6;i++){
             $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
         }
     };
@@ -217,7 +259,6 @@ var ready = function() {
             url: '/filters/'+filter+'/edit',
             async: false
         }).done(function (response) {
-            console.log(response);
             chartInfo[0] = response.type;
             if (response.type == "popular_terms" || response.type == "trends"){
                 $('#phrases-filter-apply').attr('value','edit-filter');
@@ -230,6 +271,48 @@ var ready = function() {
                 loadGraphFilter(response);
             }
         });
+    });
+
+    function fillWordCloudList(jsonObject) {
+        var res = [];
+        for(var i = 0; i < jsonObject.length; i++) {
+            res.push({text: jsonObject[i].key, count: (jsonObject[i].value + '')});
+        }
+        return res;
+    }
+
+    $("body").on('click', '.delete-button', function() {
+        var div = $(this).parent(".small-chart-div");
+        var filter = div.attr("chart-id").substring(6);
+        $.ajax({
+            method: 'delete',
+            url:'/filters/'+filter,
+            async:false
+        }).done(function(response){
+            div.html("");
+            chartObjects[div.attr("chart-id")] = null;
+        });
+    });
+
+    $("body").on('click', '.fullscreen-button', function() {
+        $('#loadingDiv').show();
+        var div = $(this).parent(".small-chart-div");
+
+        var tempDiv = "#"+div.attr("id");
+        var tempSpecificType = div.attr("specific-type");
+        var tempChartId = div.attr("chart-id");
+        var tempType = div.attr("type");
+
+
+        addChartAttributes(tempDiv, $mainChart.attr("type"), $mainChart.attr("specific-type"), $mainChart.attr("chart-id"));
+        addChartAttributes("#main-chart", tempType, tempSpecificType, tempChartId);
+
+        div.html("");
+        $mainChart.html("");
+        displayChartHash[tempSpecificType](chartObjects[tempChartId], "#main-chart");
+        displayChartHash[div.attr("specific-type")]( chartObjects[div.attr("chart-id")], tempDiv);
+        addChartButtons(tempDiv);
+        $('#loadingDiv').hide();
     });
 }
 
