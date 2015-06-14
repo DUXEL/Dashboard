@@ -139,11 +139,6 @@ var ready = function() {
         borderOpacity: 0.25,
         selectedRegions: null,
         multiSelectRegion: true,
-        onRegionClick: function(element, code, region)
-        {
-            $("#region-check").show();
-        }
-
     });
 
 
@@ -177,8 +172,12 @@ var ready = function() {
 
 };
 
-    $("#vmap").click(function(){
-
+    $("#vmap").on(function(){
+            if (  $(this).vectorMap("getSelectedRegions").length == 0){
+                $("#region-check").hide();
+            }else {
+                $("#region-check").show();
+            }
     });
 
     $(".region-options").click(function (){
