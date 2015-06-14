@@ -1,5 +1,18 @@
 var curr_chart;
 var deleteAllFilters = null;
+var en_disableFilterTabs = function(value){
+    if (value == "trends"){
+        $("#li-time").addClass('disabled');
+        $("#li-language").addClass('disabled');
+        $('#time-link').removeAttr('data-toggle');
+        $('#language-link').removeAttr('data-toggle');
+    }else{
+        $("#li-time").removeClass('disabled');
+        $("#li-language").removeClass('disabled');
+        $('#time-link').attr('data-toggle','tab');
+        $('#language-link').attr('data-toggle','tab');
+    }
+};
 var ready = function() {
 
     // Function used to convert the JSON file to the format needed for the graph
@@ -85,7 +98,6 @@ var ready = function() {
         console.log(language);
         console.log(languages[language]);
         language = languages[language];
-        if (selectedRegions.length==0) return;
         for (i in selectedRegions){
             var c = countries[selectedRegions[i]];
             requestData.push(c);
@@ -103,6 +115,12 @@ var ready = function() {
             method = "post";
         }else{
             method = "put";
+        }
+        if ( !$("#region-check").is(":visible") &&
+             !$('#time-check').is(":visible") &&
+             !$('#language-check').is(":visible") ){
+            alert("El filtro debe poseer parametros de busqueda");
+            return;
         }
         $.ajax({
             method: method,
@@ -172,9 +190,11 @@ var ready = function() {
                 }
             }
         }
+        $('#vmap').click();
         for (key in languages){
             if (response.language == languages[key]){
                 $('#language-input').val(key);
+                $("#language-check").show();
             }
         }
         $("#main-filters").modal("show");
@@ -201,6 +221,7 @@ var ready = function() {
             chartInfo[0] = response.type;
             if (response.type == "popular_terms" || response.type == "trends"){
                 $('#phrases-filter-apply').attr('value','edit-filter');
+                en_disableFilterTabs(response.type);
                 chartInfo[1] = response.type;
                 loadPhraseFilter(response);
             }else{
