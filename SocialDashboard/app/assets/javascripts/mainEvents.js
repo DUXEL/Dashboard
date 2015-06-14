@@ -62,7 +62,6 @@ var ready = function() {
             url: '/filters',
             data: {type: chartInfo[1], filter_type:chartInfo[0], user: filterUser, social_network: socialNetwork, depth_level: depthLevel, filter_key: currentFilterKey}
         }).done(function(filterKey){
-            console.log(filterKey);
             $.ajax({
                 method: "post",
                 url: '/charts',
@@ -135,6 +134,7 @@ var ready = function() {
             addChartAttributes(newDiv, $mainChart.attr("type"), oldSpecificType, oldChartId);
             displayChartHash[oldSpecificType](chartObjects[oldChartId], newDiv);
             $mainChart.html("");
+            addChartButtons(newDiv);
         }
         var chartId = 'chart-'+filterKey;
         addChartAttributes("#main-chart", type, specificType, chartId);
@@ -148,6 +148,11 @@ var ready = function() {
         $element.attr('type', type);
         $element.attr('specific-type', specificType);
         $element.attr('chart-id', chartId);
+    }
+
+    function addChartButtons(div) {
+        $(div).prepend("<div class='delete-button'></div>");
+        $(div).prepend("<div class='fullscreen-button'></div>")
     }
 
     var availableDiv = function() {
@@ -242,7 +247,6 @@ var ready = function() {
             url: '/filters/'+filter+'/edit',
             async: false
         }).done(function (response) {
-            console.log(response);
             chartInfo[0] = response.type;
             if (response.type == "popular_terms" || response.type == "trends"){
                 $('#phrases-filter-apply').attr('value','edit-filter');
@@ -264,6 +268,40 @@ var ready = function() {
         }
         return res;
     }
+
+    $("body").on('click', '.delete-button', function() {
+        var div = $(this).parent(".small-chart-div");
+        var filter = div.attr("chart-id").substring(6);
+        $.ajax({
+            method: 'delete',
+            url:'/filters/'+filter,
+            async:false
+        }).done(function(response){
+            div.html("");
+            chartObjects[div.attr("chart-id")] = null;
+        });
+    });
+
+    $("body").on('click', '.fullscreen-button', function() {
+        $('#loadingDiv').show();
+        var div = $(this).parent(".small-chart-div");
+
+        var tempDiv = "#"+div.attr("id");
+        var tempSpecificType = div.attr("specific-type");
+        var tempChartId = div.attr("chart-id");
+        var tempType = div.attr("type");
+
+
+        addChartAttributes(tempDiv, $mainChart.attr("type"), $mainChart.attr("specific-type"), $mainChart.attr("chart-id"));
+        addChartAttributes("#main-chart", tempType, tempSpecificType, tempChartId);
+
+        div.html("");
+        $mainChart.html("");
+        displayChartHash[tempSpecificType](chartObjects[tempChartId], "#main-chart");
+        displayChartHash[div.attr("specific-type")]( chartObjects[div.attr("chart-id")], tempDiv);
+        addChartButtons(tempDiv);
+        $('#loadingDiv').hide();
+    });
 }
 
 $(document).on('page:load', ready);

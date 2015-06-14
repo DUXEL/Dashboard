@@ -54,6 +54,7 @@
 }
 
 .small-chart-div {
+    position: relative;
     height: 180px;
     width: 100%;
     margin-bottom: 5px;
