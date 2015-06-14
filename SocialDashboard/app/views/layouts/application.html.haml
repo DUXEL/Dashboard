@@ -1,0 +1,50 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title SocialDashboard
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %div#body-container
+      %header
+        %nav.navbar.navbar-static-top.navbar-default
+          .container.navbar-container
+            %h4.pull-left.navbar-logo
+              %i.fa.fa-users
+                SocialDashboard
+      %main
+        = render "partials/sidebar"
+        = yield
+        %div.container
+          %div#charts-section
+            %div.row#big-chart{style:"background-color:#667;"}
+            %div.row#small-charts
+        %div#modal-container
+          %label#filter-key
+          = render "filters/add_phrase_chart"
+          = render "filters/add_sna_chart"
+
+      %footer.footer
+        %nav.navbar.navbar-default
+          .container.navbar-container
+            %h5.pull-right
+              &copy;
+              = t('footer.sign')
+            %ul.nav.navbar-nav.navbar-left.dropup-navbar
+              %li.dropdown.dropup
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  = t('footer.languages.lang')
+                  %span.caret
+                %ul.dropdown-menu#languages-dropup{:role => "menu"}
+                  %li
+                    = link_to t('footer.languages.es'), change_locale_path(:es)
+                  %li
+                    = link_to t('footer.languages.en'), change_locale_path(:en)
+                  %li
+                    = link_to t('footer.languages.pt'), change_locale_path(:pt)
+
+
+%script{:src => "/assets/mainEvents.js" }
+

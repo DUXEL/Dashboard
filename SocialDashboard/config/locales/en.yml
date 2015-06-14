@@ -1,0 +1,71 @@
+en:
+  footer:
+    languages:
+      lang: "Languages"
+      es: "Spanish"
+      en: "English"
+      pt: "Portuguese"
+    sign: "Created by DUXEL"
+  charts:
+    pt: "Popular terms"
+    tr: "Trending topics"
+    net: "Network"
+    ct: "Centrality"
+    ds: "Density"
+    dt: "Distance"
+  sidebar:
+    title: "Add chart"
+  graph-info:
+    ds: "Density: "
+    dt: "Degrees of separation: "
+  filters:
+    title: "Filter configuration"
+    sna:
+      sn: "Social network:"
+      user: "User:"
+      depth: "Depth level:"
+    phrases:
+      region:
+        tab-nm: "Region"
+        title: "Country selection"
+        dropdown:
+          title: "Select a region"
+          ww: "World"
+          na: "North America"
+          ca: "Central America"
+          sa: "South America"
+          car: "Caribbean"
+          euw: "Western Europe"
+          eue: "Eastern Europe"
+          af: "Africa"
+          as: "Asia"
+          oce: "Oceania"
+          lata: "Latin America"
+        dropdown-label: "Or you can pick a predefined region"
+      time:
+        tab-nm: "Time"
+        title: "Time range selection"
+        init: "Start"
+        fin: "End"
+        subtitle: "Time range summary"
+        years: "Years"
+        months: "Months"
+        days: "Days"
+      lang:
+        tab-nm: "Language"
+        title: "Language selection"
+        input-label: "Type in a language"
+        input-placeholder: "Example: Español"
+  buttons:
+    apply: "Apply"
+    filters:
+      clean: "Reset filter"
+      clean-all: "Reset all"
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+#main-chart {
+    margin-top: 15px;
+    width:100%;
+    margin-bottom: 15px;
+}
+
+@media (min-height:600px){
+    #main-chart{
+        height: 500px;
+    }
+
+}
+
+@media (max-height:500px){
+    #main-chart{
+        height: 350px;
+    }
+
+}
+
+@media (max-height:300px){
+    #main-chart{
+        height: 220px;
+    }
+}
