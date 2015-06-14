@@ -77,6 +77,7 @@ var ready = function(){
             $('#sna-filter-apply').attr('value','new-filter');
             var modalName = "#data-analysis-filter";
         }
+        $(".node-info").hide();
         $(modalName).modal('show');
     });
 	
