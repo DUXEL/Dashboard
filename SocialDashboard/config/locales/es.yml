@@ -58,6 +58,7 @@ es:
         input-placeholder: "Ejemplo: Español"
   buttons:
     apply: "Aplicar"
+    delete-filters: "Borrar todos los gráficos"
     filters:
       clean: "Limpiar filtro"
       clean-all: "Limpiar filtros"

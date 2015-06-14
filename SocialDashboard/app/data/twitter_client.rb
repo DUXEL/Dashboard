@@ -14,7 +14,7 @@ class TwitterClient
 
   def trends(country)
     trends = @twitter_accessor.trends(country.woeid)
-    trends.take(10).collect do |post|
+    trends.collect do |post|
       "#{post.name}"
     end
   end

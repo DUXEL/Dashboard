@@ -2,7 +2,7 @@ var displayWordCloud;
 
 var ready = function() {
 
-    displayWordCloud = function(div, tags) {
+    displayWordCloud = function( tags, div) {
         var fill = d3.scale.category20b();
 
         var w = $(div).width(),

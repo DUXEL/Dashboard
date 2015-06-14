@@ -1,14 +1,29 @@
+var slider;
+var $loading;
 var ready = function() {
+
+    $loading = $('#loadingDiv').hide();
+    jQuery.fn.center = function () {
+        this.css("position","absolute");
+        this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
+        $(window).scrollTop()) + "px");
+        this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
+        $(window).scrollLeft()) + "px");
+        return this;
+    }
+
+    $('#loadingDiv').center();
+
     $(document).on("click", ".delete-button", function () {
         //It has to make an ajax request to delete the cookie filter and then delete graph from the view.
         $(this).parent().parent().remove();
     });
 
 
-    var slider = $('#charts-slider').bxSlider({
+    slider = $('#charts-slider').bxSlider({
         adaptiveHeight: true,
-        minSlides: 3,
-        maxSlides: 3,
+        minSlides: 5,
+        maxSlides: 5,
         slideWidth: 270,
         slideMargin: 30,
         pager:false

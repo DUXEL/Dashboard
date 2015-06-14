@@ -26,11 +26,18 @@
 
 //= require d3/d3.min
 
-//= require charts/trendsChart/d3.layout.cloud
-//= require charts/trendsChart/word_cloud
+//= require charts/wordCloudChart/d3.layout.cloud
+//= require charts/wordCloudChart/word_cloud
 
 //= require d3/d3-transform
-//= require charts/popularTermsChart/bubbleChart
+//= require charts/bubbleChart/extarray
+//= require charts/bubbleChart/misc
+//= require charts/bubbleChart/microObserver
+//= require charts/bubbleChart/microPlugin
+//= require charts/bubbleChart/mainBubbleChart
+//= require charts/bubbleChart/centralClick
+//= require charts/bubbleChart/lines
+//= require charts/bubbleChart/bubbleChart
 
 //= require charts/graphChart/underscore-min
 //= require charts/graphChart/graph

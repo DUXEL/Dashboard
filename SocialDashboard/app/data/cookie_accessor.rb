@@ -14,11 +14,11 @@ class CookieAccessor
       end
     end
     @cookies[filters[i]] = map
-    return filters[i]
+    filters[i]
   end
 
   def find(key)
-    return @cookies[key]
+    @cookies[key]
   end
 
   def update(key, map)

@@ -1,50 +1,35 @@
-var curr_chart;
-var deleteAllFilters = null;
+var deleteAllFilters;
 var ready = function() {
 
-    // Function used to convert the JSON file to the format needed for the graph
-    function convertJSON(jsonObject) {
-        alert("json object\n"+jsonObject);
-        var graphLength = Object.keys(jsonObject).length;
-        var newGraph = {};
-        var nodesIndex = [];
-        var newNodes = [];
-        var newLinks = [];
+    var chartObjects = {};
 
-        newGraph["directed"] = "true";
-        newGraph["multigraph"] = "false";
-        newGraph["graph"] = [];
-
-        for(var node in jsonObject) {
-            nodesIndex.push(node);
+    var $mainChart = $("#main-chart");
+    var displayChartHash = {
+        trends: function(object) {
+          displayBubbleChart(fillWordCloudList(object), "#main-chart");
+        },
+        popular_terms: function(object) {
+            displayWordCloud(object, "#main-chart");
+        },
+        density: function(object) {
+            displayGraphChart("Densidad", object);
+        },
+        distance: function(object) {
+            displayGraphChart("Distancia", object);
+        },
+        centrality: function(object) {
+            displayGraphChart("Centralidad", object);
+        },
+        network: function(object) {
+            displayGraphChart("", object);
         }
+    };
 
-        for(var property in jsonObject) {
-            var currNode = jsonObject[property];
-            var newNode = {};
-            newNode["id"] = currNode["name"];
-            newNode["description"] = currNode["description"];
-            newNode["link"] = currNode["link"];
-            newNodes.push(newNode);
 
-            var currNodeLinks = currNode["connectsTo"];
-            for(var i = 0; i < currNodeLinks.length; i++) {
-                currLink = currNodeLinks[i];
-                var link = {};
-                var source = nodesIndex.indexOf(property);
-                var target = nodesIndex.indexOf(currLink);
-                link["source"] = source;
-                link["target"] = target;
-                newLinks.push(link);
-            }
-        }
-        newGraph["links"] = newLinks;
-        newGraph["nodes"] = newNodes;
-        return newGraph;
+    function displayGraphChart(type, object) {
+        displayGraph(object.graph, "#main-chart");
+        $mainChart.prepend("<h3 class='chart-info'>"+type+"  "+object.value+"</h3>");
     }
-
-
-
 
     $("#sna-filter-apply").click(function(){
         var socialNetwork = $('#social-network .active input').val();
@@ -58,6 +43,7 @@ var ready = function() {
         }else{
             method = "put";
         }
+        $('#loadingDiv').show();
         $.ajax({
             method: method,
             url: '/filters',
@@ -70,8 +56,7 @@ var ready = function() {
                 data: {type: chartInfo[1], key: filterKey},
                 async: 'false'
             }).done(function(response){
-                console.log(response);
-                displayGraph(response,"#main-chart");
+                displayChart(chartInfo[0], chartInfo[1], response, filterKey);
             });
         });
         $('#data-analysis-filter').modal('hide');
@@ -105,6 +90,7 @@ var ready = function() {
         }else{
             method = "put";
         }
+        $('#loadingDiv').show();
         $.ajax({
             method: method,
             url: '/filters',
@@ -116,31 +102,46 @@ var ready = function() {
                 url: '/charts',
                 data: {type: chartInfo[1], key: filterKey},
                 async: 'false'
-            }).done(function(response){
-                console.log(response);
+            }).success(function(response){
+                displayChart(chartInfo[0], chartInfo[1], response, filterKey);
             });
         });
         $("#main-filters").modal("hide");
     });
 
+    var displayChart = function(specificType, type, jsonObject, filterKey) {
+        if($mainChart.html() == "") {
+            $mainChart.attr('type', type);
+            $mainChart.attr('specific-type', specificType);
+            var chartId = 'chart-'+filterKey;
+            $mainChart.attr('chart-id', chartId);
+            displayChartHash[type](jsonObject);
+
+        }
+        $('#loadingDiv').hide();
+    }
+
+
+    var availableDiv = function() {
+       for(var i = 1; i < 5; i++) {
+           var divHTML = $('#div'+i).html();
+           if(divHTML == "") return '#div'+i;
+       }
+    }
+
+    var getFirstChartDiv = function() {
+        for(var i = 1; i < 5; i++) {
+            var divHTML = $('#div'+i).html();
+            if(divHTML != "") return '#div'+i;
+        }
+        return -1;
+    }
+
+
+
 
     $('body').on("click",".close-button", function() {
         $('.node-info').css('display','none');
-    });
-
-    $(".fullscreen-button").on("click",function() {
-        $("#div1").html("");
-        $("#main-chart").html("");
-        if(ct%2 == 0) {
-            displayGraph(convertJSON(jsonGraph),"#div1");
-            appendGraphButtons("#div1")
-            displayWordCloud("#main-chart",wordsListWordCloud);
-        }else {
-            displayWordCloud("#div1",wordsListWordCloud);
-            displayGraph(convertJSON(jsonGraph),"#main-chart");
-            appendGraphButtons("#main-chart")
-        }
-        ct++;
     });
 
     var availableFilters = function(){
@@ -153,6 +154,17 @@ var ready = function() {
             });
         }
     }
+
+    $("#delete-all-charts").click(function() {
+        for (var i =1; i<7;i++){
+            $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
+        }
+        $mainChart.html("");
+        for(var i = 1; i < 5; i++) {
+            $("#div"+i).html("");
+        }
+    });
+
 
     deleteAllFilters = function(){
         for (var i =1; i<7;i++){
@@ -212,6 +224,14 @@ var ready = function() {
             }
         });
     });
+
+    function fillWordCloudList(jsonObject) {
+        var res = [];
+        for(var i = 0; i < jsonObject.length; i++) {
+            res.push({text: jsonObject[i].key, count: (jsonObject[i].value + '')});
+        }
+        return res;
+    }
 }
 
 $(document).on('page:load', ready);

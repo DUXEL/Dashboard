@@ -24,7 +24,11 @@ class ChartService
   end
 
   def calculate_distance(graph)
-    return 1
+    1
+  end
+
+  def calculate_network(graph)
+    ""
   end
 
   def get_trends(filter)
@@ -34,13 +38,8 @@ class ChartService
       trends_hash = set_hash(country_trends, trends_hash)
     end
     all_trends = (trends_hash.sort_by { |name, amount| amount }).reverse
-    top_ten = all_trends.take(10)
-    phrase_list = Array.new
-    top_ten.each do |phrase|
-      p = Phrase.new(phrase[0], phrase[1])
-      phrase_list.push(p)
-    end
-    p phrase_list
+    top_trends = all_trends.take(10)
+    phrase_list = set_phrase_hash_list(top_trends)
     phrase_list
   end
 
@@ -55,14 +54,9 @@ class ChartService
     stop_words = read_stop_words(filter.language)
     post_words = delete_stop_words(posts,stop_words)
     post_hash = set_hash(post_words, post_hash)
-
-    ordered_posts = (post_hash.sort_by { |post, amount| amount }).reverse
-    phrase_list = Array.new
-    ordered_posts.each do |post|
-      p = Phrase.new(post[0],post[1])
-      phrase_list.append(p)
-    end
-    phrase_list.take(200)
+    ordered_posts = (post_hash.sort_by { |post, amount| amount }).reverse.take(200)
+    phrase_list = set_phrase_hash_list(ordered_posts)
+    phrase_list
   end
 
 
@@ -78,7 +72,7 @@ class ChartService
     add_neighbors(friends, root_user, "friends")
     add_neighbors(followers, root_user, "followers")
     graph = RGL::DirectedAdjacencyGraph[*@edges]
-    graph_to_json(graph)
+    get_graph_json_response(graph, filter.type)
   end
 
   private
@@ -181,10 +175,29 @@ class ChartService
       res
     end
 
+    def get_graph_json_response(graph, type)
+      json_response = Hash.new
+      json_response[:graph] = graph_to_json(graph)
+      json_response[:value] = self.send("calculate_#{type}", graph)
+      json_response
+    end
+
     def get_user_hash(user)
       res = Hash.new
       res[:id] = user.username
       res[:link] = user.image_url
+      res
+    end
+
+
+    def set_phrase_hash_list(list)
+      res = Array.new
+      list.each do |post|
+        p = Hash.new
+        p[:key] = post[0]
+        p[:value] = post[1]
+        res.append(p)
+      end
       res
     end
 
