@@ -65,14 +65,7 @@ var ready = function() {
             url: '/filters',
             data: {type: chartInfo[1], filter_type:chartInfo[0], user: filterUser, social_network: socialNetwork, depth_level: depthLevel, filter_key: currentFilterKey}
         }).done(function(filterKey){
-            $.ajax({
-                method: "post",
-                url: '/charts',
-                data: {type: chartInfo[1], key: filterKey},
-                async: 'false'
-            }).done(function(response){
-                displayChart(chartInfo[0], chartInfo[1], response, filterKey);
-            });
+            createChartAjax(filterKey);
         });
         $('#data-analysis-filter').modal('hide');
     });
@@ -117,17 +110,32 @@ var ready = function() {
             data: {countries: requestData, language:language ,start_time:start, end_time: finish, filter_type:chartInfo[0], filter_key: currentFilterKey},
             async: 'false'
         }).done(function(filterKey){
+            createChartAjax(filterKey);
+        });
+        $("#main-filters").modal("hide");
+    });
+
+    function createChartAjax(filterKey) {
+        if(filterKey == -1) {
+            alert("No se pueden crear más gráficos!");
+            $('#loadingDiv').hide();
+        }else {
             $.ajax({
                 method: "post",
                 url: '/charts',
                 data: {type: chartInfo[1], key: filterKey},
-                async: 'false'
+                async: 'false',
+                statusCode: {
+                    500: function() {
+                        alert("Ha superado el límite de consultas!");
+                        $('#loadingDiv').hide();
+                    }
+                }
             }).success(function(response){
                 displayChart(chartInfo[0], chartInfo[1], response, filterKey);
             });
-        });
-        $("#main-filters").modal("hide");
-    });
+        }
+    }
 
     var displayChart = function(specificType, type, jsonObject, filterKey) {
         if($mainChart.html() != "") {

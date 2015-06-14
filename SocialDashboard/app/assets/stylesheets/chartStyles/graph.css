@@ -97,3 +97,7 @@ path.link.resolved {
 .close-button:hover {
     background-image: url('../icons/closeNodeHover.jpg');
 }
+
+.word-cloud {
+    opacity: 1 !important;
+}
