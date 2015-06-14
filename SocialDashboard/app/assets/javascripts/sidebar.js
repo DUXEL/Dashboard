@@ -58,6 +58,7 @@ var ready = function(){
     // Event to handle when a graph's type is clicked 
     // in order to add it to the page(main container).
     $(".graph-type").click(function (){
+        document.getElementById("region-link").click();
         $('#filters-btn-clear').click();
         $('#filter-user-input').val('');
         $('#social-network input').parent().removeClass('active');
@@ -69,6 +70,7 @@ var ready = function(){
         chartInfo[0] = $(this).attr('id');
         chartInfo[1] = value;
         if (value == "trends" || value == "popular_terms"){
+            en_disableFilterTabs(value);
             $('#phrases-filter-apply').attr('value','new-filter');
             var modalName = "#main-filters";
         }else if (value == "graph"){

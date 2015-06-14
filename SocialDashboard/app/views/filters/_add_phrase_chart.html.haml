@@ -29,8 +29,8 @@
                       = image_tag("icons/time.png", class: "img-responsive filter-image", alt: "Time icon")
                       %label.filter-label
                         = t('filters.phrases.time.tab-nm')
-                  %li
-                    %a{"data-toggle" => "tab", :href => "#language"}
+                  %li#li-language
+                    %a#language-link{"data-toggle" => "tab", :href => "#language"}
                       %span#language-check.check-span.fa.fa-check-circle-o{"aria-hidden" => "true"}
                       .clear
                       = image_tag("icons/languages.jpg", class: "img-responsive filter-image", alt: "Languages icon")
