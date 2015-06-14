@@ -5,30 +5,30 @@ var ready = function() {
 
     var $mainChart = $("#main-chart");
     var displayChartHash = {
-        trends: function(object) {
-          displayBubbleChart(fillWordCloudList(object), "#main-chart");
+        trends: function(object, div) {
+          displayBubbleChart(fillWordCloudList(object), div);
         },
-        popular_terms: function(object) {
-            displayWordCloud(object, "#main-chart");
+        popular_terms: function(object, div) {
+            displayWordCloud(object, div);
         },
-        density: function(object) {
-            displayGraphChart("Densidad", object);
+        density: function(object, div) {
+            displayGraphChart("Densidad", object, div);
         },
-        distance: function(object) {
-            displayGraphChart("Distancia", object);
+        distance: function(object, div) {
+            displayGraphChart("Distancia", object, div);
         },
-        centrality: function(object) {
-            displayGraphChart("Centralidad", object);
+        centrality: function(object, div) {
+            displayGraphChart("Centralidad", object, div);
         },
-        network: function(object) {
-            displayGraphChart("", object);
+        network: function(object, div) {
+            displayGraphChart("", object, div);
         }
     };
 
 
-    function displayGraphChart(type, object) {
-        displayGraph(object.graph, "#main-chart");
-        $mainChart.prepend("<h3 class='chart-info'>"+type+"  "+object.value+"</h3>");
+    function displayGraphChart(type, object, div) {
+        displayGraph(object.graph, div);
+        if(div == "#main-chart") $(div).prepend("<h5 class='chart-info'>"+type+"  "+object.value+"</h5>");
     }
 
     $("#sna-filter-apply").click(function(){
@@ -110,17 +110,27 @@ var ready = function() {
     });
 
     var displayChart = function(specificType, type, jsonObject, filterKey) {
-        if($mainChart.html() == "") {
-            $mainChart.attr('type', type);
-            $mainChart.attr('specific-type', specificType);
-            var chartId = 'chart-'+filterKey;
-            $mainChart.attr('chart-id', chartId);
-            displayChartHash[type](jsonObject);
-
+        if($mainChart.html() != "") {
+            var newDiv = availableDiv();
+            var oldSpecificType = $mainChart.attr("specific-type");
+            var oldChartId = $mainChart.attr("chart-id");
+            addChartAttributes(newDiv, $mainChart.attr("type"), oldSpecificType, oldChartId);
+            displayChartHash[oldSpecificType](chartObjects[oldChartId], newDiv);
+            $mainChart.html("");
         }
+        var chartId = 'chart-'+filterKey;
+        addChartAttributes("#main-chart", type, specificType, chartId);
+        displayChartHash[specificType](jsonObject, "#main-chart");
+        chartObjects[chartId] = jsonObject;
         $('#loadingDiv').hide();
     }
 
+    function addChartAttributes(element, type, specificType, chartId) {
+        var $element = $(element);
+        $element.attr('type', type);
+        $element.attr('specific-type', specificType);
+        $element.attr('chart-id', chartId);
+    }
 
     var availableDiv = function() {
        for(var i = 1; i < 5; i++) {
@@ -145,7 +155,7 @@ var ready = function() {
     });
 
     var availableFilters = function(){
-        for (var i = 1; i<7 ; i++){
+        for (var i = 1; i<6 ; i++){
             $.ajax({method: 'get', url: '/filters/filter'+i+'/edit', async: false}).done(function (response) {
                 //console.log(response);
                 if (response != null){
@@ -156,18 +166,19 @@ var ready = function() {
     }
 
     $("#delete-all-charts").click(function() {
-        for (var i =1; i<7;i++){
+        for (var i =1; i<6;i++){
             $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
         }
         $mainChart.html("");
         for(var i = 1; i < 5; i++) {
             $("#div"+i).html("");
         }
+        chartObjects = {};
     });
 
 
     deleteAllFilters = function(){
-        for (var i =1; i<7;i++){
+        for (var i =1; i<6;i++){
             $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
         }
     };
