@@ -1,0 +1,336 @@
+/* 
+Dashboard Project - Software Design.
+ITCR - Alajuela - 2015
+Developers:
+- Diego Ugalde Avila
+- Daniel Gerardo Solis Mendez
+- Melvin Alonso Elizondo Perez
+- Luis Eduardo Ugalde Barrantes
+
+Org: duXel
+*/
+
+/*--------------------------------------------------------------------------------------------*/
+/*Main styles*/
+
+.clear {
+    clear: both;
+}
+
+.main-container {
+    margin-bottom: 60px;
+    background-image: url("../images/backgrounds/starthere3.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.main-container h3{
+    margin-left: 10px;
+    color: darkslategrey;
+}
+
+.dashboard-title {
+    font-size: 1em;
+    color: white;
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+/*Styles for the top and bottom bars.*/
+.top-bar {
+    height: 60px;
+    background-color: #2D3030;
+}
+
+.footerNav {
+    bottom: 0;
+    color: white;
+    font-size: 150%;
+    margin:0;
+    border: none;
+}
+
+#sign {
+    margin-top: 10px;
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+/* Styles for each chart box*/
+.box-container {
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+
+.chart-container {
+    border: 5px solid #ACB2B1;
+    border-radius: 40px;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.chart-container:hover img {
+    -webkit-filter: invert(0.1);
+}
+
+.chart-container:hover .delete-button{
+    display: block;
+}
+
+.chart-container:hover .settings-button{
+    display: block;
+}
+
+.chart-container:hover .fullscreen-button{
+    display: block;
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/trash-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.delete-button:hover {  
+    background-image: url('../images/icons/trash-icon-hover.png');
+}
+
+.settings-button {  
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/settings-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.settings-button:hover {
+    background-image: url('../images/icons/settings-icon-hover.png'); 
+}
+
+.fullscreen-button {  
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 15px;
+    margin-top: 10px;
+    height: 30px;
+    width: 30px;
+    background-image: url('../images/icons/fullscreen-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.fullscreen-button:hover {  
+    background-image: url('../images/icons/fullscreen-icon-hover.png');
+}
+
+
+.img-responsive {
+    width: 100%;
+}
+
+.tab-img {
+    height: 60px;
+    width: 60px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+
+/*Bubble chart styles*/
+
+.bubbleChart {
+    min-width: 100px;
+    width: 100%;
+    height: 500px;
+}
+
+.bubbleChart svg{
+    background: #ffffff;
+}
+
+
+#popular-terms-tab {
+    width: 100%;
+}
+
+#vis {
+    width:100%;
+}
+
+/*Network chart styles*/
+
+#popular-terms-tab svg {
+    display: block;
+    margin: 0 auto;
+}
+
+#tendency-tab svg {
+    display: block;
+    margin: 0 auto;
+}
+
+
+/*Network chart styles*/
+
+#network-tab {
+    height: 400px;
+    position: relative;
+}
+
+#network-graph-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+
+/*Centrality chart styles*/
+
+#centrality-tab {
+    height: 400px;
+    position: relative;
+}
+
+#centrality-graph-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+.sigma-edge {
+  stroke: #14191C;
+}
+.sigma-node {
+  fill: green;
+  stroke: #14191C;
+  stroke-width: 2px;
+}
+.sigma-node:hover {
+  fill: blue;
+}
+.muted {
+  fill-opacity: 0.1;
+  stroke-opacity: 0.1;
+}
+
+/*Density chart styles*/
+#density-graph-container {
+    margin: 0 auto;
+}
+
+/*Centrality chart styles*/
+
+.tab-content {
+    margin: 0 auto;
+}
+
+text.id {
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+/*Styles for responsive elements inside the modals*/
+
+@media (min-width:1000px){  
+    
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #centrality-graph-container,
+    #centrality-graph-container:first-child,
+    #vmap {
+        width: 780px;
+        height: 520px;
+    }
+
+}
+
+@media (min-width: 801px) {
+
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #centrality-graph-container,
+    #vmap {
+        width: 580px;
+        height: 420px;
+    }
+
+    #density-graph-container,
+    #centrality-graph-container:first-child{
+        width: 480px;
+        height: 420px;
+    }
+}
+
+
+@media (max-width:800px){
+
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #vmap {
+        width: 380px;
+        height: 220px;
+    }
+    
+    #centrality-graph-container,
+    #centrality-graph-container:first-child {
+        width: 380px;
+        height: 350px;
+    }
+}
+
+@media (max-width:450px){
+    #popular-terms-tab, 
+    #network-graph-container,
+    #distance-graph-container,
+    #density-graph-container,
+    #vmap {
+        width: 280px;
+        height: 150px;
+    }
+    
+    #centrality-graph-container,
+    #centrality-graph-container:first-child {
+        width: 180px;
+        height: 250px;
+    }
+    
+    
+}
+
+
+#test li{
+    width: 300px;
+    height: 300px;
+    background-color: gray;
+    display: inline-block;
+    margin: 5px;
+    border: 1 solid black;
+}
+
+
+

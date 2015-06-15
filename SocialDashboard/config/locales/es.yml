@@ -1,0 +1,78 @@
+es:
+  footer:
+    languages:
+      current-lang: "starthere-es.jpg"
+      lang: "Idiomas"
+      es: "Español"
+      en: "Inglés"
+      pt: "Portugués"
+    sign: "Creado por DUXEL"
+  charts:
+    pt: "Términos populares"
+    tr: "Tendencias"
+    net: "Red"
+    ct: "Centralidad"
+    ds: "Densidad"
+    dt: "Distancia"
+  sidebar:
+    title: "Agregar grafico"
+  graph-info:
+    ds: "Densidad: "
+    dt: "Grados de separación: "
+  filters:
+    title: "Configuración de filtros para"
+    sna:
+      sn: "Red social:"
+      user: "Usuario:"
+      depth: "Nivel de profundidad:"
+    phrases:
+      region:
+        tab-nm: "Región"
+        title: "Selección de países"
+        dropdown:
+          title: "Seleccione una región"
+          ww: "Mundo"
+          na: "América del Norte"
+          ca: "América Central"
+          sa: "América del Sur"
+          car: "Caribe"
+          euw: "Europa Occidental"
+          eue: "Europa Oriental"
+          af: "África"
+          as: "Asia"
+          oce: "Oceanía"
+          lata: "América Latina"
+        dropdown-label: "O puede escoger una region predefinida"
+      time:
+        tab-nm: "Tiempo"
+        title: "Selección de rango de tiempo"
+        init: "Inicio"
+        fin: "Final"
+        subtitle: "Resumen de rango seleccionado"
+        years: "Años"
+        months: "Meses"
+        days: "Días"
+      lang:
+        tab-nm: "Idioma"
+        title: "Selección de idioma"
+        input-label: "Ingrese un idioma"
+        input-placeholder: "Ejemplo: Español"
+  buttons:
+    apply: "Aplicar"
+    delete-filters: "Borrar todos los gráficos"
+    filters:
+      clean: "Limpiar filtro"
+      clean-all: "Limpiar filtros"
+  load-filters:
+    opt-yes: "Si"
+    opt-no:  "No"
+    question: "Desea cargar los graficos anteriores?"
+    content: "Nota: si escoge 'si' podria tomar un tiempo"
+
+
+
+
+
+
+
+

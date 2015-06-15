@@ -1,0 +1,86 @@
+#main-chart {
+    margin-top: 5px;
+    width:100%;
+    margin-bottom: 25px;
+    position: relative;
+    -webkit-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    background-size: cover;
+    background-position: center;
+}
+
+@media (min-height:600px){
+    #main-chart{
+        height: 450px;
+    }
+
+}
+
+@media (max-height:500px){
+    #main-chart{
+        height: 350px;
+    }
+
+}
+
+@media (max-height:300px){
+    #main-chart{
+        height: 220px;
+    }
+}
+
+#delete-all-charts {
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 1em;
+    background: #8f2f35;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+#delete-all-charts:hover {
+    background: #b54e53;
+    text-decoration: none;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#small-charts {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.small-chart-div {
+    position: relative;
+    height: 180px;
+    width: 100%;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+}
+
+.chart-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    margin-top: 15px;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+#error-message {
+    position: absolute;
+    top: 35%;
+    color: darkred;
+}
+

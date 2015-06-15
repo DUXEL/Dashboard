@@ -1,0 +1,212 @@
+/*
+Dashboard Project - Software Design.
+ITCR - Alajuela - 2015
+Developers:
+- Diego Ugalde Avila
+- Daniel Gerardo Solis Mendez
+- Melvin Alonso Elizondo Perez
+- Luis Eduardo Ugalde Barrantes
+
+Org: duXel
+*/
+
+/*--------------------------------------------------------------------------------------------*/
+/*Main styles*/
+
+html, body {
+    box-sizing: border-box !important;
+    margin:0 !important;
+    padding:0 !important;
+    height:100% !important;
+}
+
+.clear {
+    clear: both;
+}
+
+/*--------------------------------------------------------------------------------------------*/
+
+.delete-button {
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 30px;
+    background-image: url('icons/trash-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.delete-button:hover {
+    background-image: url('icons/trash-icon-hover.png');
+    cursor: hand;
+    cursor: pointer;
+}
+
+.settings-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 5px;
+    margin-top: 5px;
+    height: 30px;
+    width: 30px;
+    background-image: url('icons/settings-icon.png');
+    transition: all 1s ease;
+    display: none;
+}
+
+.settings-button:hover {
+    background-image: url('icons/settings-icon-hover.png');
+    cursor: hand;
+    cursor: pointer;
+}
+
+.fullscreen-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 5px;
+    margin-top: 5px;
+    height: 30px;
+    width: 30px;
+    background-image: url('icons/fullscreen-icon.png');
+    transition: all 1s ease;
+    z-index: 1000;
+    display: none;
+}
+
+.fullscreen-button:hover {
+    background-image: url('icons/fullscreen-icon-hover.png');
+    cursor: hand;
+    cursor: pointer;
+}
+
+.tab-img {
+    height: 60px;
+    width: 60px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+/*--------------------------------------------------------------------------------------------*/
+/* Styles for charts' slider  */
+
+.slider-div{
+    height: 170px;
+    border: black solid 2px;
+}
+
+#charts-slider li:hover .fullscreen-button {
+    display: block;
+}
+
+
+
+
+/*
+
+*/
+
+html, body {
+    overflow-x: hidden;
+}
+
+/*Styles for the body container, includes: topbar-main-footerbar*/
+#body-container{
+    min-height: 100%;
+    position: relative;
+}
+
+
+/*Styles for the navbar footer*/
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35px;
+}
+
+.navbar-container {
+    color: #f1f1f1;
+    height: 33px;
+    position: relative;
+}
+
+.navbar-container h5 {
+    margin-top: 10px;
+}
+
+.navbar-container h4 {
+    margin-top: 7px;
+}
+
+.dropup-navbar, .dropup, .dropup a {
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.dropup .dropdown-menu {
+    margin-bottom: 0 !important;
+}
+
+
+
+.font-bold {
+    font-weight: bold !important;
+}
+
+.dropup,.dropdown{
+    cursor: pointer;
+}
+
+
+#languages-dropup{
+    background-color: #2D3030 !important;
+}
+
+#languages-dropup a{
+    color: #f1f1f1 !important;
+}
+
+#languages-dropup li:hover a{
+    background-color: #474747 !important;
+    color: #d1d1d1 !important;
+}
+
+/*Styles for the loading spinner*/
+#loadingDiv {
+    width: 100%;
+    height: 100%;
+    background: url('icons/ajax-loader.gif') no-repeat center center;
+    z-index: 100;
+}
+
+#error-message{
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.close-alert {
+    border: none;
+    background-color: none !important;
+    cursor: pointer;
+    cursor: hand;
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px ! important;
+}
+
+#error-alert {
+    position: relative;
+    width: 95% !important;
+    margin: 0 auto !important;
+    margin-top: 10px !important;
+    height: 60px !important;
+    display: none;
+}

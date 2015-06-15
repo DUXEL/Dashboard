@@ -1,0 +1,78 @@
+pt:
+  footer:
+    languages:
+      current-lang: "starthere-pt.jpg"
+      lang: "Línguas"
+      es: "Espanhol"
+      en: "Inglês"
+      pt: "Português"
+    sign: "Criado por DUXEL"
+  charts:
+    pt: "Termos populares"
+    tr: "Tendências"
+    net: "Rede"
+    ct: "Centralidade"
+    ds: "Densidade"
+    dt: "Distância"
+  sidebar:
+    title: "Adicionar gráfico"
+  graph-info:
+    ds: "Densidade: "
+    dt: "Graus de separação: "
+  filters:
+    title: "Configurações de filtro para"
+    sna:
+      sn: "Rede social:"
+      user: "Usuário:"
+      depth: "Nível de profundidade:"
+    phrases:
+      region:
+        tab-nm: "Região"
+        title: "Selecção de países"
+        dropdown:
+          title: "Escolha uma região"
+          ww: "Mundo"
+          na: "América do Norte"
+          ca: "América Central"
+          sa: "Ámérica do Sul"
+          car: "Caribe"
+          euw: "Europa Ocidental"
+          eue: "Europa Oriental"
+          af: "África"
+          as: "Ásia"
+          oce: "Oceânia"
+          lata: "América Latina"
+        dropdown-label: "Ou você pode escolher uma região pré-definida"
+      time:
+        tab-nm: "Tempo"
+        title: "Intervalo de tempo"
+        init: "Iniciação"
+        fin: "Final"
+        subtitle: "Resumo do intervalo selecionado"
+        years: "Anos"
+        months: "Meses"
+        days: "Días"
+      lang:
+        tab-nm: "Língua"
+        title: "Selecção de idioma"
+        input-label: "Introduzir um idioma"
+        input-placeholder: "Exemplo: Español"
+  buttons:
+    apply: "Aplicar"
+    delete-filters: "Remover todu os graficos"
+    filters:
+      clean: "Limpar Filtro"
+      clean-all: "Limpar Filtros"
+  load-filters:
+    opt-yes: "Sim"
+    opt-no:  "Não"
+    question: "Você gostaria de carregar os gráficos anteriores?"
+    content: "Se você escolher a 'sim' la pode demorar um pouco"
+
+
+
+
+
+
+
+
