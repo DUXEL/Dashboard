@@ -1,4 +1,8 @@
 var $loading;
+
+var num_threads = 2;
+var MT = new Multithread(num_threads);
+
 var ready = function() {
 
     $loading = $('#loadingDiv').hide();
@@ -22,7 +26,7 @@ var ready = function() {
     });
 
 
-}
+};
 
 
 $(document).on('page:load', ready);

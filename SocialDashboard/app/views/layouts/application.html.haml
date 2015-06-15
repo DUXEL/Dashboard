@@ -21,6 +21,20 @@
           %label#filter-key
           = render "filters/add_phrase_chart"
           = render "filters/add_sna_chart"
+          #confirm.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  %h4
+                    = t('load-filters.question')
+                  %br
+                  %h5
+                    = t('load-filters.content')
+                .modal-footer
+                  %button.btn.btn-primary#accept-filters{"data-dismiss" => "modal", :type => "button"}
+                    = t('load-filters.opt-yes')
+                  %button.btn#reject-filters{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                    = t('load-filters.opt-no')
 
       %footer.footer
         %nav.navbar.navbar-default

@@ -10,12 +10,13 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
-//= require mainScript
-//= require sidebar
+
 
 //= require moment
 //= require bootstrap-datetimepicker
@@ -44,4 +45,8 @@
 
 //= require jquery.bxslider
 
-//=require countries_data
+//= require countries_data
+
+//= require multithread
+//= require mainScript
+//= require sidebar

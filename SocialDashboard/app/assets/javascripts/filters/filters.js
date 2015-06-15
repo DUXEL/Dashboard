@@ -202,7 +202,6 @@ var ready = function() {
     });
 
     $("#time-btn-clear").click(function(){
-        manipulateMultiple('deselect', regions['worldRegion']);
         $("#time-check").hide();
         $('#language-check').hide();
         $('#finish-timepicker2').val('');

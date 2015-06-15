@@ -1,4 +1,5 @@
 var deleteAllFilters = null;
+
 var en_disableFilterTabs = function(value){
     if (value == "trends"){
         $("#li-time").addClass('disabled');
@@ -12,14 +13,16 @@ var en_disableFilterTabs = function(value){
         $('#language-link').attr('data-toggle','tab');
     }
 };
+
 var ready = function() {
 
     var chartObjects = {};
 
     var $mainChart = $("#main-chart");
+
     var displayChartHash = {
         trends: function(object, div) {
-          displayBubbleChart(fillWordCloudList(object), div);
+            displayBubbleChart(fillWordCloudList(object), div);
         },
         popular_terms: function(object, div) {
             displayWordCloud(object, div);
@@ -35,11 +38,22 @@ var ready = function() {
         },
         network: function(object, div) {
             displayGraphChart("", object, div);
+        },
+        error: function(object,div){
+            displayErrorMessage("Las opciones especificadas no permitieron generar el grafico.\n" +
+                "Se pudo haber superado el limite de consultas.",div);
         }
     };
 
+    function displayErrorMessage(msg,div){
+        $(div).html("<h3 id='error-message'>"+msg+"</h3>");
+    }
+
 
     function displayGraphChart(type, object, div) {
+        console.log("--------------");
+        console.log(object);
+        console.log("--------------");
         displayGraph(object.graph, div);
         if(div == "#main-chart") {
             $(div).prepend("<h5 class='chart-info'>"+type+"  "+object.value+"</h5>");
@@ -65,7 +79,7 @@ var ready = function() {
             url: '/filters',
             data: {type: chartInfo[1], filter_type:chartInfo[0], user: filterUser, social_network: socialNetwork, depth_level: depthLevel, filter_key: currentFilterKey}
         }).done(function(filterKey){
-            createChartAjax(filterKey);
+            createChartAjax(filterKey,true);
         });
         $('#data-analysis-filter').modal('hide');
     });
@@ -76,10 +90,8 @@ var ready = function() {
         var selectedRegions = $("#vmap").vectorMap("getSelectedRegions");
         var requestData = [];
         var language = $('#language-input').val();
-        console.log(language);
-        console.log(languages[language]);
         language = languages[language];
-        for (i in selectedRegions){
+        for (var i in selectedRegions){
             var c = countries[selectedRegions[i]];
             requestData.push(c);
         }
@@ -101,21 +113,21 @@ var ready = function() {
         if ( !$("#region-check").is(":visible") &&
              !$('#time-check').is(":visible") &&
              !$('#language-check').is(":visible") ){
-            alert("El filtro debe poseer parametros de busqueda");
+            alert("El filtro debe poseer parametros de busqueda!");
             return;
         }
         $.ajax({
             method: method,
             url: '/filters',
             data: {countries: requestData, language:language ,start_time:start, end_time: finish, filter_type:chartInfo[0], filter_key: currentFilterKey},
-            async: 'false'
+            async: false
         }).done(function(filterKey){
             createChartAjax(filterKey);
         });
         $("#main-filters").modal("hide");
     });
 
-    function createChartAjax(filterKey) {
+    function createChartAjax(filterKey,async) {
         if(filterKey == -1) {
             alert("No se pueden crear más gráficos!");
             $('#loadingDiv').hide();
@@ -124,21 +136,24 @@ var ready = function() {
                 method: "post",
                 url: '/charts',
                 data: {type: chartInfo[1], key: filterKey},
-                async: 'false',
+                async: async,
                 statusCode: {
                     500: function() {
-                        alert("Ha superado el límite de consultas!");
-                        $('#loadingDiv').hide();
+                        displayChart("error", chartInfo[1],"", filterKey);
                     }
                 }
-            }).success(function(response){
+            }).done(function(response){
+                console.log("===========");
+                console.log(response);
+                console.log("===========");
                 displayChart(chartInfo[0], chartInfo[1], response, filterKey);
             });
         }
     }
 
+
     var displayChart = function(specificType, type, jsonObject, filterKey) {
-        if($mainChart.html() != "") {
+        if($mainChart.html().length != 0) {
             var newDiv = availableDiv();
             var oldSpecificType = $mainChart.attr("specific-type");
             var oldChartId = $mainChart.attr("chart-id");
@@ -152,7 +167,7 @@ var ready = function() {
         displayChartHash[specificType](jsonObject, "#main-chart");
         chartObjects[chartId] = jsonObject;
         $('#loadingDiv').hide();
-    }
+    };
 
     function addChartAttributes(element, type, specificType, chartId) {
         var $element = $(element);
@@ -171,38 +186,23 @@ var ready = function() {
            var divHTML = $('#div'+i).html();
            if(divHTML == "") return '#div'+i;
        }
-    }
-
-    var getFirstChartDiv = function() {
-        for(var i = 1; i < 5; i++) {
-            var divHTML = $('#div'+i).html();
-            if(divHTML != "") return '#div'+i;
-        }
-        return -1;
-    }
-
-
-
+    };
 
 
     $('body').on("click",".close-button", function() {
         $('.node-info').css('display','none');
     });
 
-    var availableFilters = function(){
-        for (var i = 1; i<6 ; i++){
-            $.ajax({method: 'get', url: '/filters/filter'+i+'/edit', async: false}).done(function (response) {
-                //console.log(response);
-                if (response != null){
-                    $('main').prepend('<button class= "btn btn-default edit-filter" id="filter'+i+'">filter'+i+'</button>');
-                }
-            });
-        }
-    }
 
     $("#delete-all-charts").click(function() {
         for (var i =1; i<6;i++){
-            $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
+            $.ajax({
+                method: 'delete',
+                url:'/filters/filter'+i,
+                async:false
+            }).done(function(response){
+                console.log("Borrado "+response);
+            });
         }
         $mainChart.html("");
         for(var i = 1; i < 5; i++) {
@@ -214,11 +214,15 @@ var ready = function() {
 
     deleteAllFilters = function(){
         for (var i =1; i<6;i++){
-            $.ajax({method: 'delete',url:'/filters/filter'+i,async:false}).done(function(response){console.log(response)});
+            $.ajax({
+                method: 'delete',
+                url:'/filters/filter'+i,
+                async:false
+            }).done(function(response){
+                console.log(response)
+            });
         }
     };
-
-    availableFilters();
 
     var loadPhraseFilter = function(response){
         $('#filters-btn-clear').click();
@@ -250,28 +254,6 @@ var ready = function() {
         $('#filter-user-input').val(response.username);
         $('#data-analysis-filter').modal('show');
     };
-
-    $('body').on('click', '.edit-filter', function() {
-        var filter = $(this).attr('id');
-        $("#filter-key").val(filter);
-        $.ajax({
-            method: 'get',
-            url: '/filters/'+filter+'/edit',
-            async: false
-        }).done(function (response) {
-            chartInfo[0] = response.type;
-            if (response.type == "popular_terms" || response.type == "trends"){
-                $('#phrases-filter-apply').attr('value','edit-filter');
-                en_disableFilterTabs(response.type);
-                chartInfo[1] = response.type;
-                loadPhraseFilter(response);
-            }else{
-                $('#sna-filter-apply').attr('value','edit-filter');
-                chartInfo[1] = "graph";
-                loadGraphFilter(response);
-            }
-        });
-    });
 
     function fillWordCloudList(jsonObject) {
         var res = [];
@@ -314,7 +296,93 @@ var ready = function() {
         addChartButtons(tempDiv);
         $('#loadingDiv').hide();
     });
-}
+
+
+
+    var availableFilters = function(){
+        $('#loadingDiv').show();
+        for (var i = 1; i<6 ; i++){
+            $.ajax({
+                method: 'get',
+                url: '/filters/filter'+i+'/edit',
+                async: false
+            }).done(function (response) {
+                if (response != null){
+                    chartInfo[0] = response.type;
+                    if (response.type == "popular_terms" || response.type == "trends"){
+                        chartInfo[1] = response.type;
+                    }else{
+                        chartInfo[1] = "graph";
+                    }
+                    createChartAjax("filter"+i,false); //async type
+                }
+            });
+        }
+
+    };
+
+    $('body').on('click', '.edit-filter', function() {
+        var filter = $(this).attr('id');
+        $("#filter-key").val(filter);
+        $.ajax({
+            method: 'get',
+            url: '/filters/'+filter+'/edit',
+            async: false
+        }).done(function (response) {
+            chartInfo[0] = response.type;
+            if (response.type == "popular_terms" || response.type == "trends"){
+                $('#phrases-filter-apply').attr('value','edit-filter');
+                en_disableFilterTabs(response.type);
+                chartInfo[1] = response.type;
+                loadPhraseFilter(response);
+            }else{
+                $('#sna-filter-apply').attr('value','edit-filter');
+                chartInfo[1] = "graph";
+                loadGraphFilter(response);
+            }
+        });
+    });
+
+    var areAvailableFilters = function(){
+        var cnt = 0;
+        for (var i = 1; i<6 ; i++){
+            $.ajax({
+                method: 'get',
+                url: '/filters/filter'+i+'/edit',
+                async: false
+            }).done(function (response) {
+                if (response != null){
+                    cnt++;
+                }
+            });
+        }
+        return cnt>0;
+    };
+
+    // checks if there're filters on cookies, if yes it shows the charts.
+    if (areAvailableFilters()){
+        $("#confirm").modal({ backdrop: 'static', keyboard: false});
+        $("#confirm").modal("show");
+    }
+
+    $("#accept-filters").click(function(){
+        $("#confirm").modal("hide");
+        funcInADifferentThread();
+    });
+
+    var funcInADifferentThread = MT.process(
+        function() { $('#loadingDiv').show() },
+        function() { availableFilters() }
+    );
+
+
+    $("#reject-filters").click(function(){
+        $("#delete-all-charts").click();
+        $("#confirm").modal("hide");
+    });
+
+
+};
 
 $(document).on('page:load', ready);
 $(document).ready(ready);
