@@ -37,17 +37,15 @@ var ready = function() {
             intersectDelta: 0,
             transitDuration: 1000
         }, settings);
-
         $.extend(self.options, {
             radiusMax: (self.options.outerRadius - self.options.innerRadius) / 2,
             intersectInc: self.options.intersectDelta
         }, settings);
-
         self.initializePlugins(self.options.plugins);
-
         self.setup();
         self.registerClickEvent(self.getNodes());
         self.moveToCentral(d3.select(".node"));
+
     };
 
 
@@ -95,6 +93,7 @@ var ready = function() {
                     circles.push({cx: cx, cy: cy, r: rad, item: self.items[circles.length]});
                 }
             }
+            /*
             if (circles.length < self.items.length) {
                 if (delta === options.radiusMin) {
                     throw {
@@ -103,7 +102,7 @@ var ready = function() {
                     }
                 }
                 return self.randomCirclesPositions(delta + options.intersectInc);
-            }
+            }*/
             return circles.shuffle();
         },
 

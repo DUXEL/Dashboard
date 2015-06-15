@@ -1,7 +1,6 @@
 var $loading;
 
-var num_threads = 2;
-var MT = new Multithread(num_threads);
+var editingFilter = false;
 
 var ready = function() {
 
@@ -25,6 +24,19 @@ var ready = function() {
         $(this).children(".fullscreen-button").hide();
     });
 
+    $("#main-chart").hover(function() {
+        $(this).children(".delete-button").show();
+        $(this).children(".fullscreen-button").show();
+        $(this).children(".settings-button").show();
+    }, function() {
+        $(this).children(".delete-button").hide();
+        $(this).children(".fullscreen-button").hide();
+        $(this).children(".settings-button").hide();
+    });
+
+    $('.modal').on('hidden.bs.modal', function () {
+        editingFilter = false;
+    });
 
 };
 

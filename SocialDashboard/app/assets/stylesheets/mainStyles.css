@@ -53,18 +53,21 @@ html, body {
 
 .settings-button {
     position: absolute;
-    bottom: 0;
-    right: 50px;
-    margin-bottom: 10px;
+    top: 0;
+    right: 0;
+    margin-right: 5px;
+    margin-top: 5px;
     height: 30px;
     width: 30px;
-    background-image: url('../images/icons/settings-icon.png');
+    background-image: url('icons/settings-icon.png');
     transition: all 1s ease;
     display: none;
 }
 
 .settings-button:hover {
-    background-image: url('../images/icons/settings-icon-hover.png');
+    background-image: url('icons/settings-icon-hover.png');
+    cursor: hand;
+    cursor: pointer;
 }
 
 .fullscreen-button {

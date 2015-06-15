@@ -83,10 +83,8 @@ var ready = function(){
 
         if (value == "trends" || value == "popular_terms"){
             en_disableFilterTabs(value);
-            $('#phrases-filter-apply').attr('value','new-filter');
             var modalName = "#main-filters";
         }else if (value == "graph"){
-            $('#sna-filter-apply').attr('value','new-filter');
             var modalName = "#data-analysis-filter";
         }
         $(".node-info").hide();

@@ -23,19 +23,23 @@ class APIAccessor
     posts
   end
 
+
   def get_followers(username, social_network)
     get_client(social_network).followers(username)
   end
 
+
   def get_friends(username, social_network)
     get_client(social_network).friends(username)
   end
+
 
   def get_user(username, social_network)
     get_client(social_network).user(username)
   end
 
   private
+    #Returns the client object depending on the social_network.
     def get_client(social_network)
       @data_source.each do |client|
         if client.class.name.eql? "#{social_network}Client"
