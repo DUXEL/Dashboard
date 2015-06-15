@@ -14,4 +14,5 @@ class ApplicationController < ActionController::Base
     end
     I18n.locale = l
   end
+
 end

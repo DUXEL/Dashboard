@@ -1,5 +1,7 @@
 var $loading;
+
 var editingFilter = false;
+
 var ready = function() {
 
     $loading = $('#loadingDiv').hide();
@@ -36,7 +38,7 @@ var ready = function() {
         editingFilter = false;
     });
 
-}
+};
 
 
 $(document).on('page:load', ready);

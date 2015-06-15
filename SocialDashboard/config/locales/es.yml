@@ -19,7 +19,7 @@ es:
     ds: "Densidad: "
     dt: "Grados de separación: "
   filters:
-    title: "Configuración de filtros"
+    title: "Configuración de filtros para"
     sna:
       sn: "Red social:"
       user: "Usuario:"
@@ -62,6 +62,11 @@ es:
     filters:
       clean: "Limpiar filtro"
       clean-all: "Limpiar filtros"
+  load-filters:
+    opt-yes: "Si"
+    opt-no:  "No"
+    question: "Desea cargar los graficos anteriores?"
+    content: "Nota: si escoge 'si' podria tomar un tiempo"
 
 
 

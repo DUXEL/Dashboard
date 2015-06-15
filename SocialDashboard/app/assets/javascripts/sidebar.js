@@ -55,6 +55,16 @@ var ready = function(){
         }
     });
 
+
+    var chartType = {
+        trends: "tendencias",
+        popular_terms: "terminos populares",
+        density: "densidad",
+        distance: "distancia",
+        centrality: "centralidad",
+        network: "red"
+    };
+
     // Event to handle when a graph's type is clicked 
     // in order to add it to the page(main container).
     $(".graph-type").click(function (){
@@ -69,6 +79,8 @@ var ready = function(){
         var value = $(this).attr('value');
         chartInfo[0] = $(this).attr('id');
         chartInfo[1] = value;
+
+
         if (value == "trends" || value == "popular_terms"){
             en_disableFilterTabs(value);
             var modalName = "#main-filters";
@@ -76,10 +88,11 @@ var ready = function(){
             var modalName = "#data-analysis-filter";
         }
         $(".node-info").hide();
+        $(".chart-type").text(" "+chartType[ chartInfo[0]]);
         $(modalName).modal('show');
     });
 	
-}
+};
 
 $(document).on('page:load', ready);
 $(document).ready(ready);

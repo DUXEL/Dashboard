@@ -193,3 +193,6 @@ html, body {
     z-index: 100;
 }
 
+#error-message{
+    vertical-align: middle;
+}

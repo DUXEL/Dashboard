@@ -19,7 +19,7 @@ en:
     ds: "Density: "
     dt: "Degrees of separation: "
   filters:
-    title: "Filter configuration"
+    title: "Filter configuration for"
     sna:
       sn: "Social network:"
       user: "User:"
@@ -62,6 +62,11 @@ en:
     filters:
       clean: "Reset filter"
       clean-all: "Reset all"
+  load-filters:
+    opt-yes: "Yes"
+    opt-no:  "No"
+    question: "Do you want to load previous charts?"
+    content: "Note: If you choose 'yes' it could take a while"
 
 
 

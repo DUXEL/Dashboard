@@ -147,11 +147,14 @@ var ready = function() {
 
     //manipulate multiple regions in the map using options and an array containig the regions to manipulate.
     var manipulateMultiple = function(option,regionList){
-        for (i in regionList){
+        for (var i in regionList){
             if( $('#vmap').vectorMap("isSelected", regionList[i]) && option=="deselect"){
+                console.log("Deselecting "+regionList[i]);
                 $('#vmap').vectorMap(option, regionList[i]);
             }else if(option=="select"){
+                console.log("Selecting "+regionList[i]);
                 $('#vmap').vectorMap(option, regionList[i]);
+
             }
         }
     };
@@ -162,7 +165,7 @@ var ready = function() {
         'worldRegion':
             ["ae","af","ag","al","am","ao","ar","at","au","az","ba","bb","bd","be","bf","bg","bi","bj","bn","bo","br","bs","bt","bw","by","bz","ca","cd","cf","cg","ch","ci","cl","cm","cn","co","cr","cu","cv","cy","cz","de","dj","dk","dm","do","dz","ec","ee","eg","er","es","et","fi","fj","fk","fr","ga","gb","gd","ge","gf","gh","gl","gm","gn","gq","gr","gt","gw","gy","hn","hr","ht","hu","id","ie","il","in","iq","ir","is","it","jm","jo","jp","ke","kg","kh","km","kn","kp","kr","kw","kz","la","lb","lc","lk","lr","ls","lt","lv","ly","ma","md","mg","mk","ml","mm","mn","mr","mt","mu","mv","mw","mx","my","mz","na","nc","ne","ng","ni","nl","no","np","nz","om","pa","pe","pf","pg","ph","pk","pl","pt","py","qa","re","ro","rs","ru","rw","sa","sb","sc","sd","se","si","sk","sl","sn","so","sr","st","sv","sy","sz","td","tg","th","tj","tl","tm","tn","tr","tt","tw","tz","ua","ug","us","uy","uz","ve","vn","vu","ye","za","zm","zw"],
         'naRegion':["ca","us","mx","gl"],
-        'saRegion':["ve","co","pe","ec","br","gy","sr","gf","bo","py","uy","cl","ar","fk"],
+        'saRegion':["ve","co","pe","ec","br","gy","sr","gf","bo","py","uy","cl","ar"],
         'caRegion': ["bz","gt","hn","sv", "ni","cr","pa"],
         'euwRegion':["se","fi","no","is","gb","ie","fr","es","pt","ch","de","nl","dk","it","mt","be","at"],
         'carRegion':["cr", "ni", "cu","bs", "ht","jm", "ag","kn","lc","dm","bb", "tt", "gd","do", "bz","gt","hn","co","ve", "gy","sr","gf","pa"],
@@ -202,7 +205,6 @@ var ready = function() {
     });
 
     $("#time-btn-clear").click(function(){
-        manipulateMultiple('deselect', regions['worldRegion']);
         $("#time-check").hide();
         $('#language-check').hide();
         $('#finish-timepicker2').val('');
