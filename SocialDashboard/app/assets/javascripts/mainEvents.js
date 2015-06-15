@@ -329,6 +329,7 @@ var ready = function() {
 
     $('body').on('click', '.settings-button', function () {
         var filter = $mainChart.attr('chart-id').substring(6);
+        $(".chart-type").text(" "+chartType[$mainChart.attr("type")]);
         $("#filter-key").val(filter);
         $.ajax({
             method: 'get',
