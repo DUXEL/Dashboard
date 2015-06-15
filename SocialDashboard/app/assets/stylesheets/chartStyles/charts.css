@@ -1,8 +1,11 @@
 #main-chart {
-    margin-top: 15px;
+    margin-top: 5px;
     width:100%;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     position: relative;
+    -webkit-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
 }
 
 @media (min-height:600px){
@@ -58,11 +61,18 @@
     height: 180px;
     width: 100%;
     margin-bottom: 5px;
-    border: 4px solid darkslategray;
+    -webkit-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
 }
 
 .chart-info {
-    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
     z-index: 99;
+    margin-top: 15px;
+    margin-left: 15px;
+    font-weight: bold;
 }
 

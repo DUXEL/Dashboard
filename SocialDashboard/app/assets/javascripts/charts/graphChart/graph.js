@@ -66,8 +66,7 @@ var ready = function() {
 
                 } else {
 
-                    var elmAllLinks = $('path.link:not([data-show])');
-
+                    var elmAllLinks = $('path.link:not([small-chart-type]):not([data-show])');
                     if(opacity == 1) {
                         elmAllLinks.attr('marker-end', 'url(#regular)');
                     } else {
@@ -152,6 +151,10 @@ var ready = function() {
                 .attr("data-source", function(o) { return o.source })
                 .attr("marker-end", function(d) { return "url(#regular)"; });
 
+            if(div != "#main-chart") {
+                links.attr('small-chart-type', true);
+            }
+
             // Nodes
             nodes = graph.append('svg:g').selectAll("node")
                 .data(data.nodes)
@@ -173,8 +176,6 @@ var ready = function() {
                 nodes.append("svg:circle")
                     .attr("class", function(d) { return formatClassName('circle', d) })
                     .attr("r", 7)
-                    .on("mouseover", _.bind(onNodeMouseOver, this, nodes, links))
-                    .on("mouseout", _.bind(onNodeMouseOut, this, nodes, links) )
             }
 
             // A copy of the text with a thick white stroke for legibility.

@@ -68,7 +68,9 @@ var ready = function() {
                                 },
                                 attr: {
                                     dy: "20px",
-                                    x: function (d) {return d.cx;},
+                                    x: function (d) {
+                                        return d.cx;
+                                    },
                                     y: function (d) {return d.cy;}
                                 }
                             }

@@ -12,6 +12,9 @@ body {
     cursor: pointer;
 }
 
+#sidebar {
+    z-index: 600;
+}
 
 .sidebar-content {
     background: #202024;

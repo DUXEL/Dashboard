@@ -8,16 +8,18 @@ class FiltersController < ApplicationController
     render json: json_object
   end
 
+
   def create
      key = @filter_service.add_filter(set_filter)
     render json: key
   end
 
+
   def update
     @filter_service.update_filter(params[:filter_key], set_filter)
-
     render json: params[:filter_key]
   end
+
 
   def destroy
     key = params[:id].to_sym
@@ -26,10 +28,12 @@ class FiltersController < ApplicationController
   end
 
   private
+
     def set_filter_service
       cookie_accessor = CookieAccessor.new(cookies)
       @filter_service = FilterService.new(cookie_accessor)
     end
+
 
     def set_filter
       if params[:type].eql?('graph')

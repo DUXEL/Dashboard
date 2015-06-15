@@ -10,6 +10,7 @@ class ChartsController < ApplicationController
 
 
   private
+
     def create_graph_chart(filter)
       @chart_service.get_graph(filter)
     end
@@ -31,6 +32,7 @@ class ChartsController < ApplicationController
     end
 
 
+    #Returns the filter object depending on the input type.
     def get_cookie_filter(json_filter, type)
       data = JSON.parse(json_filter)
       if type.eql?("trends") || type.eql?("popular_terms")
@@ -41,6 +43,7 @@ class ChartsController < ApplicationController
     end
 
 
+    #Creates an array of countrys using hash data.
     def generate_country_list(countries_hash)
       country_list = countries_hash.map { |c| Country.new(c['name'], c['latitude'], c['longitude'], c['woeid']) }
     end
