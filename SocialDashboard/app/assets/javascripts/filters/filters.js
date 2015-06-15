@@ -149,12 +149,10 @@ var ready = function() {
     var manipulateMultiple = function(option,regionList){
         for (var i in regionList){
             if( $('#vmap').vectorMap("isSelected", regionList[i]) && option=="deselect"){
-                console.log("Deselecting "+regionList[i]);
                 $('#vmap').vectorMap(option, regionList[i]);
             }else if(option=="select"){
-                console.log("Selecting "+regionList[i]);
+                $("#region-check").show();
                 $('#vmap').vectorMap(option, regionList[i]);
-
             }
         }
     };
@@ -185,12 +183,11 @@ var ready = function() {
             }
     });
 
-    $(".region-options").click(function (){
+    $("body").on("click", ".region-options", function() {
         manipulateMultiple('deselect',regions['worldRegion']);
         var value = $(this).attr('value');
         manipulateMultiple('select',regions[value]);
-        $("#region-check").show();
-    });
+    })
 
 
     /*

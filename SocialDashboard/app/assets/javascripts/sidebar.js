@@ -1,5 +1,15 @@
 //id=type and value= sna or phrase
 var chartInfo = ['',''];
+
+
+var chartType = {
+    trends: "tendencias",
+    popular_terms: "terminos populares",
+    density: "densidad",
+    distance: "distancia",
+    centrality: "centralidad",
+    network: "red"
+};
 var ready = function(){
     // Hide sidebar when page loads.
 	$('.sidebar-content').hide();
@@ -55,15 +65,6 @@ var ready = function(){
         }
     });
 
-
-    var chartType = {
-        trends: "tendencias",
-        popular_terms: "terminos populares",
-        density: "densidad",
-        distance: "distancia",
-        centrality: "centralidad",
-        network: "red"
-    };
 
     // Event to handle when a graph's type is clicked 
     // in order to add it to the page(main container).

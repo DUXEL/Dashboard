@@ -24,12 +24,6 @@ html, body {
     clear: both;
 }
 
-.main-container {
-    background-image: url("../images/backgrounds/starthere3.jpg");
-    background-size: cover;
-    background-position: center;
-}
-
 /*--------------------------------------------------------------------------------------------*/
 
 .delete-button {
@@ -195,4 +189,24 @@ html, body {
 
 #error-message{
     vertical-align: middle;
+    font-weight: bold;
+}
+
+.close-alert {
+    border: none;
+    background-color: none !important;
+    cursor: pointer;
+    cursor: hand;
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px ! important;
+}
+
+#error-alert {
+    position: relative;
+    width: 95% !important;
+    margin: 0 auto !important;
+    margin-top: 10px !important;
+    height: 60px !important;
+    display: none;
 }

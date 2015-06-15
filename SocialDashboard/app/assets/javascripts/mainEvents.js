@@ -1,4 +1,6 @@
 var deleteAllFilters = null;
+var currentOldFilter;
+var loadingOldCharts;
 
 var en_disableFilterTabs = function(value){
     if (value == "trends"){
@@ -37,22 +39,11 @@ var ready = function() {
         },
         network: function (object, div) {
             displayGraphChart("", object, div);
-        },
-        error: function (object, div) {
-            displayErrorMessage("Las opciones especificadas no permitieron generar el grafico.\n" +
-                "Se pudo haber superado el limite de consultas.", div);
         }
     };
 
-    function displayErrorMessage(msg, div) {
-        $(div).html("<h3 id='error-message'>" + msg + "</h3>");
-    }
-
 
     function displayGraphChart(type, object, div) {
-        console.log("--------------");
-        console.log(object);
-        console.log("--------------");
         displayGraph(object.graph, div);
         if (div == "#main-chart") {
             $(div).prepend("<h5 class='chart-info'>" + type + "  " + object.value + "</h5>");
@@ -62,6 +53,11 @@ var ready = function() {
 
     $("#sna-filter-apply").click(function () {
         var socialNetwork = $('#social-network .active input').val();
+        if(socialNetwork == "Kodu") {
+            $('#data-analysis-filter').modal('hide');
+            showAlertError("No se pueden obtener datos de la red social Kodu por el momento.");
+            return;
+        }
         var depthLevel = $('#depth-level .active input').val();
         var filterUser = $('#filter-user-input').val();
         if (filterUser == "") {
@@ -76,7 +72,6 @@ var ready = function() {
             $mainChart.html("");
             chartObjects['chart-' + currentFilterKey] = null;
         }
-        $('#loadingDiv').show();
         $.ajax({
             method: 'post',
             url: '/filters',
@@ -118,9 +113,12 @@ var ready = function() {
             $mainChart.html("");
             chartObjects['chart-' + currentFilterKey] = null;
         }
-        $('#loadingDiv').show();
         if (!$("#region-check").is(":visible") && !$('#time-check').is(":visible") && !$('#language-check').is(":visible")) {
-            alert("El filtro debe poseer parametros de busqueda!");
+            alert("El filtro debe poseer parámetros de búsqueda!");
+            return;
+        }else if(!$('#language-check').is(":visible") && chartInfo[0] == "popular_terms") {
+            console.log(chartInfo[0]);
+            alert("Debe ingresar un idioma!");
             return;
         }
         $.ajax({
@@ -136,16 +134,17 @@ var ready = function() {
             },
             async: false
         }).done(function (filterKey) {
-            createChartAjax(filterKey);
+            createChartAjax(filterKey, true);
         });
         $("#main-filters").modal("hide");
     });
 
     function createChartAjax(filterKey, async) {
         if (filterKey == -1) {
-            alert("No se pueden crear más gráficos!");
+            showAlertError("No se pueden crear más gráficos");
             $('#loadingDiv').hide();
         } else {
+            $('#loadingDiv').show();
             $.ajax({
                 method: "post",
                 url: '/charts',
@@ -153,17 +152,23 @@ var ready = function() {
                 async: async,
                 statusCode: {
                     500: function () {
-                        displayChart("error", chartInfo[1], "", filterKey);
+                        deleteChartAjax(filterKey);
+                        $('#loadingDiv').hide();
+                        if(loadingOldCharts) loadChartAjax(currentOldFilter);
+                        showAlertError("Ocurrió un error al obtener datos de las redes sociales. Intente más tarde.");
+
                     }
                 }
-            }).done(function (response) {
+            }).success(function (response) {
                 displayChart(chartInfo[0], chartInfo[1], response, filterKey);
+                if(loadingOldCharts) loadChartAjax(currentOldFilter);
             });
         }
     }
 
 
     var displayChart = function (specificType, type, jsonObject, filterKey) {
+        $mainChart.css('background-image', 'none');
         if ($mainChart.html().length != 0) {
             var newDiv = availableDiv();
             var oldSpecificType = $mainChart.attr("specific-type");
@@ -224,7 +229,7 @@ var ready = function() {
             url: '/filters/' + filterKey,
             async: false
         }).done(function (response) {
-            console.log(response)
+            //console.log(response)
         });
         ;
     }
@@ -312,7 +317,7 @@ var ready = function() {
                 method: 'get',
                 url: '/filters/filter' + i + '/edit',
                 async: false
-            }).done(function (response) {
+            }).success(function (response) {
                 if (response != null) {
                     chartInfo[0] = response.type;
                     if (response.type == "popular_terms" || response.type == "trends") {
@@ -324,11 +329,38 @@ var ready = function() {
                 }
             });
         }
-
     };
+
+
+    function loadChartAjax() {
+        if(currentOldFilter > 5) {
+            loadingOldCharts = false;
+            currentOldFilter = 0;
+            return;
+        }
+        else {
+            currentOldFilter ++;
+            $.ajax({
+                method: 'get',
+                url: '/filters/filter' + currentOldFilter + '/edit'
+            }).success(function (response) {
+                if (response != null) {
+                    chartInfo[0] = response.type;
+                    if (response.type == "popular_terms" || response.type == "trends") {
+                        chartInfo[1] = response.type;
+                    } else {
+                        chartInfo[1] = "graph";
+                    }
+                    createChartAjax("filter" + currentOldFilter, true); //async type
+                }
+            });
+        }
+    }
+
 
     $('body').on('click', '.settings-button', function () {
         var filter = $mainChart.attr('chart-id').substring(6);
+        $(".chart-type").text(" "+chartType[$mainChart.attr("type")]);
         $("#filter-key").val(filter);
         $.ajax({
             method: 'get',
@@ -372,8 +404,10 @@ var ready = function() {
 
     $("#accept-filters").click(function () {
         $("#confirm").modal("hide");
-        $('#loadingDiv').show();
-        availableFilters();
+        loadingOldCharts = true;
+        currentOldFilter = 0;
+        loadChartAjax();
+        //availableFilters();
     });
 
 
@@ -381,6 +415,18 @@ var ready = function() {
         $("#delete-all-charts").click();
         $("#confirm").modal("hide");
     });
+
+
+    function showAlertError(msg) {
+        $("#alert-message").html("<h5 id='error-message' class='text-center'>" + msg + "</h5>");
+        $("#error-alert").show();
+    }
+
+
+    $("body").on("click", ".close-alert", function() {
+        $("#error-alert").hide();
+    });
+
 
 };
 
