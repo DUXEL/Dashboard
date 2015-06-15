@@ -111,7 +111,6 @@ var ready = function() {
             start = startTime.date().format("YYYY-MM-DD");
             finish = finishTime.date().format("YYYY-MM-DD");
         }
-        var method;
         var currentFilterKey = $("#filter-key").val();
         if (editingFilter) {
             deleteChartAjax(currentFilterKey);
@@ -373,17 +372,9 @@ var ready = function() {
 
     $("#accept-filters").click(function () {
         $("#confirm").modal("hide");
-        funcInADifferentThread();
+        $('#loadingDiv').show();
+        availableFilters();
     });
-
-    var funcInADifferentThread = MT.process(
-        function () {
-            $('#loadingDiv').show()
-        },
-        function () {
-            availableFilters()
-        }
-    );
 
 
     $("#reject-filters").click(function () {

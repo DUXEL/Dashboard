@@ -47,6 +47,5 @@
 
 //= require countries_data
 
-//= require multithread
 //= require mainScript
 //= require sidebar
