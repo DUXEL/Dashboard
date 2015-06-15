@@ -6,6 +6,8 @@
     -webkit-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
     -moz-box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
     box-shadow: 6px 10px 48px -9px rgba(0,0,0,0.75);
+    background-size: cover;
+    background-position: center;
 }
 
 @media (min-height:600px){
@@ -74,5 +76,11 @@
     margin-top: 15px;
     margin-left: 15px;
     font-weight: bold;
+}
+
+#error-message {
+    position: absolute;
+    top: 35%;
+    color: darkred;
 }
 

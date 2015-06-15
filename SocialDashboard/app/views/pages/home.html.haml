@@ -1,11 +1,18 @@
 .row
+  #error-alert.alert.fade.in.alert-danger
+    %div.close-alert{:type => "button"} ×
+    %h3#alert-message
   %div#loadingDiv
+  .clear
   #delete-all-charts
     = t('buttons.delete-filters')
     %i.fa.fa-trash-o
+  .clear
   .container
     .col-md-10.col-md-offset-1#main-chart-col
-      %div#main-chart
+      %style
+        background-image:
+      %div#main-chart{style: "background-image: url('#{image_path(t('footer.languages.current-lang'))}');"}
 
   .row#small-charts
     .container

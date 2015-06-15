@@ -1,6 +1,7 @@
 es:
   footer:
     languages:
+      current-lang: "starthere-es.jpg"
       lang: "Idiomas"
       es: "Español"
       en: "Inglés"
