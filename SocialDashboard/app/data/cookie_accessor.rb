@@ -4,6 +4,8 @@ class CookieAccessor
     @cookies = cookies
   end
 
+
+  #Saves a filter in the cookies, if its full returns -1.
   def save(map)
     filters = [:filter1, :filter2, :filter3, :filter4, :filter5]
     i = 0
@@ -17,13 +19,16 @@ class CookieAccessor
     filters[i]
   end
 
+
   def find(key)
     @cookies[key]
   end
 
+
   def update(key, map)
     @cookies[key] = map
   end
+
 
   def delete(key)
     @cookies.delete key

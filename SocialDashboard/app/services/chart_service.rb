@@ -7,6 +7,8 @@ class ChartService
     @api_accessor = APIAccessor.new
   end
 
+
+  #(Number of connections / potential connections)
   def calculate_density(graph)
     node_amount = graph.vertices.length
     potential_connections = (node_amount * (node_amount - 1)) / 2.0
@@ -15,6 +17,8 @@ class ChartService
     density.round(2)
   end
 
+
+  #(User connections / node amount)
   def calculate_centrality(graph)
     node_amount = graph.vertices.length
     user = graph.vertices[0]
@@ -23,13 +27,17 @@ class ChartService
     centrality_degree.round(2)
   end
 
+
+  #Returns 1. Its not implemented because the graph depth level is aways 1.
   def calculate_distance(graph)
     1
   end
 
+
   def calculate_network(graph)
     ""
   end
+
 
   def get_trends(filter)
     trends_hash = Hash.new
@@ -42,6 +50,7 @@ class ChartService
     phrase_list = set_phrase_hash_list(top_trends)
     phrase_list
   end
+
 
   def get_popular_terms(filter)
     country_list = filter.country_list
@@ -92,6 +101,7 @@ class ChartService
       end
     end
 
+
     def get_neighbor_amount(graph, vertice)
       follows = graph.adjacent_vertices(vertice)
       followed = graph.reverse.adjacent_vertices(vertice)
@@ -99,6 +109,7 @@ class ChartService
       neighbors = both.uniq.length
       neighbors
     end
+
 
     def set_hash(word_list, hash)
       word_list.each do |trend|
@@ -110,6 +121,7 @@ class ChartService
       end
       hash
     end
+
 
     def read_stop_words(lang)
       stop_words = Array.new
@@ -128,6 +140,7 @@ class ChartService
       stop_words
     end
 
+
     def delete_stop_words(posts,stop_words)
       result = Array.new
       posts.each do |post|
@@ -143,6 +156,7 @@ class ChartService
       end
       result
     end
+
 
     def graph_to_json(graph)
       res = Hash.new
@@ -175,12 +189,14 @@ class ChartService
       res
     end
 
+
     def get_graph_json_response(graph, type)
       json_response = Hash.new
       json_response[:graph] = graph_to_json(graph)
       json_response[:value] = self.send("calculate_#{type}", graph)
       json_response
     end
+
 
     def get_user_hash(user)
       res = Hash.new
