@@ -9,11 +9,8 @@ class ChartService
 
   def calculate_density(graph)
     node_amount = graph.vertices.length
-    p node_amount
     potential_connections = (node_amount * (node_amount - 1)) / 2.0
-    p potential_connections
     actual_connections = graph.edges.length
-    p actual_connections
     density = (actual_connections+0.0) / potential_connections
     density.round(2)
   end

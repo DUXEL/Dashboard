@@ -15,7 +15,6 @@ var en_disableFilterTabs = function(value){
 var ready = function() {
 
     var chartObjects = {};
-
     var $mainChart = $("#main-chart");
     var displayChartHash = {
         trends: function(object, div) {
@@ -57,14 +56,15 @@ var ready = function() {
         }
         var method;
         var currentFilterKey = $("#filter-key").val();
-        if ($(this).val() == "new-filter"){
-            method = "post";
-        }else{
-            method = "put";
+        if (editingFilter){
+            deleteChartAjax(currentFilterKey);
+            editingFilter = false;
+            $mainChart.html("");
+            chartObjects['chart-'+currentFilterKey] = null;
         }
         $('#loadingDiv').show();
         $.ajax({
-            method: method,
+            method: 'post',
             url: '/filters',
             data: {type: chartInfo[1], filter_type:chartInfo[0], user: filterUser, social_network: socialNetwork, depth_level: depthLevel, filter_key: currentFilterKey}
         }).done(function(filterKey){
@@ -95,10 +95,11 @@ var ready = function() {
         }
         var method;
         var currentFilterKey = $("#filter-key").val();
-        if ($(this).val() == "new-filter"){
-            method = "post";
-        }else{
-            method = "put";
+        if (editingFilter){
+            deleteChartAjax(currentFilterKey);
+            editingFilter = false;
+            $mainChart.html("");
+            chartObjects['chart-'+currentFilterKey] = null;
         }
         $('#loadingDiv').show();
         if ( !$("#region-check").is(":visible") &&
@@ -108,7 +109,7 @@ var ready = function() {
             return;
         }
         $.ajax({
-            method: method,
+            method: 'post',
             url: '/filters',
             data: {countries: requestData, language:language ,start_time:start, end_time: finish, filter_type:chartInfo[0], filter_key: currentFilterKey}
         }).done(function(filterKey){
@@ -226,8 +227,6 @@ var ready = function() {
         }
     };
 
-    availableFilters();
-
     var loadPhraseFilter = function(response){
         $('#filters-btn-clear').click();
         startTime.date(moment(response.start_date));
@@ -313,15 +312,14 @@ var ready = function() {
         }).done(function (response) {
             chartInfo[0] = response.type;
             if (response.type == "popular_terms" || response.type == "trends"){
-                $('#phrases-filter-apply').attr('value','edit-filter');
                 en_disableFilterTabs(response.type);
                 chartInfo[1] = response.type;
                 loadPhraseFilter(response);
             }else{
-                $('#sna-filter-apply').attr('value','edit-filter');
                 chartInfo[1] = "graph";
                 loadGraphFilter(response);
             }
+            editingFilter = true;
         });
     });
 }

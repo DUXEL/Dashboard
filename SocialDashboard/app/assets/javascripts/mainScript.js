@@ -1,4 +1,5 @@
 var $loading;
+var editingFilter = false;
 var ready = function() {
 
     $loading = $('#loadingDiv').hide();
@@ -31,6 +32,9 @@ var ready = function() {
         $(this).children(".settings-button").hide();
     });
 
+    $('.modal').on('hidden.bs.modal', function () {
+        editingFilter = false;
+    });
 
 }
 
