@@ -47,7 +47,7 @@ var ready = function() {
         displayGraph(object.graph, div);
         if (div == "#main-chart") {
             $(div).prepend("<h5 class='chart-info'>" + type + "  " + object.value + "</h5>");
-            $(div).prepend("<div class='node-info'> <div class='close-button'></div> <h5 class='node-info-username'></h5><img class='node-img' src='' /></div>");
+            $(div).prepend("<div class='node-info'> <div class='close-button'><i class='fa fa-times'></i></div> <h5 class='node-info-username'></h5><img class='node-img' src='' /></div>");
         }
     }
 
