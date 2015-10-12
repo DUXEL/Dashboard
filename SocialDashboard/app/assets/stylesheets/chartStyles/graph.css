@@ -87,7 +87,7 @@ path.link.resolved {
 
 
 .close-button {
-    background-image: url('../icons/closeNode.jpg');
+    color: #56a096;
     height: 12px;
     width: 12px;
     margin: 0 auto;
@@ -95,7 +95,7 @@ path.link.resolved {
 }
 
 .close-button:hover {
-    background-image: url('../icons/closeNodeHover.jpg');
+    color: #c4edec;
 }
 
 .word-cloud {
