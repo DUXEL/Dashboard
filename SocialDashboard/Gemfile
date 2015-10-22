@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -56,3 +58,12 @@ gem 'figaro'
 
 #Use bxslider
 gem 'bxslider-rails'
+
+gem 'rails_12factor', group: :production
+
+gem 'test-unit-full'
+gem 'test-unit'
+gem 'minitest-rails'
+
+# To test coverage of tests.
+gem 'simplecov', :require => false, :group => :test

@@ -6,7 +6,6 @@ class FilterService
     @cookie_accessor = cookie_accessor
   end
 
-
   def add_filter(filter)
     return @cookie_accessor.save(filter.to_json)
   end

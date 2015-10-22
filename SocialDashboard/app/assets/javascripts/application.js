@@ -44,8 +44,8 @@
 //= require charts/graphChart/graph
 
 //= require jquery.bxslider
-
 //= require countries_data
 
 //= require mainScript
 //= require sidebar
+//= require mainEvents

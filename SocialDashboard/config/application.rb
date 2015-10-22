@@ -15,6 +15,7 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 #Available languages
+
 I18n.available_locales = [:en, :es, :pt]
 
 module SocialDashboard
