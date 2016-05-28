@@ -20,4 +20,4 @@ La versión actual fue desplegada en Heroku y se puede observar un demo en [Soci
 - Daniel Solís Méndez.
 - Diego Ugalde Ávila.
 - Luis E. Ugalde Barrantes
-- Melvin Elizondo Pérez.
+- Melvin Alonso Elizondo Pérez.
